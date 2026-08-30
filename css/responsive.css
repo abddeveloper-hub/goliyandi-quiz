@@ -1,115 +1,326 @@
 /**
- * Meelad Fest Goliyangadi — Responsive Layout (Kahoot/Quizizz Style)
+ * Meelad Fest Goliyangadi — Comprehensive Mobile & Responsive CSS
  */
 
-/* ── 4K / Projector Ultra-Wide ─────────────────────────── */
-@media (min-width: 1600px) {
-  .question-card { padding: 36px 44px; }
-  .question-text-ml { font-size: 2.3rem; }
-  .question-text-en { font-size: 1.42rem; }
-  .option-btn { padding: 22px 28px; }
-  .option-btn .option-text { font-size: 1.35rem; }
-  .option-btn .option-tag { width: 52px; height: 52px; font-size: 1.5rem; }
-  .timer-circle-wrap { width: 180px; height: 180px; }
-  .timer-seconds { font-size: 3.6rem; }
-}
-
-/* ── Full HD 1080p ─────────────────────────────────────── */
-@media (max-width: 1440px) {
-  .stage-grid { grid-template-columns: 1fr 300px; }
-}
-
-/* ── Laptop 1200px ─────────────────────────────────────── */
-@media (max-width: 1200px) {
-  .stage-grid { grid-template-columns: 1fr 280px; }
-  .question-text-ml { font-size: 1.65rem; }
+/* ── Tablet & Small Laptops (max-width: 1024px) ───────── */
+@media (max-width: 1024px) {
+  header { padding: 12px 20px; }
+  .bismillah { font-size: 1.35rem; }
+  .left-panel { padding: 18px 18px 85px; }
+  .question-card { padding: 24px 26px; }
+  .question-text-ml { font-size: 1.8rem; }
   .question-text-en { font-size: 1.1rem; }
-  .option-btn .option-text { font-size: 1.06rem; }
-  .bismillah-text { font-size: 1.3rem; }
+  .right-panel { width: 300px; padding: 16px 12px 90px; }
 }
 
-/* ── Tablet 992px ──────────────────────────────────────── */
-@media (max-width: 992px) {
-  .stage-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
+/* ── Tablet Portrait & Phablets (max-width: 900px) ─────── */
+@media (max-width: 900px) {
+  main {
+    flex-direction: column;
   }
-  .side-panel {
+  .left-panel {
+    padding: 16px 16px 20px;
+  }
+  .right-panel {
+    width: 100%;
+    border-left: none;
+    border-top: 2px solid rgba(255, 255, 255, 0.08);
     flex-direction: row;
     flex-wrap: wrap;
-    border-left: none;
-    border-top: 3px solid rgba(124,58,237,0.12);
-    padding: 16px;
-    gap: 12px;
-  }
-  .timer-widget { flex: 1 1 220px; }
-  .lifelines-widget { flex: 1 1 200px; }
-  .quick-scores-widget { flex: 1 1 100%; }
-
-  .top-header {
-    flex-wrap: wrap;
-    height: auto;
-    padding: 12px 18px;
-    gap: 12px;
-  }
-  .bismillah-text { order: 3; width: 100%; text-align: center; font-size: 1.3rem; }
-
-  .host-dock {
-    flex-wrap: wrap;
-    gap: 10px;
     justify-content: center;
+    align-items: stretch;
+    padding: 18px 16px 90px;
+    gap: 16px;
+    background: #070a13;
+  }
+  .timer-card, .marks-card {
+    flex: 1 1 290px;
+    max-width: 440px;
+  }
+  header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 12px 16px;
+  }
+  .bismillah {
+    order: 2;
+    font-size: 1.4rem;
+    margin: 2px 0;
+  }
+  .header-actions {
+    order: 3;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+  }
+}
+
+/* ── Mobile Devices (max-width: 768px) ─────────────────── */
+@media (max-width: 768px) {
+  .question-card {
+    padding: 20px 18px;
+    border-radius: 18px;
+  }
+  .question-text-ml {
+    font-size: 1.48rem;
+    line-height: 1.42;
+  }
+  .question-text-kn {
+    font-size: 1.35rem;
+  }
+  .question-text-en {
+    font-size: 1.02rem;
+    padding-top: 10px;
+  }
+  .options-grid {
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+  .option-btn {
+    padding: 15px 16px;
+    border-radius: 15px;
+    gap: 12px;
+  }
+  .option-letter {
+    width: 38px;
+    height: 38px;
+    font-size: 1.15rem;
+    border-radius: 10px;
+  }
+  .option-text {
+    font-size: 1.1rem;
+  }
+  .explanation-card {
+    padding: 14px 16px;
+    border-radius: 14px;
+    gap: 10px;
+  }
+  .exp-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+  }
+  .exp-ml {
+    font-size: 0.96rem;
+  }
+  .exp-en {
+    font-size: 0.86rem;
+  }
+  .bottom-bar {
+    padding: 8px 16px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    gap: 10px;
+  }
+  .nav-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 11px 14px;
+    font-size: 0.88rem;
+    border-radius: 12px;
+  }
+
+  /* Scoreboard Mobile */
+  .card-header-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .header-controls, .search-input {
+    width: 100%;
+  }
+  .add-participant-bar {
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .add-input {
+    width: 100%;
+  }
+  .btn-add {
+    justify-content: center;
+  }
+  .participant-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .rank-badge-wrap {
+    width: 100%;
+    min-width: 0;
+  }
+  .participant-score-wrap {
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 6px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.08);
+  }
+  .podium-stage {
+    gap: 10px;
+    padding-top: 10px;
+  }
+  .podium-column.gold .podium-pillar { height: 105px; }
+  .podium-column.silver .podium-pillar { height: 80px; }
+  .podium-column.bronze .podium-pillar { height: 60px; }
+  .podium-name { max-width: 95px; font-size: 0.82rem; }
+  .podium-avatar { width: 44px; height: 44px; font-size: 18px; }
+  .podium-score { font-size: 0.85rem; }
+}
+
+/* ── Small Mobile (max-width: 520px) ───────────────────── */
+@media (max-width: 520px) {
+  body {
+    background-size: 20px 20px;
+  }
+  header {
+    padding: 10px 12px;
+  }
+  .logo {
+    gap: 8px;
+  }
+  .logo-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 17px;
+    border-radius: 10px;
+  }
+  .logo-text h1 {
+    font-size: 0.95rem;
+  }
+  .logo-text p {
+    font-size: 0.68rem;
+  }
+  .bismillah {
+    font-size: 1.18rem;
+  }
+  .header-actions {
+    gap: 6px;
+  }
+  .user-auth-badge {
+    padding: 3px 6px 3px 8px;
+  }
+  .user-auth-name {
+    max-width: 80px;
+    font-size: 0.78rem;
+  }
+  .user-auth-role-tag {
+    font-size: 0.6rem;
+    padding: 2px 5px;
+  }
+  .user-marks-badge {
+    padding: 5px 11px;
+    font-size: 0.8rem;
+  }
+  .user-marks-num {
+    font-size: 0.95rem;
+  }
+  .header-scoreboard-btn {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+  }
+  .lang-switcher {
+    padding: 2px;
+  }
+  .lang-btn {
+    padding: 4px 8px;
+    font-size: 0.72rem;
+  }
+  .q-counter-badge {
+    padding: 5px 12px;
+    font-size: 0.82rem;
+  }
+  .left-panel {
+    padding: 12px 12px 16px;
+  }
+  .question-card {
+    padding: 16px 14px;
+  }
+  .question-text-ml {
+    font-size: 1.3rem;
+  }
+  .question-text-kn {
+    font-size: 1.2rem;
+  }
+  .question-text-en {
+    font-size: 0.92rem;
+  }
+  .option-btn {
+    padding: 12px 14px;
+    border-radius: 12px;
+    gap: 10px;
+  }
+  .option-letter {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+  .option-text {
+    font-size: 0.98rem;
+  }
+  .meta-badges {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
+  .right-panel {
+    padding: 14px 12px 85px;
+  }
+  .timer-card, .marks-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+    padding: 14px 12px;
+  }
+  .timer-ring-wrap {
+    width: 115px;
+    height: 115px;
+  }
+  .timer-num {
+    font-size: 2.2rem;
+  }
+  .marks-main-num {
+    font-size: 1.9rem;
+  }
+  .modal-card {
+    max-width: 95vw;
+    border-radius: 18px;
+  }
+  .modal-header {
+    padding: 14px 18px;
+  }
+  .modal-body {
+    padding: 16px 16px;
+    gap: 14px;
+  }
+  .auth-input, .custom-sec-input {
+    font-size: 16px; /* Prevents iOS auto-zoom */
     padding: 10px 14px;
   }
-  .dock-center, .dock-left, .dock-right {
-    flex-wrap: wrap; justify-content: center;
+  .bottom-bar {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .nav-btn {
+    padding: 10px 12px;
+    font-size: 0.82rem;
   }
 }
 
-/* ── Mobile 768px ──────────────────────────────────────── */
-@media (max-width: 768px) {
-  .top-header { padding: 10px 14px; }
-  .brand-titles h1 { font-size: 1rem; }
-
-  .rounds-nav { padding: 10px 14px 6px; gap: 6px; }
-  .round-tab { padding: 7px 12px; font-size: 0.8rem; }
-
-  .question-card-wrapper { padding: 14px; gap: 12px; }
-  .question-card { padding: 20px 18px; }
-
-  .question-text-ml { font-size: 1.4rem; }
-  .question-text-en { font-size: 1rem; }
-
-  .options-grid { grid-template-columns: 1fr; gap: 10px; }
-  .option-btn { padding: 15px 18px; }
-  .option-btn .option-text { font-size: 1.05rem; }
-  .option-btn .option-tag { width: 38px; height: 38px; font-size: 1.1rem; }
-
-  .side-panel { padding: 12px; }
-  .timer-circle-wrap { width: 130px; height: 130px; }
-  .timer-seconds { font-size: 2.5rem; }
-
-  .host-dock { padding: 8px 10px; }
-  .btn-dock { padding: 8px 12px; font-size: 0.8rem; }
-
-  .modal-body { padding: 16px; }
-  .certificate-modal-grid { grid-template-columns: 1fr; }
-
-  .podium-step { width: 100px; }
-  .podium-team-title { font-size: 0.85rem; }
-  .podium-step.rank-1 .podium-pillar { height: 130px; }
-  .podium-step.rank-2 .podium-pillar { height: 95px; }
-  .podium-step.rank-3 .podium-pillar { height: 70px; }
-
-  .bismillah-text { font-size: 1.1rem; }
-  .header-actions { gap: 5px; flex-wrap: wrap; justify-content: center; }
-  .btn-icon { padding: 6px 10px; font-size: 0.78rem; }
-}
-
-/* ── Small Mobile 480px ────────────────────────────────── */
-@media (max-width: 480px) {
-  .host-dock { justify-content: flex-start; overflow-x: auto; }
-  .team-point-chips { flex-wrap: wrap; }
-  .q-counter { font-size: 0.85rem; }
-  .badge-group { gap: 5px; }
-  .q-badge { font-size: 0.7rem; padding: 4px 10px; }
+/* ── Ultra Compact Devices (max-width: 360px) ──────────── */
+@media (max-width: 360px) {
+  .logo-text h1 { font-size: 0.85rem; }
+  .bismillah { font-size: 1.05rem; }
+  .question-text-ml { font-size: 1.18rem; }
+  .option-text { font-size: 0.9rem; }
+  .user-auth-name { max-width: 60px; }
+  .podium-name { max-width: 65px; font-size: 0.68rem; }
+  .score-action-group { gap: 4px; }
+  .score-btn { padding: 4px 7px; font-size: 0.72rem; }
 }

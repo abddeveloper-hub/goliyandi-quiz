@@ -1153,29 +1153,272 @@
       filter: brightness(1.1);
     }
 
-    /* ── RESPONSIVE ──────────────────────────────── */
-    @media (max-width: 900px) {
-      main { flex-direction: column; }
-      .right-panel { width: 100%; border-left: none; border-top: 3px solid rgba(124,58,237,0.12); flex-direction: row; flex-wrap: wrap; justify-content: center; padding: 16px; gap: 16px; }
-      .timer-card { width: auto; min-width: 290px; }
+    /* ── COMPREHENSIVE RESPONSIVE MOBILE CSS ───── */
+    @media (max-width: 1024px) {
+      header { padding: 12px 20px; }
+      .bismillah { font-size: 1.35rem; }
+      .left-panel { padding: 18px 18px 85px; }
+      .question-card { padding: 24px 26px; }
+      .question-text-ml { font-size: 1.8rem; }
+      .question-text-en { font-size: 1.1rem; }
+      .right-panel { width: 300px; padding: 16px 12px 90px; }
     }
-    @media (max-width: 640px) {
-      .bismillah { font-size: 1.2rem; }
-      header { padding: 12px 16px; flex-wrap: wrap; }
-      .logo-text h1 { font-size: 0.9rem; }
-      .left-panel { padding: 14px 14px 90px; }
-      .question-card { padding: 20px 18px; }
-      .question-text-ml { font-size: 1.45rem; }
-      .question-text-en { font-size: 1rem; }
-      .options-grid { grid-template-columns: 1fr; }
-      .option-btn { padding: 15px 16px; }
-      .option-text { font-size: 1.05rem; }
-      .right-panel { padding: 12px; }
-      .bottom-bar { padding: 8px 14px; gap: 8px; }
-      .nav-btn { padding: 8px 14px; font-size: 0.82rem; }
-      .nav-btn.reveal { padding: 10px 20px; font-size: 0.9rem; }
-      .header-timer-btn { padding: 6px 10px; font-size: 0.76rem; }
-      .lang-btn { padding: 5px 10px; font-size: 0.76rem; }
+
+    @media (max-width: 900px) {
+      main {
+        flex-direction: column;
+      }
+      .left-panel {
+        padding: 16px 16px 20px;
+      }
+      .right-panel {
+        width: 100%;
+        border-left: none;
+        border-top: 2px solid rgba(255, 255, 255, 0.08);
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+        padding: 18px 16px 90px;
+        gap: 16px;
+        background: #070a13;
+      }
+      .timer-card, .marks-card {
+        flex: 1 1 290px;
+        max-width: 440px;
+      }
+      header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+        padding: 12px 16px;
+      }
+      .bismillah {
+        order: 2;
+        font-size: 1.4rem;
+        margin: 2px 0;
+      }
+      .header-actions {
+        order: 3;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .question-card {
+        padding: 20px 18px;
+        border-radius: 18px;
+      }
+      .question-text-ml {
+        font-size: 1.48rem;
+        line-height: 1.42;
+      }
+      .question-text-kn {
+        font-size: 1.35rem;
+      }
+      .question-text-en {
+        font-size: 1.02rem;
+        padding-top: 10px;
+      }
+      .options-grid {
+        grid-template-columns: 1fr;
+        gap: 11px;
+      }
+      .option-btn {
+        padding: 15px 16px;
+        border-radius: 15px;
+        gap: 12px;
+      }
+      .option-letter {
+        width: 38px;
+        height: 38px;
+        font-size: 1.15rem;
+        border-radius: 10px;
+      }
+      .option-text {
+        font-size: 1.1rem;
+      }
+      .explanation-card {
+        padding: 14px 16px;
+        border-radius: 14px;
+        gap: 10px;
+      }
+      .exp-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+      }
+      .exp-ml {
+        font-size: 0.96rem;
+      }
+      .exp-en {
+        font-size: 0.86rem;
+      }
+      .bottom-bar {
+        padding: 8px 16px;
+        padding-bottom: max(8px, env(safe-area-inset-bottom));
+        gap: 10px;
+      }
+      .nav-btn {
+        flex: 1;
+        justify-content: center;
+        padding: 11px 14px;
+        font-size: 0.88rem;
+        border-radius: 12px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        background-size: 20px 20px;
+      }
+      header {
+        padding: 10px 12px;
+      }
+      .logo {
+        gap: 8px;
+      }
+      .logo-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 17px;
+        border-radius: 10px;
+      }
+      .logo-text h1 {
+        font-size: 0.95rem;
+      }
+      .logo-text p {
+        font-size: 0.68rem;
+      }
+      .bismillah {
+        font-size: 1.18rem;
+      }
+      .header-actions {
+        gap: 6px;
+      }
+      .user-auth-badge {
+        padding: 3px 6px 3px 8px;
+      }
+      .user-auth-name {
+        max-width: 80px;
+        font-size: 0.78rem;
+      }
+      .user-auth-role-tag {
+        font-size: 0.6rem;
+        padding: 2px 5px;
+      }
+      .user-marks-badge {
+        padding: 5px 11px;
+        font-size: 0.8rem;
+      }
+      .user-marks-num {
+        font-size: 0.95rem;
+      }
+      .header-scoreboard-btn {
+        padding: 6px 12px;
+        font-size: 0.78rem;
+      }
+      .lang-switcher {
+        padding: 2px;
+      }
+      .lang-btn {
+        padding: 4px 8px;
+        font-size: 0.72rem;
+      }
+      .q-counter-badge {
+        padding: 5px 12px;
+        font-size: 0.82rem;
+      }
+      .left-panel {
+        padding: 12px 12px 16px;
+      }
+      .question-card {
+        padding: 16px 14px;
+      }
+      .question-text-ml {
+        font-size: 1.3rem;
+      }
+      .question-text-kn {
+        font-size: 1.2rem;
+      }
+      .question-text-en {
+        font-size: 0.92rem;
+      }
+      .option-btn {
+        padding: 12px 14px;
+        border-radius: 12px;
+        gap: 10px;
+      }
+      .option-letter {
+        width: 34px;
+        height: 34px;
+        font-size: 1rem;
+        border-radius: 8px;
+      }
+      .option-text {
+        font-size: 0.98rem;
+      }
+      .meta-badges {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .badge {
+        font-size: 0.7rem;
+        padding: 4px 10px;
+      }
+      .right-panel {
+        padding: 14px 12px 85px;
+      }
+      .timer-card, .marks-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+        padding: 14px 12px;
+      }
+      .timer-ring-wrap {
+        width: 115px;
+        height: 115px;
+      }
+      .timer-num {
+        font-size: 2.2rem;
+      }
+      .marks-main-num {
+        font-size: 1.9rem;
+      }
+      .modal-card {
+        max-width: 95vw;
+        border-radius: 18px;
+      }
+      .modal-header {
+        padding: 14px 18px;
+      }
+      .modal-body {
+        padding: 16px 16px;
+        gap: 14px;
+      }
+      .auth-input, .custom-sec-input {
+        font-size: 16px; /* Prevents iOS auto-zoom */
+        padding: 10px 14px;
+      }
+      .bottom-bar {
+        padding: 8px 12px;
+        gap: 8px;
+      }
+      .nav-btn {
+        padding: 10px 12px;
+        font-size: 0.82rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .logo-text h1 { font-size: 0.85rem; }
+      .bismillah { font-size: 1.05rem; }
+      .question-text-ml { font-size: 1.18rem; }
+      .option-text { font-size: 0.9rem; }
+      .user-auth-name { max-width: 60px; }
     }
   </style>
 </head>
