@@ -936,28 +936,67 @@ const DEFAULT_QUESTIONS = [
   }
 ];
 
-// Helper to get questions from localStorage or fallback to DEFAULT_QUESTIONS
+/**
+ * Deterministically shuffles options for each question so that correct answers
+ * are evenly and realistically distributed across Option A, B, C, and D.
+ */
+function shuffleQuestionOptions(q) {
+  if (!q || !Array.isArray(q.options) || q.options.length <= 1) return q;
+  const originalCorrectText = q.options[q.correctIndex !== undefined ? q.correctIndex : 0];
+  
+  let hash = 0;
+  const str = String(q.id || '') + 'meelad_fest_distrib_salt_2026';
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+    hash |= 0;
+  }
+  
+  const optionsCopy = [...q.options];
+  let seed = Math.abs(hash);
+  for (let i = optionsCopy.length - 1; i > 0; i--) {
+    seed = (seed * 9301 + 49297) % 233280;
+    const j = Math.floor((seed / 233280) * (i + 1));
+    [optionsCopy[i], optionsCopy[j]] = [optionsCopy[j], optionsCopy[i]];
+  }
+
+  const newCorrectIndex = optionsCopy.indexOf(originalCorrectText);
+  return {
+    ...q,
+    options: optionsCopy,
+    correctIndex: newCorrectIndex >= 0 ? newCorrectIndex : 0
+  };
+}
+
+// Master list with randomized and balanced option positions
+const SHUFFLED_DEFAULT_QUESTIONS = DEFAULT_QUESTIONS.map(shuffleQuestionOptions);
+
+// Helper to get questions from localStorage or fallback to balanced questions
 function getStoredQuestions() {
   try {
-    const saved = localStorage.getItem("meelad_quiz_questions_v1");
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
+    if (typeof localStorage !== 'undefined') {
+      const saved = localStorage.getItem("meelad_quiz_questions_v2");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
       }
     }
   } catch (e) {
     console.error("Error loading questions from localStorage:", e);
   }
-  return DEFAULT_QUESTIONS;
+  return SHUFFLED_DEFAULT_QUESTIONS;
 }
 
 function saveQuestionsToStorage(questions) {
   try {
-    localStorage.setItem("meelad_quiz_questions_v1", JSON.stringify(questions));
-    return true;
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem("meelad_quiz_questions_v2", JSON.stringify(questions));
+      return true;
+    }
   } catch (e) {
     console.error("Error saving questions to localStorage:", e);
-    return false;
   }
+  return false;
 }
+

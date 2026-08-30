@@ -80,24 +80,33 @@ class AuthManager {
     }
 
     if (window.firebaseService && window.firebaseService.isAvailable()) {
-      const res = await window.firebaseService.signIn(email, password);
-      if (res.success) {
-        this.currentUser = {
-          id: res.user.uid,
-          name: res.user.displayName || res.user.email.split('@')[0],
-          email: res.user.email,
-          role: res.user.role || 'contestant',
-          isFirebase: true,
-          loginTime: new Date().toISOString()
-        };
-        this.saveSession();
-        if (this.onAuthChange) this.onAuthChange(this.currentUser);
-        return { success: true, user: this.currentUser };
+      try {
+        const res = await window.firebaseService.signIn(email, password);
+        if (res.success) {
+          this.currentUser = {
+            id: res.user.uid,
+            name: res.user.displayName || res.user.email.split('@')[0],
+            email: res.user.email,
+            role: res.user.role || 'contestant',
+            isFirebase: true,
+            loginTime: new Date().toISOString()
+          };
+          this.saveSession();
+          if (this.onAuthChange) this.onAuthChange(this.currentUser);
+          return { success: true, user: this.currentUser };
+        }
+        
+        // If error is not related to API key configuration, return error
+        const msg = String(res.message || '');
+        if (!msg.toLowerCase().includes('api-key') && !msg.toLowerCase().includes('api_key') && !msg.toLowerCase().includes('not-valid')) {
+          return res;
+        }
+      } catch (err) {
+        console.warn('Firebase signIn exception, falling back to local session:', err);
       }
-      return res;
     }
 
-    // Local simulated auth if Firebase is waiting for credentials
+    // Local simulated auth (instant fallback)
     const cleanName = email.split('@')[0];
     this.currentUser = {
       id: 'usr_' + Date.now(),
@@ -108,6 +117,9 @@ class AuthManager {
       loginTime: new Date().toISOString()
     };
     this.saveSession();
+    if (window.scoreboardManager && this.currentUser.name) {
+      window.scoreboardManager.addParticipant(this.currentUser.name);
+    }
     if (this.onAuthChange) this.onAuthChange(this.currentUser);
     return { success: true, user: this.currentUser };
   }
@@ -123,24 +135,33 @@ class AuthManager {
     }
 
     if (window.firebaseService && window.firebaseService.isAvailable()) {
-      const res = await window.firebaseService.signUp(email, password, displayName, role);
-      if (res.success) {
-        this.currentUser = {
-          id: res.user.uid,
-          name: res.user.displayName,
-          email: res.user.email,
-          role: res.user.role,
-          isFirebase: true,
-          loginTime: new Date().toISOString()
-        };
-        this.saveSession();
-        if (this.onAuthChange) this.onAuthChange(this.currentUser);
-        return { success: true, user: this.currentUser };
+      try {
+        const res = await window.firebaseService.signUp(email, password, displayName, role);
+        if (res.success) {
+          this.currentUser = {
+            id: res.user.uid,
+            name: res.user.displayName,
+            email: res.user.email,
+            role: res.user.role,
+            isFirebase: true,
+            loginTime: new Date().toISOString()
+          };
+          this.saveSession();
+          if (this.onAuthChange) this.onAuthChange(this.currentUser);
+          return { success: true, user: this.currentUser };
+        }
+        
+        // If error is not related to API key configuration, return error
+        const msg = String(res.message || '');
+        if (!msg.toLowerCase().includes('api-key') && !msg.toLowerCase().includes('api_key') && !msg.toLowerCase().includes('not-valid')) {
+          return res;
+        }
+      } catch (err) {
+        console.warn('Firebase signUp exception, falling back to local session:', err);
       }
-      return res;
     }
 
-    // Local fallback if Firebase not configured
+    // Local fallback if Firebase is not configured or dummy API key
     this.currentUser = {
       id: 'usr_' + Date.now(),
       name: displayName.trim(),
@@ -150,6 +171,9 @@ class AuthManager {
       loginTime: new Date().toISOString()
     };
     this.saveSession();
+    if (window.scoreboardManager && this.currentUser.name) {
+      window.scoreboardManager.addParticipant(this.currentUser.name);
+    }
     if (this.onAuthChange) this.onAuthChange(this.currentUser);
     return { success: true, user: this.currentUser };
   }

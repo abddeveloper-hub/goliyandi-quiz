@@ -11,6 +11,10 @@ class FirebaseService {
   }
 
   isAvailable() {
+    const config = (typeof window.getActiveFirebaseConfig === 'function') ? window.getActiveFirebaseConfig() : null;
+    if (!config || !config.apiKey || config.apiKey.includes('DummyKey') || config.apiKey.length < 20) {
+      return false;
+    }
     return Boolean(window.isFirebaseInitialized && this.auth && this.db);
   }
 

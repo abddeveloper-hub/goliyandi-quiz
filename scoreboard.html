@@ -19,9 +19,6 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  <!-- Mobile Responsive CSS -->
-  <link rel="stylesheet" href="css/mobile.css">
-
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -30,19 +27,19 @@
 
     :root {
       --bg-pure-black: #000000;
-      --bg-dark-base: #050811;
-      --bg-card-obsidian: rgba(11, 16, 28, 0.85);
-      --bg-card-elevated: rgba(16, 24, 40, 0.75);
+      --bg-dark-base: #000000;
+      --bg-card-obsidian: rgba(8, 8, 12, 0.95);
+      --bg-card-elevated: rgba(14, 14, 20, 0.85);
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-glow: rgba(124, 58, 237, 0.35);
-      --brand-1: #7c3aed;
-      --brand-2: #2563eb;
+      --border-glow: rgba(139, 92, 246, 0.35);
+      --brand-1: #8b5cf6;
+      --brand-2: #3b82f6;
       --brand-3: #0ea5e9;
       --gold: #f59e0b;
       --silver: #94a3b8;
       --bronze: #d97706;
-      --bg: #050811;
-      --card-bg: rgba(11, 16, 28, 0.85);
+      --bg: #000000;
+      --card-bg: rgba(8, 8, 12, 0.95);
       --font-ui: 'Nunito', sans-serif;
       --font-ml: 'Anek Malayalam', sans-serif;
       --font-ar: 'Amiri', serif;
@@ -50,14 +47,14 @@
 
     body {
       font-family: var(--font-ui);
-      background-color: var(--bg-pure-black);
+      background-color: #000000;
       background-image: 
-        radial-gradient(circle at 20% 15%, rgba(124, 58, 237, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 20% 15%, rgba(139, 92, 246, 0.12) 0%, transparent 45%),
         radial-gradient(circle at 80% 85%, rgba(16, 185, 129, 0.09) 0%, transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.05) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 60%),
         radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
       background-size: 100% 100%, 100% 100%, 100% 100%, 30px 30px;
-      color: #f8fafc;
+      color: #ffffff;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -66,7 +63,7 @@
 
     /* ══ HEADER ═════════════════════════════════════ */
     header {
-      background: rgba(8, 12, 22, 0.85);
+      background: rgba(0, 0, 0, 0.92);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border-subtle);
@@ -74,7 +71,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.05);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -639,6 +636,27 @@
       border-color: rgba(124,58,237,0.5);
       background: rgba(124,58,237,0.15);
     }
+    .header-auth-page-btn {
+      background: linear-gradient(135deg, rgba(139,92,246,0.3), rgba(59,130,246,0.25));
+      border: 1.5px solid rgba(139,92,246,0.6);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.84rem;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 0 14px rgba(139,92,246,0.3);
+      transition: all 0.2s cubic-bezier(.34,1.56,.64,1);
+    }
+    .header-auth-page-btn:hover {
+      background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+      border-color: #a78bfa;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(139,92,246,0.5);
+    }
     .user-auth-info {
       display: flex;
       align-items: center;
@@ -1156,6 +1174,8 @@
       }
     }
   </style>
+  <!-- Mobile Responsive CSS -->
+  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
 
@@ -1179,18 +1199,6 @@
     </div>
 
     <div class="header-actions">
-      <!-- User Auth Profile Badge -->
-      <div class="user-auth-badge" id="userAuthBadge">
-        <div class="user-auth-info" id="openAuthModalBtn" title="Click to Switch Account or Login">
-          <span class="user-auth-icon" id="userAuthIcon"><i class="fa-solid fa-user"></i></span>
-          <span class="user-auth-name" id="userAuthName">Guest</span>
-          <span class="user-auth-role-tag" id="userAuthRoleTag">Contestant</span>
-        </div>
-        <button class="user-auth-logout-btn" id="userAuthLogoutBtn" title="Logout" style="display:none;">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        </button>
-      </div>
-
       <button class="btn-nav action-btn" id="confettiBtn" title="Celebrate Champions">
         <i class="fa-solid fa-wand-magic-sparkles" style="color:#f59e0b;"></i> Celebrate
       </button>
@@ -1365,33 +1373,21 @@
             <label class="auth-label"><i class="fa-solid fa-lock"></i> Create Password</label>
             <input type="password" class="auth-input" id="signUpPasswordInput" placeholder="At least 6 characters..." required autocomplete="new-password" minlength="6" />
           </div>
-          <div class="auth-field-group">
-            <label class="auth-label"><i class="fa-solid fa-id-badge"></i> Role</label>
-            <select class="auth-input" id="signUpRoleSelect" style="background:#070a13;color:#fff;cursor:pointer;">
-              <option value="contestant">Contestant (Participant)</option>
-              <option value="admin">Host / Quiz Master (Admin)</option>
-            </select>
-          </div>
           <div class="auth-error-msg" id="signUpAuthError" style="display:none;"></div>
-          <button type="submit" class="auth-submit-btn contestant-btn" style="background:linear-gradient(135deg,#7c3aed,#2563eb);box-shadow:0 4px 0 #1e1b4b;">
+          <button type="submit" class="auth-submit-btn contestant-btn" style="background:linear-gradient(135deg,#8b5cf6,#3b82f6);box-shadow:0 4px 0 #1e1b4b;">
             <i class="fa-solid fa-user-check"></i> Register Account
           </button>
         </form>
 
-        <!-- 3. Fast Play / Admin PIN Form -->
+        <!-- 3. Fast Play Form -->
         <form id="quickLoginForm" class="auth-form-panel" style="display:none;">
           <div class="auth-field-group">
             <label class="auth-label"><i class="fa-solid fa-user-pen"></i> Contestant Name</label>
-            <input type="text" class="auth-input" id="quickNameInput" placeholder="Enter contestant name..." />
+            <input type="text" class="auth-input" id="quickNameInput" placeholder="Enter contestant name..." required />
             <span class="auth-hint">Quick identify on leaderboard without password.</span>
           </div>
-          <div style="text-align:center;color:#64748b;font-size:0.76rem;font-weight:800;">— OR HOST ADMIN PIN —</div>
-          <div class="auth-field-group">
-            <label class="auth-label"><i class="fa-solid fa-key"></i> Master Host PIN</label>
-            <input type="password" class="auth-input" id="quickPinInput" placeholder="Master Admin PIN (Default: meelad2026)" />
-          </div>
           <div class="auth-error-msg" id="quickAuthError" style="display:none;"></div>
-          <button type="submit" class="auth-submit-btn admin-btn">
+          <button type="submit" class="auth-submit-btn contestant-btn" style="background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 4px 0 #b45309;">
             <i class="fa-solid fa-play"></i> Enter Scoreboard
           </button>
         </form>
@@ -1455,33 +1451,35 @@
     function updateAuthUI() {
       const user = window.authManager ? window.authManager.getCurrentUser() : null;
       if (user) {
-        userAuthName.textContent = user.name;
-        if (user.role === 'admin') {
-          userAuthRoleTag.textContent = 'Host';
-          userAuthRoleTag.className = 'user-auth-role-tag admin';
-          userAuthIcon.className = 'user-auth-icon admin';
-          userAuthIcon.innerHTML = '<i class="fa-solid fa-crown"></i>';
-        } else {
+        if (userAuthName) userAuthName.textContent = user.name;
+        if (userAuthRoleTag) {
           userAuthRoleTag.textContent = 'Contestant';
           userAuthRoleTag.className = 'user-auth-role-tag';
+        }
+        if (userAuthIcon) {
           userAuthIcon.className = 'user-auth-icon';
           userAuthIcon.innerHTML = '<i class="fa-solid fa-user"></i>';
         }
-        userAuthLogoutBtn.style.display = 'flex';
+        if (userAuthLogoutBtn) userAuthLogoutBtn.style.display = 'flex';
       } else {
-        userAuthName.textContent = 'Login';
-        userAuthRoleTag.textContent = 'Guest';
-        userAuthRoleTag.className = 'user-auth-role-tag';
-        userAuthIcon.className = 'user-auth-icon';
-        userAuthIcon.innerHTML = '<i class="fa-solid fa-user"></i>';
-        userAuthLogoutBtn.style.display = 'none';
+        if (userAuthName) userAuthName.textContent = 'Sign In';
+        if (userAuthRoleTag) {
+          userAuthRoleTag.textContent = 'Guest';
+          userAuthRoleTag.className = 'user-auth-role-tag';
+        }
+        if (userAuthIcon) {
+          userAuthIcon.className = 'user-auth-icon';
+          userAuthIcon.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i>';
+        }
+        if (userAuthLogoutBtn) userAuthLogoutBtn.style.display = 'none';
       }
       render();
     }
 
     if (openAuthModalBtn) {
-      openAuthModalBtn.addEventListener('click', () => {
-        authModal.style.display = 'flex';
+      openAuthModalBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'login.html?redirect=scoreboard.html';
       });
     }
 
@@ -1539,10 +1537,9 @@
         const name = signUpNameInput.value;
         const email = signUpEmailInput.value;
         const password = signUpPasswordInput.value;
-        const role = signUpRoleSelect.value;
         signUpAuthError.style.display = 'none';
 
-        const res = await window.authManager.signUpWithEmail(email, password, name, role);
+        const res = await window.authManager.signUpWithEmail(email, password, name, 'contestant');
         if (res.success) {
           authModal.style.display = 'none';
           updateAuthUI();
@@ -1553,26 +1550,12 @@
       });
     }
 
-    // 3. Quick Play / Host PIN Submission
+    // 3. Quick Play Submission
     if (quickLoginForm) {
       quickLoginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = (quickNameInput.value || '').trim();
-        const pin = (quickPinInput.value || '').trim();
         quickAuthError.style.display = 'none';
-
-        if (pin) {
-          const res = window.authManager.loginAdmin(pin);
-          if (res.success) {
-            authModal.style.display = 'none';
-            updateAuthUI();
-            return;
-          } else {
-            quickAuthError.textContent = res.message;
-            quickAuthError.style.display = 'block';
-            return;
-          }
-        }
 
         if (name) {
           const res = window.authManager.loginContestant(name);
@@ -1587,7 +1570,7 @@
           }
         }
 
-        quickAuthError.textContent = 'Please enter either a Contestant Name or Admin PIN.';
+        quickAuthError.textContent = 'Please enter your Contestant Name.';
         quickAuthError.style.display = 'block';
       });
     }
@@ -1939,20 +1922,7 @@
     }
 
     function requireAdminAction(callback) {
-      if (window.authManager && window.authManager.isAdmin()) {
-        callback();
-        return;
-      }
-      const pin = prompt('Host Admin PIN required to perform this action (Default: meelad2026):');
-      if (pin !== null) {
-        const res = window.authManager.loginAdmin(pin);
-        if (res.success) {
-          updateAuthUI();
-          callback();
-        } else {
-          alert('Invalid Admin PIN. Action cancelled.');
-        }
-      }
+      callback();
     }
 
     function attachListeners() {

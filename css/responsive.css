@@ -31,7 +31,7 @@
     align-items: stretch;
     padding: 18px 16px 90px;
     gap: 16px;
-    background: #070a13;
+    background: #040406;
   }
   .timer-card, .marks-card {
     flex: 1 1 290px;

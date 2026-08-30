@@ -12,24 +12,21 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  <!-- Mobile Responsive CSS -->
-  <link rel="stylesheet" href="css/mobile.css">
-
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Anek+Malayalam:wght@600;700;800&family=Amiri:wght@400;700&display=swap');
 
     :root {
       --bg-pure-black: #000000;
-      --bg-dark-base: #050811;
-      --bg-card-obsidian: rgba(11, 16, 28, 0.85);
-      --bg-card-elevated: rgba(16, 24, 40, 0.75);
+      --bg-dark-base: #000000;
+      --bg-card-obsidian: rgba(8, 8, 12, 0.95);
+      --bg-card-elevated: rgba(14, 14, 20, 0.85);
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-glow: rgba(124, 58, 237, 0.35);
+      --border-glow: rgba(139, 92, 246, 0.35);
       --accent-emerald: #10b981;
       --accent-gold: #f59e0b;
-      --accent-purple: #7c3aed;
-      --accent-blue: #2563eb;
-      --text-white: #f8fafc;
+      --accent-purple: #8b5cf6;
+      --accent-blue: #3b82f6;
+      --text-white: #ffffff;
       --text-muted: #94a3b8;
     }
 
@@ -38,14 +35,14 @@
     body {
       min-height: 100vh;
       font-family: 'Nunito', sans-serif;
-      background-color: var(--bg-pure-black);
+      background-color: #000000;
       background-image: 
-        radial-gradient(circle at 20% 15%, rgba(124, 58, 237, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 20% 15%, rgba(139, 92, 246, 0.12) 0%, transparent 45%),
         radial-gradient(circle at 80% 85%, rgba(16, 185, 129, 0.09) 0%, transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.05) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 60%),
         radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
       background-size: 100% 100%, 100% 100%, 100% 100%, 30px 30px;
-      color: #f8fafc;
+      color: #ffffff;
       display: flex;
       flex-direction: column;
       user-select: none;
@@ -53,7 +50,7 @@
 
     /* ── PRO HEADER ──────────────────────────────── */
     header {
-      background: rgba(8, 12, 22, 0.85);
+      background: rgba(0, 0, 0, 0.92);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       padding: 14px 28px;
@@ -62,7 +59,7 @@
       justify-content: space-between;
       gap: 16px;
       border-bottom: 1px solid var(--border-subtle);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.05);
     }
 
     .logo {
@@ -176,22 +173,24 @@
       padding: 4px 6px 4px 10px;
       border-radius: 99px;
       transition: all 0.2s;
+      cursor: pointer;
     }
     .user-auth-badge:hover {
-      border-color: rgba(124,58,237,0.5);
-      background: rgba(124,58,237,0.15);
+      border-color: rgba(139,92,246,0.6);
+      background: rgba(139,92,246,0.18);
     }
     .user-auth-info {
       display: flex;
       align-items: center;
       gap: 6px;
       cursor: pointer;
+      text-decoration: none;
     }
     .user-auth-icon {
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      background: linear-gradient(135deg, #8b5cf6, #3b82f6);
       color: #fff;
       display: flex;
       align-items: center;
@@ -272,21 +271,22 @@
       gap: 16px;
       padding: 24px;
       padding-bottom: 90px;
+      background: #000000;
     }
 
     .question-card {
-      background: #0e1626;
+      background: #08080c;
       border-radius: 24px;
       padding: 30px 36px;
-      box-shadow: 0 10px 32px rgba(0,0,0,0.6);
-      border: 2px solid rgba(255,255,255,0.08);
+      box-shadow: 0 10px 32px rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.08);
       position: relative;
       overflow: hidden;
     }
     .question-card::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0; height: 5px;
-      background: linear-gradient(90deg, #e21b3c, #f4a21b, #26890c, #1368ce, #7c3aed, #e21b3c);
+      background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981, #3b82f6, #8b5cf6, #ef4444);
       background-size: 300% auto;
       animation: rainbow 3s linear infinite;
     }
@@ -303,7 +303,7 @@
       font-size: 0.75rem; font-weight: 800;
       text-transform: uppercase; letter-spacing: 0.4px;
     }
-    .badge-round  { background: rgba(124,58,237,0.25); color: #c4b5fd; border: 2px solid rgba(196,181,253,0.3); }
+    .badge-round  { background: rgba(139,92,246,0.25); color: #c4b5fd; border: 2px solid rgba(196,181,253,0.3); }
     .badge-pts    { background: rgba(16,185,129,0.22); color: #6ee7b7; border: 2px solid rgba(110,231,183,0.3); }
 
     .question-text-ml {
@@ -330,7 +330,7 @@
       border-top: 2px dashed rgba(255,255,255,0.08);
     }
 
-    /* ── 4 OPTIONS ───────────────────────────────── */
+    /* ── 4 OPTIONS (ALL-BLACK OLED WITH NEON ACCENTS) ──────── */
     .options-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -338,19 +338,20 @@
     }
 
     .option-btn {
-      border: none; border-radius: 18px;
+      border: 2px solid transparent; border-radius: 18px;
       padding: 20px 22px;
       cursor: pointer;
       display: flex; align-items: center; gap: 14px;
       text-align: left;
-      transition: transform 0.18s cubic-bezier(.34,1.56,.64,1), filter 0.18s;
+      transition: transform 0.18s cubic-bezier(.34,1.56,.64,1), filter 0.18s, box-shadow 0.18s;
       outline: none;
       position: relative; overflow: hidden;
+      background: #08080c;
     }
-    .option-btn:nth-child(1) { background:#dc2626; box-shadow: 0 7px 0 #991b1b; }
-    .option-btn:nth-child(2) { background:#2563eb; box-shadow: 0 7px 0 #1d4ed8; }
-    .option-btn:nth-child(3) { background:#d97706; box-shadow: 0 7px 0 #b45309; }
-    .option-btn:nth-child(4) { background:#16a34a; box-shadow: 0 7px 0 #15803d; }
+    .option-btn:nth-child(1) { background:#0e0507; border-color:#dc2626; box-shadow: 0 4px 16px rgba(220,38,38,0.2), 0 5px 0 #991b1b; }
+    .option-btn:nth-child(2) { background:#040a16; border-color:#2563eb; box-shadow: 0 4px 16px rgba(37,99,235,0.2), 0 5px 0 #1d4ed8; }
+    .option-btn:nth-child(3) { background:#140c03; border-color:#d97706; box-shadow: 0 4px 16px rgba(217,119,6,0.2), 0 5px 0 #b45309; }
+    .option-btn:nth-child(4) { background:#031409; border-color:#16a34a; box-shadow: 0 4px 16px rgba(22,163,74,0.2), 0 5px 0 #15803d; }
 
     .option-btn:hover:not(:disabled):not(.eliminated) {
       transform: translateY(-4px) scale(1.025);
@@ -450,8 +451,8 @@
     /* ── RIGHT PANEL (TIMER & SCOREBOARD) ───────── */
     .right-panel {
       width: 330px;
-      background: #090d16;
-      border-left: 2px solid rgba(255,255,255,0.08);
+      background: #040406;
+      border-left: 1px solid rgba(255,255,255,0.08);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -462,22 +463,22 @@
 
     /* ── TIMER CARD ──────────────────────────────── */
     .timer-card {
-      background: #0e1626;
+      background: #08080c;
       border-radius: 22px;
       padding: 16px 16px 18px;
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-      border: 2px solid rgba(124,58,237,0.3);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.8);
+      border: 1px solid rgba(139,92,246,0.25);
       position: relative;
       overflow: hidden;
     }
     .timer-card::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0; height: 4px;
-      background: linear-gradient(90deg, #7c3aed, #2563eb, #0ea5e9);
+      background: linear-gradient(90deg, #8b5cf6, #3b82f6, #0ea5e9);
     }
 
     .timer-card-header {
@@ -487,7 +488,7 @@
       width: 100%;
       margin-bottom: 10px;
       padding-bottom: 8px;
-      border-bottom: 1.5px dashed rgba(255,255,255,0.1);
+      border-bottom: 1.5px dashed rgba(255,255,255,0.08);
     }
     .timer-card-title {
       display: flex;
@@ -512,10 +513,15 @@
       letter-spacing: 0.5px;
       padding: 3px 8px;
       border-radius: 99px;
-      background: rgba(124,58,237,0.3);
+      background: rgba(139,92,246,0.25);
       color: #c4b5fd;
       border: 1.5px solid rgba(196,181,253,0.3);
       transition: all 0.2s ease;
+    }
+    .timer-status-badge.ready {
+      background: rgba(245,158,11,0.25);
+      color: #fbbf24;
+      border-color: #f59e0b;
     }
     .timer-status-badge.running {
       background: rgba(16,185,129,0.25);
@@ -534,6 +540,125 @@
       50% { opacity: 0.82; transform: scale(1.04); }
     }
 
+    .start-quiz-btn {
+      width: 100%;
+      margin-top: 10px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border: 2px solid rgba(110,231,183,0.55);
+      color: #ffffff;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-family: var(--font-ui);
+      font-size: 0.98rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.4), 0 4px 0 #047857;
+      animation: startPulse 2s infinite ease-in-out;
+      transition: all 0.2s cubic-bezier(.34,1.56,.64,1);
+      letter-spacing: 0.3px;
+    }
+    @keyframes startPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 4px 18px rgba(16,185,129,0.4), 0 4px 0 #047857; }
+      50% { transform: scale(1.03); box-shadow: 0 6px 26px rgba(16,185,129,0.7), 0 4px 0 #047857; }
+    }
+    .start-quiz-btn:hover {
+      filter: brightness(1.15);
+      transform: translateY(-2px) scale(1.03);
+    }
+    .start-quiz-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #047857;
+    }
+
+    /* Hero Start Banner on Question Stage */
+    .start-quiz-hero-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.12));
+      border: 2px solid rgba(16, 185, 129, 0.45);
+      border-radius: 18px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 6px;
+      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.25);
+      animation: bannerGlow 2.5s infinite ease-in-out;
+    }
+    @keyframes bannerGlow {
+      0%, 100% { border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2); }
+      50% { border-color: rgba(52, 211, 153, 0.8); box-shadow: 0 10px 35px rgba(16, 185, 129, 0.45); }
+    }
+    .start-hero-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .start-hero-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+    }
+    .start-hero-info h3 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+    .start-hero-info p {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      font-weight: 700;
+    }
+    .btn-start-hero {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      padding: 12px 24px;
+      border-radius: 14px;
+      font-family: var(--font-ui);
+      font-size: 1.05rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 0 #047857, 0 8px 25px rgba(16, 185, 129, 0.5);
+      transition: all 0.2s cubic-bezier(.34,1.56,.64,1);
+      white-space: nowrap;
+      animation: startPulse 1.8s infinite ease-in-out;
+    }
+    .btn-start-hero:hover {
+      transform: translateY(-2px) scale(1.04);
+      filter: brightness(1.15);
+      box-shadow: 0 6px 0 #047857, 0 12px 30px rgba(16, 185, 129, 0.7);
+    }
+    .btn-start-hero:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #047857;
+    }
+    .nav-btn.start-nav-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      border: 1.5px solid rgba(110, 231, 183, 0.5);
+      color: #ffffff;
+      box-shadow: 0 4px 0 #047857, 0 6px 18px rgba(16, 185, 129, 0.4);
+      animation: startPulse 2s infinite ease-in-out;
+    }
+    .nav-btn.start-nav-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.15);
+    }
+
     .timer-ring-wrap {
       position: relative; width: 140px; height: 140px; margin: 4px 0;
     }
@@ -547,7 +672,7 @@
       stroke-dasharray: 440;
       stroke-dashoffset: 0;
       transition: stroke-dashoffset 0.9s linear;
-      filter: drop-shadow(0 0 10px rgba(124,58,237,0.7));
+      filter: drop-shadow(0 0 10px rgba(139,92,246,0.7));
     }
     .ring-fg.urgent {
       stroke: #ef4444 !important;
@@ -578,12 +703,12 @@
 
     /* ── PARTICIPANT MARKS CARD ──────────────────── */
     .marks-card {
-      background: #0e1626;
+      background: #08080c;
       border-radius: 22px;
       padding: 16px 16px 14px;
       width: 100%;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-      border: 2px solid rgba(16,185,129,0.3);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.8);
+      border: 1px solid rgba(16,185,129,0.25);
       position: relative;
       overflow: hidden;
       display: flex;
@@ -593,7 +718,7 @@
     .marks-card::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0; height: 4px;
-      background: linear-gradient(90deg, #10b981, #f59e0b, #7c3aed);
+      background: linear-gradient(90deg, #10b981, #f59e0b, #8b5cf6);
     }
     .marks-card-header {
       display: flex;
@@ -620,8 +745,8 @@
     }
     .marks-score-showcase {
       text-align: center;
-      background: linear-gradient(135deg, rgba(6,78,59,0.4) 0%, rgba(88,28,135,0.4) 100%);
-      border: 1.5px solid rgba(16,185,129,0.35);
+      background: #000000;
+      border: 1px solid rgba(16,185,129,0.35);
       border-radius: 14px;
       padding: 10px 8px;
     }
@@ -657,11 +782,11 @@
       gap: 2px;
     }
     .stat-box.correct {
-      background: rgba(6,78,59,0.45);
+      background: #021207;
       border: 1.5px solid rgba(52,211,153,0.35);
     }
     .stat-box.wrong {
-      background: rgba(127,29,29,0.45);
+      background: #140507;
       border: 1.5px solid rgba(248,113,113,0.35);
     }
     .stat-val {
@@ -683,7 +808,7 @@
     }
     .marks-progress-bar {
       height: 7px;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.08);
       border-radius: 99px;
       overflow: hidden;
     }
@@ -701,7 +826,7 @@
     }
     .c-btn-open {
       margin-top: 2px;
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      background: linear-gradient(135deg, #8b5cf6, #3b82f6);
       color: #fff;
       text-decoration: none;
       padding: 9px 12px;
@@ -722,17 +847,17 @@
     /* ── BOTTOM NAV BAR ──────────────────────────── */
     .bottom-bar {
       position: fixed; bottom: 0; left: 0; right: 0;
-      background: #090d16;
-      border-top: 2px solid rgba(255,255,255,0.08);
+      background: #000000;
+      border-top: 1px solid rgba(255,255,255,0.08);
       padding: 10px 28px;
       display: flex; align-items: center; justify-content: center;
       gap: 14px;
-      box-shadow: 0 -10px 32px rgba(0,0,0,0.7);
+      box-shadow: 0 -10px 32px rgba(0,0,0,0.9);
       z-index: 100;
     }
     .nav-btn {
-      background: #1e293b;
-      border: 2px solid rgba(255,255,255,0.12);
+      background: #101014;
+      border: 1px solid rgba(255,255,255,0.12);
       color: #f1f5f9;
       padding: 10px 22px;
       border-radius: 12px;
@@ -741,24 +866,24 @@
       cursor: pointer;
       display: inline-flex; align-items: center; gap: 8px;
       transition: all 0.2s cubic-bezier(.34,1.56,.64,1);
-      box-shadow: 0 4px 0 rgba(0,0,0,0.5);
+      box-shadow: 0 4px 0 rgba(0,0,0,0.8);
     }
     .nav-btn:hover {
-      background: #334155; border-color: #818cf8; color: #fff;
+      background: #18181f; border-color: #8b5cf6; color: #fff;
       transform: translateY(-3px);
-      box-shadow: 0 7px 0 rgba(129,140,248,0.3);
+      box-shadow: 0 7px 0 rgba(139,92,246,0.3);
     }
     .nav-btn:active { transform: translateY(1px); box-shadow: 0 1px 0 rgba(0,0,0,0.4); }
 
     /* Next question button */
     .nav-btn.next {
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      background: linear-gradient(135deg, #8b5cf6, #3b82f6);
       color: #fff; border-color: #4338ca;
       box-shadow: 0 4px 0 #1e1b4b;
       padding: 11px 28px;
     }
     .nav-btn.next:hover {
-      background: linear-gradient(135deg, #6d28d9, #1d4ed8);
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
       transform: translateY(-3px);
       box-shadow: 0 7px 0 #172554;
       color: #fff;
@@ -767,8 +892,8 @@
     /* ── LANGUAGE SWITCHER ────────────────────────── */
     .lang-switcher {
       display: flex;
-      background: rgba(255,255,255,0.08);
-      border: 2px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 99px;
       padding: 3px;
       gap: 2px;
@@ -788,18 +913,18 @@
     }
     .lang-btn:hover { color: #fff; background: rgba(255,255,255,0.12); }
     .lang-btn.active {
-      background: #7c3aed;
+      background: #8b5cf6;
       color: #fff;
-      box-shadow: 0 2px 10px rgba(124,58,237,0.4);
+      box-shadow: 0 2px 10px rgba(139,92,246,0.4);
     }
 
     /* ── TIMER SETTINGS MODAL ────────────────────── */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.82);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -812,14 +937,15 @@
       to { opacity: 1; }
     }
     .modal-card {
-      background: #0e1626;
+      background: #08080c;
       color: #f8fafc;
       border-radius: 24px;
       width: 100%;
       max-width: 520px;
       max-height: 90vh;
       overflow-y: auto;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 2px rgba(124,58,237,0.3);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
       display: flex;
       flex-direction: column;
       animation: modalSlideUp 0.28s cubic-bezier(.34,1.56,.64,1);
@@ -1450,6 +1576,8 @@
       .user-auth-name { max-width: 60px; }
     }
   </style>
+  <!-- Mobile Responsive CSS -->
+  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
 
@@ -1480,26 +1608,6 @@
     <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
 
     <div class="header-actions">
-      <!-- User Auth Profile Badge -->
-      <div class="user-auth-badge" id="userAuthBadge">
-        <div class="user-auth-info" id="openAuthModalBtn" title="Click to Switch Account or Login">
-          <span class="user-auth-icon" id="userAuthIcon"><i class="fa-solid fa-user"></i></span>
-          <span class="user-auth-name" id="userAuthName">Guest</span>
-          <span class="user-auth-role-tag" id="userAuthRoleTag">Contestant</span>
-        </div>
-        <button class="user-auth-logout-btn" id="userAuthLogoutBtn" title="Logout" style="display:none;">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        </button>
-      </div>
-
-      <!-- Participant Live Marks Badge -->
-      <div class="user-marks-badge" id="userMarksBadge" title="Your Total Marks Earned">
-        <i class="fa-solid fa-star" style="color:#fbbf24;"></i>
-        <span>Marks:</span>
-        <span class="user-marks-num" id="userMarksHeader">0</span>
-        <span class="user-marks-pts">Pts</span>
-      </div>
-
       <!-- Scoreboard Link -->
       <a href="scoreboard.html" class="header-scoreboard-btn" id="headerScoreboardBtn" title="Open Individual Contestant Scoreboard">
         <i class="fa-solid fa-trophy" style="color:#fef08a;"></i> Scoreboard
@@ -1521,6 +1629,20 @@
 
     <!-- Left: Question + Options -->
     <div class="left-panel">
+
+      <!-- Central Hero Start Banner (Only shown on Question 1 before starting) -->
+      <div class="start-quiz-hero-banner" id="startQuizHeroBanner">
+        <div class="start-hero-info">
+          <div class="start-hero-icon"><i class="fa-solid fa-play"></i></div>
+          <div>
+            <h3>Ready to Start Question 1?</h3>
+            <p>Click Start to begin the 15-second countdown timer.</p>
+          </div>
+        </div>
+        <button type="button" class="btn-start-hero" id="heroStartQuizBtn">
+          <i class="fa-solid fa-play"></i> START QUIZ NOW
+        </button>
+      </div>
 
       <!-- Question Card -->
       <div class="question-card" id="questionCard">
@@ -1587,7 +1709,7 @@
             <span>Timer</span>
           </div>
           <div class="timer-header-actions">
-            <span class="timer-status-badge" id="timerStatusBadge">15s</span>
+            <span class="timer-status-badge ready" id="timerStatusBadge">Ready</span>
           </div>
         </div>
 
@@ -1601,6 +1723,11 @@
             <div class="timer-lbl" id="timerLabel">15s Timer</div>
           </div>
         </div>
+
+        <!-- Start Quiz Button (Only for first question) -->
+        <button class="start-quiz-btn" id="startQuizBtn">
+          <i class="fa-solid fa-play"></i> Start Quiz (15s Timer)
+        </button>
       </div>
 
       <!-- Live Participant Marks & Performance Card -->
@@ -1649,6 +1776,9 @@
   <div class="bottom-bar">
     <button class="nav-btn" id="prevQuestionBtn">
       <i class="fa-solid fa-arrow-left"></i> Previous
+    </button>
+    <button class="nav-btn start-nav-btn" id="navStartQuizBtn">
+      <i class="fa-solid fa-play"></i> Start Quiz (15s Timer)
     </button>
     <button class="nav-btn next" id="nextQuestionBtn">
       Next <i class="fa-solid fa-arrow-right"></i>
@@ -1806,33 +1936,21 @@
             <label class="auth-label"><i class="fa-solid fa-lock"></i> Create Password</label>
             <input type="password" class="auth-input" id="signUpPasswordInput" placeholder="At least 6 characters..." required autocomplete="new-password" minlength="6" />
           </div>
-          <div class="auth-field-group">
-            <label class="auth-label"><i class="fa-solid fa-id-badge"></i> Role</label>
-            <select class="auth-input" id="signUpRoleSelect" style="background:#070a13;color:#fff;cursor:pointer;">
-              <option value="contestant">Contestant (Participant)</option>
-              <option value="admin">Host / Quiz Master (Admin)</option>
-            </select>
-          </div>
           <div class="auth-error-msg" id="signUpAuthError" style="display:none;"></div>
-          <button type="submit" class="auth-submit-btn contestant-btn" style="background:linear-gradient(135deg,#7c3aed,#2563eb);box-shadow:0 4px 0 #1e1b4b;">
+          <button type="submit" class="auth-submit-btn contestant-btn" style="background:linear-gradient(135deg,#8b5cf6,#3b82f6);box-shadow:0 4px 0 #1e1b4b;">
             <i class="fa-solid fa-user-check"></i> Register Account
           </button>
         </form>
 
-        <!-- 3. Fast Play / Admin PIN Form -->
+        <!-- 3. Fast Play Form -->
         <form id="quickLoginForm" class="auth-form-panel" style="display:none;">
           <div class="auth-field-group">
             <label class="auth-label"><i class="fa-solid fa-user-pen"></i> Contestant Name</label>
-            <input type="text" class="auth-input" id="quickNameInput" placeholder="Enter contestant name to start immediately..." />
+            <input type="text" class="auth-input" id="quickNameInput" placeholder="Enter contestant name to start immediately..." required />
             <span class="auth-hint">Quick join without password (marks save to this name).</span>
           </div>
-          <div style="text-align:center;color:#64748b;font-size:0.76rem;font-weight:800;">— OR HOST ADMIN PIN —</div>
-          <div class="auth-field-group">
-            <label class="auth-label"><i class="fa-solid fa-key"></i> Master Host PIN</label>
-            <input type="password" class="auth-input" id="quickPinInput" placeholder="Master Admin PIN (Default: meelad2026)" />
-          </div>
           <div class="auth-error-msg" id="quickAuthError" style="display:none;"></div>
-          <button type="submit" class="auth-submit-btn admin-btn">
+          <button type="submit" class="auth-submit-btn contestant-btn" style="background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 4px 0 #b45309;">
             <i class="fa-solid fa-play"></i> Enter Quiz
           </button>
         </form>
@@ -1937,32 +2055,34 @@
     function updateAuthUI() {
       const user = window.authManager ? window.authManager.getCurrentUser() : null;
       if (user) {
-        userAuthName.textContent = user.name;
-        if (user.role === 'admin') {
-          userAuthRoleTag.textContent = 'Host';
-          userAuthRoleTag.className = 'user-auth-role-tag admin';
-          userAuthIcon.className = 'user-auth-icon admin';
-          userAuthIcon.innerHTML = '<i class="fa-solid fa-crown"></i>';
-        } else {
+        if (userAuthName) userAuthName.textContent = user.name;
+        if (userAuthRoleTag) {
           userAuthRoleTag.textContent = 'Contestant';
           userAuthRoleTag.className = 'user-auth-role-tag';
+        }
+        if (userAuthIcon) {
           userAuthIcon.className = 'user-auth-icon';
           userAuthIcon.innerHTML = '<i class="fa-solid fa-user"></i>';
         }
-        userAuthLogoutBtn.style.display = 'flex';
+        if (userAuthLogoutBtn) userAuthLogoutBtn.style.display = 'flex';
       } else {
-        userAuthName.textContent = 'Login';
-        userAuthRoleTag.textContent = 'Guest';
-        userAuthRoleTag.className = 'user-auth-role-tag';
-        userAuthIcon.className = 'user-auth-icon';
-        userAuthIcon.innerHTML = '<i class="fa-solid fa-user"></i>';
-        userAuthLogoutBtn.style.display = 'none';
+        if (userAuthName) userAuthName.textContent = 'Sign In';
+        if (userAuthRoleTag) {
+          userAuthRoleTag.textContent = 'Guest';
+          userAuthRoleTag.className = 'user-auth-role-tag';
+        }
+        if (userAuthIcon) {
+          userAuthIcon.className = 'user-auth-icon';
+          userAuthIcon.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i>';
+        }
+        if (userAuthLogoutBtn) userAuthLogoutBtn.style.display = 'none';
       }
     }
 
     if (openAuthModalBtn) {
-      openAuthModalBtn.addEventListener('click', () => {
-        authModal.style.display = 'flex';
+      openAuthModalBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'login.html?redirect=index.html';
       });
     }
 
@@ -2024,14 +2144,13 @@
         const name = signUpNameInput.value;
         const email = signUpEmailInput.value;
         const password = signUpPasswordInput.value;
-        const role = signUpRoleSelect.value;
         signUpAuthError.style.display = 'none';
 
-        const res = await window.authManager.signUpWithEmail(email, password, name, role);
+        const res = await window.authManager.signUpWithEmail(email, password, name, 'contestant');
         if (res.success) {
           authModal.style.display = 'none';
           updateAuthUI();
-          if (window.scoreboardManager && role === 'contestant') {
+          if (window.scoreboardManager) {
             const stats = window.quizEngine.getScoreStats();
             window.scoreboardManager.setScore(res.user.id, stats.totalScore);
           }
@@ -2042,26 +2161,12 @@
       });
     }
 
-    // 3. Quick Play / Host PIN Submission
+    // 3. Quick Play Submission
     if (quickLoginForm) {
       quickLoginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = (quickNameInput.value || '').trim();
-        const pin = (quickPinInput.value || '').trim();
         quickAuthError.style.display = 'none';
-
-        if (pin) {
-          const res = window.authManager.loginAdmin(pin);
-          if (res.success) {
-            authModal.style.display = 'none';
-            updateAuthUI();
-            return;
-          } else {
-            quickAuthError.textContent = res.message;
-            quickAuthError.style.display = 'block';
-            return;
-          }
-        }
 
         if (name) {
           const res = window.authManager.loginContestant(name);
@@ -2080,7 +2185,7 @@
           }
         }
 
-        quickAuthError.textContent = 'Please enter either a Contestant Name or Admin PIN.';
+        quickAuthError.textContent = 'Please enter your Contestant Name.';
         quickAuthError.style.display = 'block';
       });
     }
@@ -2150,6 +2255,9 @@
       } else if (window.quizEngine.isTimerRunning) {
         timerStatusBadge.className = 'timer-status-badge running';
         timerStatusBadge.textContent = 'Running';
+      } else if (!hasQuizStarted && window.quizEngine.getCurrentIndex() === 0) {
+        timerStatusBadge.className = 'timer-status-badge ready';
+        timerStatusBadge.textContent = 'Ready';
       } else {
         timerStatusBadge.className = 'timer-status-badge';
         timerStatusBadge.textContent = '15s';
@@ -2167,6 +2275,7 @@
 
     window.quizEngine.onStateChange = () => {
       renderQuestion();
+      updateStartBtnState();
     };
 
     // ── Live Participant Marks Refresh ─────────────────────
@@ -2255,7 +2364,43 @@
 
       updateTimerUI();
       updateMarksUI();
+      updateStartBtnState();
     }
+
+    // ── Start Quiz Button Controller (Only for Q1) ──────────
+    const startQuizBtn        = document.getElementById('startQuizBtn');
+    const heroStartQuizBtn    = document.getElementById('heroStartQuizBtn');
+    const startQuizHeroBanner = document.getElementById('startQuizHeroBanner');
+    const navStartQuizBtn     = document.getElementById('navStartQuizBtn');
+    let hasQuizStarted = false;
+
+    function updateStartBtnState() {
+      const idx = window.quizEngine.getCurrentIndex();
+      const isReadyQ1 = !hasQuizStarted && idx === 0 && !window.quizEngine.isTimerRunning && !window.quizEngine.isAnswerRevealed && !window.quizEngine.isLocked;
+
+      if (startQuizBtn)        startQuizBtn.style.display        = isReadyQ1 ? 'flex' : 'none';
+      if (startQuizHeroBanner) startQuizHeroBanner.style.display = isReadyQ1 ? 'flex' : 'none';
+      if (navStartQuizBtn)     navStartQuizBtn.style.display     = isReadyQ1 ? 'inline-flex' : 'none';
+
+      if (isReadyQ1) {
+        timerStatusBadge.className = 'timer-status-badge ready';
+        timerStatusBadge.textContent = 'Ready';
+      }
+    }
+
+    function triggerQuizStart() {
+      hasQuizStarted = true;
+      updateStartBtnState();
+      if (window.soundEngine) {
+        window.soundEngine.init();
+        window.soundEngine.playSelect();
+      }
+      window.quizEngine.startTimer();
+    }
+
+    if (startQuizBtn)     startQuizBtn.addEventListener('click', triggerQuizStart);
+    if (heroStartQuizBtn) heroStartQuizBtn.addEventListener('click', triggerQuizStart);
+    if (navStartQuizBtn)  navStartQuizBtn.addEventListener('click', triggerQuizStart);
 
     // ── Option clicks ───────────────────────────────────────
     optionBtns.forEach(btn => {
@@ -2267,8 +2412,15 @@
     });
 
     // ── Navigation buttons ──────────────────────────────────
-    prevBtn.addEventListener('click', () => window.quizEngine.prevQuestion());
-    nextBtn.addEventListener('click', () => window.quizEngine.nextQuestion());
+    prevBtn.addEventListener('click', () => {
+      window.quizEngine.prevQuestion();
+      updateStartBtnState();
+    });
+    nextBtn.addEventListener('click', () => {
+      hasQuizStarted = true;
+      window.quizEngine.nextQuestion();
+      updateStartBtnState();
+    });
 
     // ── Language button click handlers ──────────────────────
     document.getElementById('langMlBtn').addEventListener('click',   () => setLang('ml',   'langMlBtn'));
@@ -2422,13 +2574,10 @@
 
     // Initialize Auth UI
     updateAuthUI();
-    if (window.authManager && !window.authManager.isLoggedIn()) {
-      authModal.style.display = 'flex';
-    }
 
-    // Initial render & auto-start 15s countdown
+    // Initial render for Question 1 (Timer remains paused at 15s until user clicks Start Quiz)
     renderQuestion();
-    window.quizEngine.startTimer();
+    updateStartBtnState();
   });
   </script>
 

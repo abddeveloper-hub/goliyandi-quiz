@@ -8,36 +8,36 @@
 /* ── DESIGN TOKENS ───────────────────────────────────────── */
 :root {
   --white:     #ffffff;
-  --off-white: #f4f6ff;
-  --bg-body:   #f0f2ff;
+  --off-white: #0a0a0e;
+  --bg-body:   #000000;
 
   /* Vibrant 4-option colors (Kahoot palette) */
-  --opt-red:      #e21b3c;
-  --opt-red-dark: #b8172f;
-  --opt-blue:     #1368ce;
-  --opt-blue-dark:#0f56b0;
-  --opt-gold:     #f4a21b;
-  --opt-gold-dark:#d98c0f;
-  --opt-green:    #26890c;
-  --opt-green-dark:#1e6e09;
+  --opt-red:      #ef4444;
+  --opt-red-dark: #b91c1c;
+  --opt-blue:     #3b82f6;
+  --opt-blue-dark:#1d4ed8;
+  --opt-gold:     #f59e0b;
+  --opt-gold-dark:#b45309;
+  --opt-green:    #10b981;
+  --opt-green-dark:#047857;
 
-  --correct:  #26890c;
-  --wrong:    #e21b3c;
+  --correct:  #10b981;
+  --wrong:    #ef4444;
 
   /* Brand */
-  --brand-1: #7c3aed;   /* violet */
-  --brand-2: #2563eb;   /* blue   */
+  --brand-1: #8b5cf6;   /* violet */
+  --brand-2: #3b82f6;   /* blue   */
   --brand-3: #f59e0b;   /* amber  */
   --brand-4: #10b981;   /* green  */
 
-  --text-dark:   #1a1a2e;
-  --text-mid:    #3d3d5c;
-  --text-light:  #6b7280;
+  --text-dark:   #f8fafc;
+  --text-mid:    #cbd5e1;
+  --text-light:  #94a3b8;
   --text-on-color: #ffffff;
 
-  --shadow-sm:  0 2px 8px rgba(0,0,0,0.10);
-  --shadow-md:  0 6px 20px rgba(0,0,0,0.13);
-  --shadow-lg:  0 14px 40px rgba(0,0,0,0.15);
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.6);
+  --shadow-md:  0 6px 20px rgba(0,0,0,0.8);
+  --shadow-lg:  0 14px 40px rgba(0,0,0,0.9);
   --shadow-pop: 0 8px 0px;          /* used per-card */
 
   --radius-xs: 8px;
@@ -66,12 +66,12 @@ html { font-size: 16px; }
 
 body {
   font-family: var(--font-ui);
-  background: var(--bg-body);
+  background: #000000;
   color: var(--text-dark);
   min-height: 100vh;
   overflow-x: hidden;
   /* Subtle dot grid pattern */
-  background-image: radial-gradient(circle, rgba(124,58,237,0.12) 1.5px, transparent 1.5px);
+  background-image: radial-gradient(circle, rgba(139,92,246,0.12) 1.5px, transparent 1.5px);
   background-size: 28px 28px;
 }
 
