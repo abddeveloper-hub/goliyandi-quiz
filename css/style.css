@@ -8,8 +8,8 @@
 /* ── DESIGN TOKENS ───────────────────────────────────────── */
 :root {
   --white:     #ffffff;
-  --off-white: #0a0a0e;
-  --bg-body:   #000000;
+  --off-white: #f8fafc;
+  --bg-body:   #f8fafc;
 
   /* Vibrant 4-option colors (Kahoot palette) */
   --opt-red:      #ef4444;
@@ -30,14 +30,14 @@
   --brand-3: #f59e0b;   /* amber  */
   --brand-4: #10b981;   /* green  */
 
-  --text-dark:   #f8fafc;
-  --text-mid:    #cbd5e1;
-  --text-light:  #94a3b8;
+  --text-dark:   #0f172a;
+  --text-mid:    #334155;
+  --text-light:  #64748b;
   --text-on-color: #ffffff;
 
-  --shadow-sm:  0 2px 8px rgba(0,0,0,0.6);
-  --shadow-md:  0 6px 20px rgba(0,0,0,0.8);
-  --shadow-lg:  0 14px 40px rgba(0,0,0,0.9);
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md:  0 6px 20px rgba(0,0,0,0.08);
+  --shadow-lg:  0 14px 40px rgba(0,0,0,0.1);
   --shadow-pop: 0 8px 0px;          /* used per-card */
 
   --radius-xs: 8px;
