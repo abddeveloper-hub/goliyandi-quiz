@@ -1226,9 +1226,6 @@
       <button class="btn-nav action-btn" id="confettiBtn" title="Celebrate Champions">
         <i class="fa-solid fa-wand-magic-sparkles" style="color:#f59e0b;"></i> Celebrate
       </button>
-      <button class="btn-nav action-btn" id="resetAllScoresBtn" title="Reset All Scores to 0">
-        <i class="fa-solid fa-rotate-left"></i> Reset
-      </button>
       <a href="index.html" class="btn-nav back-quiz">
         <i class="fa-solid fa-arrow-left"></i> Back to Quiz
       </a>
@@ -1265,14 +1262,6 @@
         <div class="header-controls">
           <input type="text" id="searchInput" class="search-input" placeholder="Search contestant...">
         </div>
-      </div>
-
-      <!-- Add Participant Form -->
-      <div class="add-participant-bar">
-        <input type="text" id="newParticipantInput" class="add-input" placeholder="Enter contestant name or registration number...">
-        <button id="addParticipantBtn" class="btn-add">
-          <i class="fa-solid fa-user-plus"></i> Add Contestant
-        </button>
       </div>
 
       <!-- Participants List -->
@@ -1967,35 +1956,10 @@
       }[m]));
     }
 
-    // ── Add Contestant ─────────────────────────────────────
-    function handleAddParticipant() {
-      const name = newParticipantInput.value.trim();
-      if (name) {
-        window.scoreboardManager.addParticipant(name);
-        newParticipantInput.value = '';
-        if (window.soundEngine) window.soundEngine.playSelect();
-        render();
-      }
-    }
-
-    addParticipantBtn.addEventListener('click', handleAddParticipant);
-    newParticipantInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') handleAddParticipant();
-    });
-
     // ── Search Filter ──────────────────────────────────────
-    searchInput.addEventListener('input', () => render());
-
-    // ── Reset All Scores ───────────────────────────────────
-    resetAllScoresBtn.addEventListener('click', () => {
-      requireAdminAction(() => {
-        if (confirm('Reset all contestant scores to 0? (Contestants will remain in list)')) {
-          window.scoreboardManager.resetAllScores();
-          if (window.soundEngine) window.soundEngine.playWrong();
-          render();
-        }
-      });
-    });
+    if (searchInput) {
+      searchInput.addEventListener('input', () => render());
+    }
 
     // ── Confetti Animation ──────────────────────────────────
     const canvas = document.getElementById('confettiCanvas');
