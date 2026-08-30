@@ -1000,3 +1000,26 @@ function saveQuestionsToStorage(questions) {
   return false;
 }
 
+// Background Firestore check for master question updates
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', async () => {
+    try {
+      if (window.firestoreDb) {
+        const docSnap = await window.firestoreDb.collection('quiz_bank').doc('master_questions').get();
+        if (docSnap.exists) {
+          const data = docSnap.data();
+          if (data && Array.isArray(data.questions) && data.questions.length > 0) {
+            saveQuestionsToStorage(data.questions);
+            if (window.quizEngine && typeof window.quizEngine.reloadQuestions === 'function') {
+              window.quizEngine.reloadQuestions();
+            }
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('Firestore question bank background sync notice:', err);
+    }
+  });
+}
+
+

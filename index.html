@@ -164,6 +164,50 @@
       filter: brightness(1.1);
     }
 
+    .header-admin-btn {
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      border: 1px solid rgba(196, 181, 253, 0.5);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 99px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 900;
+      text-decoration: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+      transition: all 0.2s;
+    }
+    .header-admin-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.55);
+      filter: brightness(1.1);
+    }
+
+    .header-switch-btn {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      color: #0f172a;
+      padding: 7px 14px;
+      border-radius: 99px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .header-switch-btn:hover {
+      border-color: #7c3aed;
+      color: #7c3aed;
+      transform: translateY(-1px);
+    }
+
     .user-marks-badge {
       background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 95, 70, 0.35));
       border: 1.5px solid #10b981;
@@ -1700,6 +1744,11 @@
       <!-- Scoreboard Link -->
       <a href="scoreboard.html" class="header-scoreboard-btn" id="headerScoreboardBtn" title="Open Individual Contestant Scoreboard">
         <i class="fa-solid fa-trophy" style="color:#fef08a;"></i> Scoreboard
+      </a>
+
+      <!-- Admin Manager Link -->
+      <a href="admin.html" class="header-admin-btn" id="headerAdminBtn" title="Open Question & Round Manager">
+        <i class="fa-solid fa-gear"></i> Admin
       </a>
 
       <!-- Language Switcher -->

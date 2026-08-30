@@ -59,6 +59,16 @@ class QuizEngine {
     this.loadProgress();
   }
 
+  reloadQuestions() {
+    if (typeof getStoredQuestions === 'function') {
+      this.questions = getStoredQuestions();
+      this.setRound(this.currentRound || 'all', false);
+      if (typeof this.onStateChange === 'function') {
+        this.onStateChange();
+      }
+    }
+  }
+
   getStorageProgressKey() {
     try {
       const user = window.authManager ? window.authManager.getCurrentUser() : null;

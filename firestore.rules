@@ -17,6 +17,11 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    // Quiz Question Bank & Custom Questions
+    match /quiz_bank/{bankId} {
+      allow read, write: if true;
+    }
+
     // Default fallback
     match /{document=**} {
       allow read, write: if true;
