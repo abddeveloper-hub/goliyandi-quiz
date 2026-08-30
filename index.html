@@ -137,6 +137,86 @@
       letter-spacing: 0.5px;
     }
 
+    /* ── USER AUTH BADGE ─────────────────────────── */
+    .user-auth-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(255,255,255,0.14);
+      padding: 4px 6px 4px 10px;
+      border-radius: 99px;
+      transition: all 0.2s;
+    }
+    .user-auth-badge:hover {
+      border-color: rgba(124,58,237,0.5);
+      background: rgba(124,58,237,0.15);
+    }
+    .user-auth-info {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .user-auth-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+    }
+    .user-auth-icon.admin {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #fff;
+    }
+    .user-auth-name {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: #f8fafc;
+      max-width: 110px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .user-auth-role-tag {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 2px 6px;
+      border-radius: 99px;
+      background: rgba(255,255,255,0.1);
+      color: #cbd5e1;
+    }
+    .user-auth-role-tag.admin {
+      background: rgba(245,158,11,0.25);
+      color: #fef08a;
+      border: 1px solid rgba(245,158,11,0.4);
+    }
+    .user-auth-logout-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(239,68,68,0.2);
+      color: #f87171;
+      font-size: 0.72rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s;
+    }
+    .user-auth-logout-btn:hover {
+      background: #ef4444;
+      color: #fff;
+      transform: scale(1.1);
+    }
+
     .q-counter-badge {
       background: rgba(255,255,255,0.08);
       border: 2px solid rgba(255,255,255,0.18);
@@ -951,6 +1031,128 @@
       box-shadow: 0 6px 16px rgba(124,58,237,0.45);
     }
 
+    /* ── AUTH MODAL STYLES ───────────────────────── */
+    .auth-modal-card {
+      max-width: 460px;
+    }
+    .auth-tabs {
+      display: flex;
+      background: rgba(0,0,0,0.35);
+      border-bottom: 2px solid rgba(255,255,255,0.08);
+      padding: 6px 12px 0;
+      gap: 8px;
+    }
+    .auth-tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: 10px 8px 12px;
+      color: #94a3b8;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: all 0.2s;
+    }
+    .auth-tab-btn:hover {
+      color: #f8fafc;
+    }
+    .auth-tab-btn.active {
+      color: #fbbf24;
+      border-bottom-color: #f59e0b;
+      font-weight: 900;
+    }
+    .auth-form-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .auth-field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .auth-label {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .auth-input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.4);
+      color: #f8fafc;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .auth-input:focus {
+      border-color: #7c3aed;
+      background: rgba(0,0,0,0.6);
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.3);
+    }
+    .auth-hint {
+      font-size: 0.72rem;
+      color: #64748b;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+    .auth-error-msg {
+      background: rgba(239,68,68,0.18);
+      border: 1px solid rgba(239,68,68,0.4);
+      color: #fca5a5;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .auth-submit-btn {
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: none;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .auth-submit-btn.contestant-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      box-shadow: 0 4px 0 #047857;
+    }
+    .auth-submit-btn.contestant-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 #047857;
+      filter: brightness(1.1);
+    }
+    .auth-submit-btn.admin-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #fff;
+      box-shadow: 0 4px 0 #b45309;
+    }
+    .auth-submit-btn.admin-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 #b45309;
+      filter: brightness(1.1);
+    }
+
     /* ── RESPONSIVE ──────────────────────────────── */
     @media (max-width: 900px) {
       main { flex-direction: column; }
@@ -1006,6 +1208,18 @@
     <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
 
     <div class="header-actions">
+      <!-- User Auth Profile Badge -->
+      <div class="user-auth-badge" id="userAuthBadge">
+        <div class="user-auth-info" id="openAuthModalBtn" title="Click to Switch Account or Login">
+          <span class="user-auth-icon" id="userAuthIcon"><i class="fa-solid fa-user"></i></span>
+          <span class="user-auth-name" id="userAuthName">Guest</span>
+          <span class="user-auth-role-tag" id="userAuthRoleTag">Contestant</span>
+        </div>
+        <button class="user-auth-logout-btn" id="userAuthLogoutBtn" title="Logout" style="display:none;">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+      </div>
+
       <!-- Participant Live Marks Badge -->
       <div class="user-marks-badge" id="userMarksBadge" title="Your Total Marks Earned">
         <i class="fa-solid fa-star" style="color:#fbbf24;"></i>
@@ -1256,7 +1470,62 @@
     </div>
   </div>
 
+  <!-- ══ AUTHENTICATION MODAL ═════════════════════════ -->
+  <div class="modal-backdrop" id="authModal" style="display:none;">
+    <div class="modal-card auth-modal-card">
+      <div class="modal-header auth-modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-shield-halved" style="color:#f59e0b;font-size:1.3rem;"></i>
+          <div>
+            <h3>Meelad Fest Goliyangadi</h3>
+            <p style="font-size:0.75rem;color:#fbbf24;font-weight:700;">Grand Islamic Quiz Authentication</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="closeAuthModalBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Role Selection Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tabContestantBtn" type="button">
+          <i class="fa-solid fa-user"></i> Contestant Login
+        </button>
+        <button class="auth-tab-btn" id="tabAdminBtn" type="button">
+          <i class="fa-solid fa-crown"></i> Host / Admin PIN
+        </button>
+      </div>
+
+      <div class="modal-body auth-modal-body">
+        <!-- Contestant Form -->
+        <form id="contestantLoginForm" class="auth-form-panel">
+          <div class="auth-field-group">
+            <label class="auth-label"><i class="fa-solid fa-user-pen"></i> Contestant Name</label>
+            <input type="text" class="auth-input" id="contestantNameInput" placeholder="Enter your full name (e.g. Ameen)..." required autocomplete="name" />
+            <span class="auth-hint">Your marks and live leaderboard standing will be automatically linked to your contestant profile.</span>
+          </div>
+          <div class="auth-error-msg" id="contestantAuthError" style="display:none;"></div>
+          <button type="submit" class="auth-submit-btn contestant-btn">
+            <i class="fa-solid fa-play"></i> Start Quiz as Contestant
+          </button>
+        </form>
+
+        <!-- Host / Admin Form -->
+        <form id="adminLoginForm" class="auth-form-panel" style="display:none;">
+          <div class="auth-field-group">
+            <label class="auth-label"><i class="fa-solid fa-key"></i> Host Admin Master PIN</label>
+            <input type="password" class="auth-input" id="adminPinInput" placeholder="Enter master PIN (Default: meelad2026)" required />
+            <span class="auth-hint">Host / Admin login grants full moderator access, score controls, and timing customization.</span>
+          </div>
+          <div class="auth-error-msg" id="adminAuthError" style="display:none;"></div>
+          <button type="submit" class="auth-submit-btn admin-btn">
+            <i class="fa-solid fa-lock-open"></i> Login as Host / Admin
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ SCRIPTS ════════════════════════════════════ -->
+  <script src="js/auth.js"></script>
   <script src="js/questions-data.js"></script>
   <script src="js/kn-translations.js"></script>
   <script src="js/audio.js"></script>
@@ -1295,6 +1564,24 @@
     const marksProgressFill = document.getElementById('marksProgressFill');
     const marksProgressText = document.getElementById('marksProgressText');
 
+    // Auth Elements
+    const userAuthBadge        = document.getElementById('userAuthBadge');
+    const openAuthModalBtn     = document.getElementById('openAuthModalBtn');
+    const userAuthIcon         = document.getElementById('userAuthIcon');
+    const userAuthName         = document.getElementById('userAuthName');
+    const userAuthRoleTag      = document.getElementById('userAuthRoleTag');
+    const userAuthLogoutBtn    = document.getElementById('userAuthLogoutBtn');
+    const authModal            = document.getElementById('authModal');
+    const closeAuthModalBtn    = document.getElementById('closeAuthModalBtn');
+    const tabContestantBtn     = document.getElementById('tabContestantBtn');
+    const tabAdminBtn          = document.getElementById('tabAdminBtn');
+    const contestantLoginForm  = document.getElementById('contestantLoginForm');
+    const adminLoginForm       = document.getElementById('adminLoginForm');
+    const contestantNameInput  = document.getElementById('contestantNameInput');
+    const adminPinInput        = document.getElementById('adminPinInput');
+    const contestantAuthError  = document.getElementById('contestantAuthError');
+    const adminAuthError       = document.getElementById('adminAuthError');
+
     // Navigation
     const prevBtn       = document.getElementById('prevQuestionBtn');
     const nextBtn       = document.getElementById('nextQuestionBtn');
@@ -1311,6 +1598,117 @@
     const threshBtns             = document.querySelectorAll('.thresh-btn');
 
     const CIRC = 440; // SVG circle circumference for r=70: 2 * Math.PI * 70 ≈ 439.82
+
+    // ── Authentication Controller ───────────────────────────
+    function updateAuthUI() {
+      const user = window.authManager ? window.authManager.getCurrentUser() : null;
+      if (user) {
+        userAuthName.textContent = user.name;
+        if (user.role === 'admin') {
+          userAuthRoleTag.textContent = 'Host';
+          userAuthRoleTag.className = 'user-auth-role-tag admin';
+          userAuthIcon.className = 'user-auth-icon admin';
+          userAuthIcon.innerHTML = '<i class="fa-solid fa-crown"></i>';
+        } else {
+          userAuthRoleTag.textContent = 'Contestant';
+          userAuthRoleTag.className = 'user-auth-role-tag';
+          userAuthIcon.className = 'user-auth-icon';
+          userAuthIcon.innerHTML = '<i class="fa-solid fa-user"></i>';
+        }
+        userAuthLogoutBtn.style.display = 'flex';
+      } else {
+        userAuthName.textContent = 'Login';
+        userAuthRoleTag.textContent = 'Guest';
+        userAuthRoleTag.className = 'user-auth-role-tag';
+        userAuthIcon.className = 'user-auth-icon';
+        userAuthIcon.innerHTML = '<i class="fa-solid fa-user"></i>';
+        userAuthLogoutBtn.style.display = 'none';
+      }
+    }
+
+    if (openAuthModalBtn) {
+      openAuthModalBtn.addEventListener('click', () => {
+        authModal.style.display = 'flex';
+      });
+    }
+
+    if (closeAuthModalBtn) {
+      closeAuthModalBtn.addEventListener('click', () => {
+        authModal.style.display = 'none';
+      });
+    }
+
+    // Tabs
+    if (tabContestantBtn && tabAdminBtn) {
+      tabContestantBtn.addEventListener('click', () => {
+        tabContestantBtn.classList.add('active');
+        tabAdminBtn.classList.remove('active');
+        contestantLoginForm.style.display = 'flex';
+        adminLoginForm.style.display = 'none';
+        contestantAuthError.style.display = 'none';
+      });
+
+      tabAdminBtn.addEventListener('click', () => {
+        tabAdminBtn.classList.add('active');
+        tabContestantBtn.classList.remove('active');
+        contestantLoginForm.style.display = 'none';
+        adminLoginForm.style.display = 'flex';
+        adminAuthError.style.display = 'none';
+      });
+    }
+
+    // Contestant Login Form
+    if (contestantLoginForm) {
+      contestantLoginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = contestantNameInput.value;
+        const res = window.authManager.loginContestant(name);
+        if (res.success) {
+          authModal.style.display = 'none';
+          updateAuthUI();
+          // Sync existing score if available
+          if (window.scoreboardManager) {
+            const stats = window.quizEngine.getScoreStats();
+            window.scoreboardManager.setScore(res.user.id, stats.totalScore);
+          }
+        } else {
+          contestantAuthError.textContent = res.message;
+          contestantAuthError.style.display = 'block';
+        }
+      });
+    }
+
+    // Admin Login Form
+    if (adminLoginForm) {
+      adminLoginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const pin = adminPinInput.value;
+        const res = window.authManager.loginAdmin(pin);
+        if (res.success) {
+          authModal.style.display = 'none';
+          updateAuthUI();
+        } else {
+          adminAuthError.textContent = res.message;
+          adminAuthError.style.display = 'block';
+        }
+      });
+    }
+
+    // Logout Button
+    if (userAuthLogoutBtn) {
+      userAuthLogoutBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.authManager.logout();
+        updateAuthUI();
+        authModal.style.display = 'flex';
+      });
+    }
+
+    if (window.authManager) {
+      window.authManager.onAuthChange = () => {
+        updateAuthUI();
+      };
+    }
 
     // ── Language mode ───────────────────────────────────────
     let langMode = 'both'; // 'ml' | 'kn' | 'both' | 'en'
@@ -1630,6 +2028,12 @@
     }
 
     window.launchConfetti = () => { spawnConfetti(); };
+
+    // Initialize Auth UI
+    updateAuthUI();
+    if (window.authManager && !window.authManager.isLoggedIn()) {
+      authModal.style.display = 'flex';
+    }
 
     // Initial render & auto-start 15s countdown
     renderQuestion();
