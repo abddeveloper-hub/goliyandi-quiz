@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Authentication | Meelad Fest Goliyangadi</title>
+  <meta name="description" content="Sign in or register for Meelad Fest Goliyangadi Grand Islamic Quiz.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Anek+Malayalam:wght@400;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Firebase SDKs (v10 Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <!-- Mobile Responsive CSS -->
+  <link rel="stylesheet" href="css/mobile.css">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+    }
+
+    :root {
+      --bg-pure-black: #000000;
+      --bg-dark-base: #060911;
+      --bg-card-obsidian: rgba(12, 17, 29, 0.85);
+      --bg-card-elevated: rgba(18, 26, 44, 0.7);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(124, 58, 237, 0.35);
+      
+      --accent-emerald: #10b981;
+      --accent-emerald-glow: rgba(16, 185, 129, 0.25);
+      --accent-gold: #f59e0b;
+      --accent-gold-glow: rgba(245, 158, 11, 0.25);
+      --accent-purple: #7c3aed;
+      --accent-blue: #2563eb;
+      
+      --text-white: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+
+      --font-ui: 'Nunito', sans-serif;
+      --font-ml: 'Anek Malayalam', sans-serif;
+      --font-ar: 'Amiri', serif;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: var(--font-ui);
+      background-color: var(--bg-pure-black);
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(124, 58, 237, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.06) 0%, transparent 60%),
+        radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 32px 32px;
+      color: var(--text-white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      user-select: none;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Lighting Circles */
+    .ambient-glow-top {
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 250px;
+      background: radial-gradient(ellipse, rgba(124, 58, 237, 0.25), transparent 70%);
+      pointer-events: none;
+      filter: blur(40px);
+    }
+
+    /* Header Brand */
+    .auth-brand-container {
+      text-align: center;
+      margin-bottom: 24px;
+      z-index: 2;
+    }
+
+    .brand-logo-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #10b981, #2563eb, #7c3aed);
+      color: #ffffff;
+      font-size: 26px;
+      box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4), inset 0 1px 1px rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .brand-title {
+      font-size: 1.45rem;
+      font-weight: 900;
+      letter-spacing: 0.8px;
+      background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 4px;
+    }
+
+    .brand-arabic {
+      font-family: var(--font-ar);
+      font-size: 1.25rem;
+      color: #fbbf24;
+      text-shadow: 0 0 16px rgba(251, 191, 36, 0.4);
+      margin-top: 2px;
+    }
+
+    /* Auth Card (Pro Obsidian Glass) */
+    .auth-card {
+      width: 100%;
+      max-width: 460px;
+      background: var(--bg-card-obsidian);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 0 30px rgba(124, 58, 237, 0.1);
+      overflow: hidden;
+      z-index: 2;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Project Status Ribbon */
+    .status-ribbon {
+      background: rgba(16, 185, 129, 0.12);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 9px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: #6ee7b7;
+      font-weight: 800;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(16, 185, 129, 0.22);
+      padding: 3px 9px;
+      border-radius: 99px;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #34d399;
+      box-shadow: 0 0 8px #34d399;
+      animation: blinkDot 1.6s infinite ease-in-out;
+    }
+    @keyframes blinkDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.75); }
+    }
+
+    /* Auth Tabs */
+    .auth-nav-tabs {
+      display: flex;
+      background: rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 6px 12px 0;
+      gap: 6px;
+    }
+
+    .auth-tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: 12px 6px 14px;
+      color: var(--text-muted);
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .auth-tab-btn:hover {
+      color: var(--text-white);
+    }
+
+    .auth-tab-btn.active {
+      color: #fbbf24;
+      border-bottom-color: #f59e0b;
+      font-weight: 900;
+    }
+
+    /* Form Body */
+    .auth-form-container {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .form-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-label {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .input-box {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 14px;
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.55);
+      color: #ffffff;
+      font-family: var(--font-ui);
+      font-size: 16px; /* Prevents auto-zoom in Safari iOS */
+      font-weight: 700;
+      outline: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .input-box:focus {
+      border-color: var(--accent-purple);
+      background: rgba(0, 0, 0, 0.75);
+      box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.25);
+    }
+
+    .input-hint {
+      font-size: 0.74rem;
+      color: var(--text-dim);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .auth-error {
+      background: rgba(239, 68, 68, 0.16);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Submit Action Buttons */
+    .btn-submit {
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 14px;
+      border: none;
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      transition: all 0.2s ease;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-submit.btn-green {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #ffffff;
+      box-shadow: 0 4px 0 #047857, 0 8px 20px rgba(16, 185, 129, 0.35);
+    }
+
+    .btn-submit.btn-purple {
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 4px 0 #4c1d95, 0 8px 20px rgba(124, 58, 237, 0.35);
+    }
+
+    .btn-submit.btn-amber {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #ffffff;
+      box-shadow: 0 4px 0 #b45309, 0 8px 20px rgba(245, 158, 11, 0.35);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .btn-submit:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.5);
+    }
+
+    /* Bottom Quick Links */
+    .auth-footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .auth-footer-links a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.18s;
+    }
+
+    .auth-footer-links a:hover {
+      color: #7dd3fc;
+      text-decoration: underline;
+    }
+
+    /* Mobile Adaptations */
+    @media (max-width: 480px) {
+      body {
+        padding: 16px 12px;
+      }
+      .brand-title {
+        font-size: 1.25rem;
+      }
+      .auth-card {
+        border-radius: 20px;
+      }
+      .auth-form-container {
+        padding: 18px 16px;
+        gap: 16px;
+      }
+      .auth-tab-btn {
+        font-size: 0.82rem;
+        padding: 10px 4px 12px;
+        gap: 5px;
+      }
+      .btn-submit {
+        padding: 12px 16px;
+        font-size: 0.94rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow-top"></div>
+
+  <!-- Brand Title Section -->
+  <div class="auth-brand-container">
+    <div class="brand-logo-badge">
+      <i class="fa-solid fa-moon"></i>
+    </div>
+    <h1 class="brand-title">MEELAD FEST GOLIYANGADI</h1>
+    <p style="font-size:0.85rem;color:#94a3b8;font-weight:700;">Grand Islamic Quiz Portal</p>
+    <div class="brand-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+  </div>
+
+  <!-- Obsidian Auth Card -->
+  <div class="auth-card">
+    <!-- Status Ribbon -->
+    <div class="status-ribbon">
+      <span><i class="fa-solid fa-cloud-bolt"></i> Firebase Backend: <strong>goliyangadi-quiz</strong></span>
+      <span class="status-pill"><span class="pulse-dot"></span> Live Sync</span>
+    </div>
+
+    <!-- Auth Tabs Switcher -->
+    <div class="auth-nav-tabs">
+      <button class="auth-tab-btn active" id="tabLoginBtn" type="button">
+        <i class="fa-solid fa-right-to-bracket"></i> Sign In
+      </button>
+      <button class="auth-tab-btn" id="tabSignUpBtn" type="button">
+        <i class="fa-solid fa-user-plus"></i> Register
+      </button>
+      <button class="auth-tab-btn" id="tabQuickBtn" type="button">
+        <i class="fa-solid fa-bolt"></i> Quick Play
+      </button>
+    </div>
+
+    <div class="auth-form-container">
+      <!-- 1. Sign In Form -->
+      <form id="signInForm" class="form-panel">
+        <div class="form-group">
+          <label class="input-label" for="loginEmail"><i class="fa-solid fa-envelope" style="color:#38bdf8;"></i> Email Address</label>
+          <input type="email" class="input-box" id="loginEmail" placeholder="yourname@gmail.com" required autocomplete="email" />
+        </div>
+
+        <div class="form-group">
+          <label class="input-label" for="loginPassword"><i class="fa-solid fa-lock" style="color:#fbbf24;"></i> Password</label>
+          <input type="password" class="input-box" id="loginPassword" placeholder="Enter your password..." required autocomplete="current-password" />
+        </div>
+
+        <div class="auth-error" id="loginError" style="display:none;"></div>
+
+        <button type="submit" class="btn-submit btn-green" id="loginSubmitBtn">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In to Quiz
+        </button>
+      </form>
+
+      <!-- 2. Register Form -->
+      <form id="signUpForm" class="form-panel" style="display:none;">
+        <div class="form-group">
+          <label class="input-label" for="regName"><i class="fa-solid fa-user" style="color:#34d399;"></i> Full Name</label>
+          <input type="text" class="input-box" id="regName" placeholder="e.g. Ameen Goliyangadi" required autocomplete="name" />
+        </div>
+
+        <div class="form-group">
+          <label class="input-label" for="regEmail"><i class="fa-solid fa-envelope" style="color:#38bdf8;"></i> Email Address</label>
+          <input type="email" class="input-box" id="regEmail" placeholder="yourname@gmail.com" required autocomplete="email" />
+        </div>
+
+        <div class="form-group">
+          <label class="input-label" for="regPassword"><i class="fa-solid fa-lock" style="color:#fbbf24;"></i> Create Password</label>
+          <input type="password" class="input-box" id="regPassword" placeholder="At least 6 characters..." required autocomplete="new-password" minlength="6" />
+        </div>
+
+        <div class="form-group">
+          <label class="input-label" for="regRole"><i class="fa-solid fa-id-badge" style="color:#c084fc;"></i> Role</label>
+          <select class="input-box" id="regRole" style="cursor:pointer;">
+            <option value="contestant">Contestant (Participant)</option>
+            <option value="admin">Host / Quiz Master (Admin)</option>
+          </select>
+        </div>
+
+        <div class="auth-error" id="signUpError" style="display:none;"></div>
+
+        <button type="submit" class="btn-submit btn-purple" id="signUpSubmitBtn">
+          <i class="fa-solid fa-user-check"></i> Create Account
+        </button>
+      </form>
+
+      <!-- 3. Quick Play / Master PIN Form -->
+      <form id="quickForm" class="form-panel" style="display:none;">
+        <div class="form-group">
+          <label class="input-label" for="quickName"><i class="fa-solid fa-user-pen" style="color:#34d399;"></i> Contestant Name</label>
+          <input type="text" class="input-box" id="quickName" placeholder="Enter your name to start instantly..." autocomplete="off" />
+          <span class="input-hint">Fast contestant join without email/password. Marks sync to this name.</span>
+        </div>
+
+        <div style="text-align:center;color:#64748b;font-size:0.78rem;font-weight:800;margin:4px 0;">— OR HOST ADMIN PIN —</div>
+
+        <div class="form-group">
+          <label class="input-label" for="quickPin"><i class="fa-solid fa-key" style="color:#fbbf24;"></i> Master Host PIN</label>
+          <input type="password" class="input-box" id="quickPin" placeholder="Master Admin PIN (Default: meelad2026)" autocomplete="off" />
+          <span class="input-hint">Unlocks moderator score adjusters & tournament management.</span>
+        </div>
+
+        <div class="auth-error" id="quickError" style="display:none;"></div>
+
+        <button type="submit" class="btn-submit btn-amber" id="quickSubmitBtn">
+          <i class="fa-solid fa-play"></i> Enter Quiz Now
+        </button>
+      </form>
+
+      <!-- Footer navigation links -->
+      <div class="auth-footer-links">
+        <a href="scoreboard.html"><i class="fa-solid fa-trophy"></i> View Scoreboard</a>
+        <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Back to Stage</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/firebase-config.js"></script>
+  <script src="js/firebase-service.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/scoreboard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabLoginBtn   = document.getElementById('tabLoginBtn');
+      const tabSignUpBtn  = document.getElementById('tabSignUpBtn');
+      const tabQuickBtn   = document.getElementById('tabQuickBtn');
+
+      const signInForm    = document.getElementById('signInForm');
+      const signUpForm    = document.getElementById('signUpForm');
+      const quickForm     = document.getElementById('quickForm');
+
+      const loginEmail    = document.getElementById('loginEmail');
+      const loginPassword = document.getElementById('loginPassword');
+      const loginError    = document.getElementById('loginError');
+
+      const regName       = document.getElementById('regName');
+      const regEmail      = document.getElementById('regEmail');
+      const regPassword   = document.getElementById('regPassword');
+      const regRole       = document.getElementById('regRole');
+      const signUpError   = document.getElementById('signUpError');
+
+      const quickName     = document.getElementById('quickName');
+      const quickPin      = document.getElementById('quickPin');
+      const quickError    = document.getElementById('quickError');
+
+      // Get redirect destination from query params (e.g. ?redirect=scoreboard.html)
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirectUrl = urlParams.get('redirect') || 'index.html';
+
+      function redirectToTarget() {
+        window.location.href = redirectUrl;
+      }
+
+      // Check if already logged in
+      if (window.authManager && window.authManager.isLoggedIn()) {
+        const user = window.authManager.getCurrentUser();
+        // Optional prefill or direct redirect
+      }
+
+      // Tab switcher
+      function switchTab(tab) {
+        [tabLoginBtn, tabSignUpBtn, tabQuickBtn].forEach(b => b.classList.remove('active'));
+        [signInForm, signUpForm, quickForm].forEach(f => f.style.display = 'none');
+        [loginError, signUpError, quickError].forEach(e => e.style.display = 'none');
+
+        if (tab === 'login') {
+          tabLoginBtn.classList.add('active');
+          signInForm.style.display = 'flex';
+        } else if (tab === 'signup') {
+          tabSignUpBtn.classList.add('active');
+          signUpForm.style.display = 'flex';
+        } else if (tab === 'quick') {
+          tabQuickBtn.classList.add('active');
+          quickForm.style.display = 'flex';
+        }
+      }
+
+      tabLoginBtn.addEventListener('click', () => switchTab('login'));
+      tabSignUpBtn.addEventListener('click', () => switchTab('signup'));
+      tabQuickBtn.addEventListener('click', () => switchTab('quick'));
+
+      // 1. Handle Email Sign In
+      signInForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = loginEmail.value.trim();
+        const password = loginPassword.value;
+        loginError.style.display = 'none';
+
+        const res = await window.authManager.loginWithEmail(email, password);
+        if (res.success) {
+          redirectToTarget();
+        } else {
+          loginError.textContent = res.message;
+          loginError.style.display = 'flex';
+        }
+      });
+
+      // 2. Handle Email Sign Up
+      signUpForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = regName.value.trim();
+        const email = regEmail.value.trim();
+        const password = regPassword.value;
+        const role = regRole.value;
+        signUpError.style.display = 'none';
+
+        const res = await window.authManager.signUpWithEmail(email, password, name, role);
+        if (res.success) {
+          redirectToTarget();
+        } else {
+          signUpError.textContent = res.message;
+          signUpError.style.display = 'flex';
+        }
+      });
+
+      // 3. Handle Quick Play / Master PIN
+      quickForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = (quickName.value || '').trim();
+        const pin  = (quickPin.value || '').trim();
+        quickError.style.display = 'none';
+
+        if (pin) {
+          const res = window.authManager.loginAdmin(pin);
+          if (res.success) {
+            redirectToTarget();
+            return;
+          } else {
+            quickError.textContent = res.message;
+            quickError.style.display = 'flex';
+            return;
+          }
+        }
+
+        if (name) {
+          const res = window.authManager.loginContestant(name);
+          if (res.success) {
+            redirectToTarget();
+            return;
+          } else {
+            quickError.textContent = res.message;
+            quickError.style.display = 'flex';
+            return;
+          }
+        }
+
+        quickError.textContent = 'Please enter either a Contestant Name or Admin PIN.';
+        quickError.style.display = 'flex';
+      });
+    });
+  </script>
+</body>
+</html>
