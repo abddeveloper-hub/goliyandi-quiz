@@ -1,0 +1,149 @@
+/**
+ * Meelad Fest Goliyangadi - Individual Participant Scoreboard & Leaderboard Manager
+ */
+
+class ScoreboardManager {
+  constructor() {
+    this.storageKey = 'meelad_quiz_participants_v2';
+    this.defaultParticipants = [
+      { id: 'p_1', name: 'Participant 1 (മത്സരാർത്ഥി 1)', score: 0, correct: 0, wrong: 0, color: '#10b981' },
+      { id: 'p_2', name: 'Participant 2 (മത്സരാർത്ഥി 2)', score: 0, correct: 0, wrong: 0, color: '#f59e0b' },
+      { id: 'p_3', name: 'Participant 3 (മത്സരാർത്ഥി 3)', score: 0, correct: 0, wrong: 0, color: '#06b6d4' },
+      { id: 'p_4', name: 'Participant 4 (മത്സരാർത്ഥി 4)', score: 0, correct: 0, wrong: 0, color: '#a855f7' }
+    ];
+    this.participants = this.loadParticipants();
+    this.activeParticipantId = null;
+  }
+
+  loadParticipants() {
+    try {
+      const saved = localStorage.getItem(this.storageKey);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+      // Migration from legacy teams key if available
+      const legacySaved = localStorage.getItem('meelad_quiz_teams_v1');
+      if (legacySaved) {
+        const legacyParsed = JSON.parse(legacySaved);
+        if (Array.isArray(legacyParsed) && legacyParsed.length > 0) {
+          return legacyParsed;
+        }
+      }
+    } catch (e) {
+      console.error('Error reading participants from storage:', e);
+    }
+    return JSON.parse(JSON.stringify(this.defaultParticipants));
+  }
+
+  saveParticipants() {
+    try {
+      localStorage.setItem(this.storageKey, JSON.stringify(this.participants));
+      // Also sync to legacy key for cross-compatibility
+      localStorage.setItem('meelad_quiz_teams_v1', JSON.stringify(this.participants));
+    } catch (e) {
+      console.error('Error saving participants:', e);
+    }
+  }
+
+  getParticipants() {
+    return this.participants;
+  }
+
+  getRankedParticipants() {
+    return [...this.participants].sort((a, b) => b.score - a.score || (b.correct || 0) - (a.correct || 0));
+  }
+
+  addParticipant(name, color) {
+    const colors = ['#10b981', '#f59e0b', '#06b6d4', '#a855f7', '#ec4899', '#3b82f6', '#14b8a6', '#f97316'];
+    const chosenColor = color || colors[this.participants.length % colors.length];
+    const newParticipant = {
+      id: 'p_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
+      name: name.trim() || `Participant ${this.participants.length + 1}`,
+      score: 0,
+      correct: 0,
+      wrong: 0,
+      color: chosenColor
+    };
+    this.participants.push(newParticipant);
+    this.saveParticipants();
+    return newParticipant;
+  }
+
+  updateParticipantName(id, newName) {
+    const p = this.participants.find(item => item.id === id);
+    if (p && newName.trim()) {
+      p.name = newName.trim();
+      this.saveParticipants();
+    }
+  }
+
+  removeParticipant(id) {
+    this.participants = this.participants.filter(item => item.id !== id);
+    if (this.activeParticipantId === id) {
+      this.activeParticipantId = null;
+    }
+    this.saveParticipants();
+  }
+
+  adjustScore(id, delta, isCorrect = null) {
+    const p = this.participants.find(item => item.id === id);
+    if (p) {
+      p.score = Math.max(0, p.score + delta);
+      if (isCorrect === true) {
+        p.correct = (p.correct || 0) + 1;
+      } else if (isCorrect === false) {
+        p.wrong = (p.wrong || 0) + 1;
+      }
+      this.saveParticipants();
+      return p;
+    }
+    return null;
+  }
+
+  setScore(id, newScore) {
+    const p = this.participants.find(item => item.id === id);
+    if (p) {
+      p.score = Math.max(0, parseInt(newScore, 10) || 0);
+      this.saveParticipants();
+      return p;
+    }
+    return null;
+  }
+
+  resetAllScores() {
+    this.participants.forEach(p => {
+      p.score = 0;
+      p.correct = 0;
+      p.wrong = 0;
+    });
+    this.saveParticipants();
+  }
+
+  resetToDefault() {
+    this.participants = JSON.parse(JSON.stringify(this.defaultParticipants));
+    this.saveParticipants();
+  }
+
+  setActiveParticipant(id) {
+    this.activeParticipantId = id;
+  }
+
+  getActiveParticipant() {
+    return this.participants.find(p => p.id === this.activeParticipantId) || null;
+  }
+
+  // ── Backward-compatible Aliases ───────────────────────────
+  getTeams() { return this.getParticipants(); }
+  getRankedTeams() { return this.getRankedParticipants(); }
+  addTeam(name, color) { return this.addParticipant(name, color); }
+  updateTeamName(id, name) { return this.updateParticipantName(id, name); }
+  removeTeam(id) { return this.removeParticipant(id); }
+  resetToDefaultTeams() { return this.resetToDefault(); }
+  setActiveTeam(id) { return this.setActiveParticipant(id); }
+  getActiveTeam() { return this.getActiveParticipant(); }
+}
+
+window.scoreboardManager = new ScoreboardManager();

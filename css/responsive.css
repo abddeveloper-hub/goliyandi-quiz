@@ -1,0 +1,115 @@
+/**
+ * Meelad Fest Goliyangadi — Responsive Layout (Kahoot/Quizizz Style)
+ */
+
+/* ── 4K / Projector Ultra-Wide ─────────────────────────── */
+@media (min-width: 1600px) {
+  .question-card { padding: 36px 44px; }
+  .question-text-ml { font-size: 2.3rem; }
+  .question-text-en { font-size: 1.42rem; }
+  .option-btn { padding: 22px 28px; }
+  .option-btn .option-text { font-size: 1.35rem; }
+  .option-btn .option-tag { width: 52px; height: 52px; font-size: 1.5rem; }
+  .timer-circle-wrap { width: 180px; height: 180px; }
+  .timer-seconds { font-size: 3.6rem; }
+}
+
+/* ── Full HD 1080p ─────────────────────────────────────── */
+@media (max-width: 1440px) {
+  .stage-grid { grid-template-columns: 1fr 300px; }
+}
+
+/* ── Laptop 1200px ─────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .stage-grid { grid-template-columns: 1fr 280px; }
+  .question-text-ml { font-size: 1.65rem; }
+  .question-text-en { font-size: 1.1rem; }
+  .option-btn .option-text { font-size: 1.06rem; }
+  .bismillah-text { font-size: 1.3rem; }
+}
+
+/* ── Tablet 992px ──────────────────────────────────────── */
+@media (max-width: 992px) {
+  .stage-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+  .side-panel {
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-left: none;
+    border-top: 3px solid rgba(124,58,237,0.12);
+    padding: 16px;
+    gap: 12px;
+  }
+  .timer-widget { flex: 1 1 220px; }
+  .lifelines-widget { flex: 1 1 200px; }
+  .quick-scores-widget { flex: 1 1 100%; }
+
+  .top-header {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px 18px;
+    gap: 12px;
+  }
+  .bismillah-text { order: 3; width: 100%; text-align: center; font-size: 1.3rem; }
+
+  .host-dock {
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 10px 14px;
+  }
+  .dock-center, .dock-left, .dock-right {
+    flex-wrap: wrap; justify-content: center;
+  }
+}
+
+/* ── Mobile 768px ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .top-header { padding: 10px 14px; }
+  .brand-titles h1 { font-size: 1rem; }
+
+  .rounds-nav { padding: 10px 14px 6px; gap: 6px; }
+  .round-tab { padding: 7px 12px; font-size: 0.8rem; }
+
+  .question-card-wrapper { padding: 14px; gap: 12px; }
+  .question-card { padding: 20px 18px; }
+
+  .question-text-ml { font-size: 1.4rem; }
+  .question-text-en { font-size: 1rem; }
+
+  .options-grid { grid-template-columns: 1fr; gap: 10px; }
+  .option-btn { padding: 15px 18px; }
+  .option-btn .option-text { font-size: 1.05rem; }
+  .option-btn .option-tag { width: 38px; height: 38px; font-size: 1.1rem; }
+
+  .side-panel { padding: 12px; }
+  .timer-circle-wrap { width: 130px; height: 130px; }
+  .timer-seconds { font-size: 2.5rem; }
+
+  .host-dock { padding: 8px 10px; }
+  .btn-dock { padding: 8px 12px; font-size: 0.8rem; }
+
+  .modal-body { padding: 16px; }
+  .certificate-modal-grid { grid-template-columns: 1fr; }
+
+  .podium-step { width: 100px; }
+  .podium-team-title { font-size: 0.85rem; }
+  .podium-step.rank-1 .podium-pillar { height: 130px; }
+  .podium-step.rank-2 .podium-pillar { height: 95px; }
+  .podium-step.rank-3 .podium-pillar { height: 70px; }
+
+  .bismillah-text { font-size: 1.1rem; }
+  .header-actions { gap: 5px; flex-wrap: wrap; justify-content: center; }
+  .btn-icon { padding: 6px 10px; font-size: 0.78rem; }
+}
+
+/* ── Small Mobile 480px ────────────────────────────────── */
+@media (max-width: 480px) {
+  .host-dock { justify-content: flex-start; overflow-x: auto; }
+  .team-point-chips { flex-wrap: wrap; }
+  .q-counter { font-size: 0.85rem; }
+  .badge-group { gap: 5px; }
+  .q-badge { font-size: 0.7rem; padding: 4px 10px; }
+}

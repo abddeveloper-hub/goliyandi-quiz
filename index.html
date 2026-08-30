@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meelad Fest Goliyangadi – Islamic Quiz</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Anek+Malayalam:wght@600;700;800&family=Amiri:wght@400;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Nunito', sans-serif;
+      background: #070a13;
+      background-image: radial-gradient(circle, rgba(124, 58, 237, 0.15) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* ── HEADER ─────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, #090d16 0%, #15102a 50%, #0c1527 100%);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .logo-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, rgba(124,58,237,0.4), rgba(37,99,235,0.4));
+      border: 2px solid rgba(196,181,253,0.4);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: #fbbf24;
+      box-shadow: 0 0 15px rgba(124,58,237,0.3);
+      animation: wobble 4s ease-in-out infinite;
+    }
+    @keyframes wobble {
+      0%,100% { transform: rotate(-6deg); }
+      50% { transform: rotate(6deg) scale(1.08); }
+    }
+    .logo-text h1 {
+      font-size: 1.1rem; font-weight: 900; color: #fff;
+      letter-spacing: 0.5px;
+    }
+    .logo-text p {
+      font-size: 0.76rem; color: #fbbf24; font-weight: 700;
+    }
+
+    .bismillah {
+      font-family: 'Amiri', serif;
+      font-size: 1.65rem;
+      color: #fef08a;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(254,240,138,0.6);
+      animation: glow 2.5s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px rgba(254,240,138,0.4); }
+      to   { text-shadow: 0 0 24px #fff, 0 0 40px rgba(254,240,138,0.8); }
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-scoreboard-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border: 2px solid #fef08a;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 99px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 900;
+      text-decoration: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 3px 14px rgba(245,158,11,0.4);
+      transition: all 0.2s;
+    }
+    .header-scoreboard-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245,158,11,0.6);
+      filter: brightness(1.1);
+    }
+
+    .user-marks-badge {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(6, 95, 70, 0.4));
+      border: 2px solid #10b981;
+      color: #fff;
+      padding: 7px 16px;
+      border-radius: 99px;
+      font-size: 0.9rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.45);
+      transition: transform 0.2s cubic-bezier(.34,1.56,.64,1);
+    }
+    .user-marks-badge.pop {
+      animation: scorePop 0.45s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes scorePop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.22); }
+      100% { transform: scale(1); }
+    }
+    .user-marks-num {
+      color: #34d399;
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+    .user-marks-pts {
+      font-size: 0.75rem;
+      color: #a7f3d0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .q-counter-badge {
+      background: rgba(255,255,255,0.08);
+      border: 2px solid rgba(255,255,255,0.18);
+      color: #f8fafc;
+      padding: 8px 18px;
+      border-radius: 99px;
+      font-size: 0.95rem;
+      font-weight: 900;
+    }
+
+    /* ── MAIN LAYOUT ─────────────────────────────── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    /* ── QUESTION + OPTIONS (Left big area) ─────── */
+    .left-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 24px;
+      padding-bottom: 90px;
+    }
+
+    .question-card {
+      background: #0e1626;
+      border-radius: 24px;
+      padding: 30px 36px;
+      box-shadow: 0 10px 32px rgba(0,0,0,0.6);
+      border: 2px solid rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .question-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 5px;
+      background: linear-gradient(90deg, #e21b3c, #f4a21b, #26890c, #1368ce, #7c3aed, #e21b3c);
+      background-size: 300% auto;
+      animation: rainbow 3s linear infinite;
+    }
+    @keyframes rainbow { to { background-position: 300% center; } }
+
+    .question-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px;
+      padding-top: 4px;
+    }
+    .meta-badges { display: flex; gap: 8px; }
+    .badge {
+      padding: 5px 13px; border-radius: 99px;
+      font-size: 0.75rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .badge-round  { background: rgba(124,58,237,0.25); color: #c4b5fd; border: 2px solid rgba(196,181,253,0.3); }
+    .badge-pts    { background: rgba(16,185,129,0.22); color: #6ee7b7; border: 2px solid rgba(110,231,183,0.3); }
+
+    .question-text-ml {
+      font-family: 'Anek Malayalam', sans-serif;
+      font-size: 2.05rem; font-weight: 800;
+      color: #f8fafc; line-height: 1.48;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .question-text-kn {
+      display: none;
+      font-family: 'Noto Sans Kannada', 'Nunito', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #f8fafc;
+      line-height: 1.48;
+      margin-bottom: 14px;
+    }
+    .question-text-en {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: #94a3b8; line-height: 1.45;
+      padding-top: 12px;
+      border-top: 2px dashed rgba(255,255,255,0.08);
+    }
+
+    /* ── 4 OPTIONS ───────────────────────────────── */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .option-btn {
+      border: none; border-radius: 18px;
+      padding: 20px 22px;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 14px;
+      text-align: left;
+      transition: transform 0.18s cubic-bezier(.34,1.56,.64,1), filter 0.18s;
+      outline: none;
+      position: relative; overflow: hidden;
+    }
+    .option-btn:nth-child(1) { background:#dc2626; box-shadow: 0 7px 0 #991b1b; }
+    .option-btn:nth-child(2) { background:#2563eb; box-shadow: 0 7px 0 #1d4ed8; }
+    .option-btn:nth-child(3) { background:#d97706; box-shadow: 0 7px 0 #b45309; }
+    .option-btn:nth-child(4) { background:#16a34a; box-shadow: 0 7px 0 #15803d; }
+
+    .option-btn:hover:not(:disabled):not(.eliminated) {
+      transform: translateY(-4px) scale(1.025);
+      filter: brightness(1.15);
+    }
+    .option-btn:active:not(:disabled):not(.eliminated) {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.5) !important;
+    }
+
+    .option-letter {
+      width: 44px; height: 44px; flex-shrink: 0;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.3);
+      border: 2px solid rgba(255,255,255,0.4);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; font-weight: 900;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .option-text {
+      font-family: 'Anek Malayalam', 'Nunito', sans-serif;
+      font-size: 1.2rem; font-weight: 800;
+      color: #fff;
+      line-height: 1.35;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      flex: 1;
+    }
+
+    /* Option States */
+    .option-btn.selected {
+      outline: 4px solid #fff;
+      outline-offset: 2px;
+      transform: translateY(-3px) scale(1.025) !important;
+      filter: brightness(1.15);
+    }
+    .option-btn.correct {
+      background: #16a34a !important;
+      box-shadow: 0 7px 0 #15803d, 0 0 0 4px #fff, 0 0 0 8px #4ade80 !important;
+      transform: scale(1.04) !important;
+      animation: correctPop 0.5s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes correctPop {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.1); }
+      70%  { transform: scale(0.97); }
+      100% { transform: scale(1.04); }
+    }
+    .option-btn.wrong {
+      opacity: 0.35 !important;
+      filter: grayscale(0.7) !important;
+      transform: scale(0.97) !important;
+      animation: wrongShake 0.4s ease-in-out;
+    }
+    @keyframes wrongShake {
+      0%,100%  { transform: translateX(0) scale(0.97); }
+      25%  { transform: translateX(-8px) scale(0.97); }
+      75%  { transform: translateX(8px) scale(0.97); }
+    }
+    .option-btn.eliminated {
+      opacity: 0.12 !important;
+      filter: grayscale(1) !important;
+      pointer-events: none !important;
+    }
+    .option-btn.timeup-disabled:not(.selected):not(.correct):not(.wrong) {
+      cursor: not-allowed !important;
+      opacity: 0.65;
+      filter: grayscale(0.3);
+    }
+
+    /* ── EXPLANATION CARD ────────────────────────── */
+    .explanation-card {
+      background: rgba(6, 78, 59, 0.45);
+      border: 2px solid #10b981;
+      border-radius: 18px;
+      padding: 18px 22px;
+      display: flex; gap: 14px; align-items: flex-start;
+      box-shadow: 0 6px 0 rgba(16,185,129,0.3), 0 8px 24px rgba(0,0,0,0.5);
+      animation: slideUp 0.35s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .exp-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: linear-gradient(135deg, #10b981, #0d9488);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: #fff;
+      box-shadow: 0 4px 0 #059669;
+    }
+    .exp-content h4 { color: #34d399; font-size: 0.95rem; font-weight: 900; margin-bottom: 5px; }
+    .exp-ml { font-family: 'Anek Malayalam', sans-serif; font-size: 1.05rem; color: #f0fdf4; line-height: 1.45; margin-bottom: 4px; }
+    .exp-en { font-size: 0.92rem; color: #a7f3d0; line-height: 1.4; }
+
+    /* ── RIGHT PANEL (TIMER & SCOREBOARD) ───────── */
+    .right-panel {
+      width: 330px;
+      background: #090d16;
+      border-left: 2px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 16px 100px;
+      gap: 16px;
+      overflow-y: auto;
+    }
+
+    /* ── TIMER CARD ──────────────────────────────── */
+    .timer-card {
+      background: #0e1626;
+      border-radius: 22px;
+      padding: 16px 16px 18px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      border: 2px solid rgba(124,58,237,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .timer-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #7c3aed, #2563eb, #0ea5e9);
+    }
+
+    .timer-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1.5px dashed rgba(255,255,255,0.1);
+    }
+    .timer-card-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.92rem;
+      font-weight: 900;
+      color: #f8fafc;
+    }
+    .timer-card-title i {
+      color: #a78bfa;
+    }
+    .timer-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .timer-status-badge {
+      font-size: 0.68rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border-radius: 99px;
+      background: rgba(124,58,237,0.3);
+      color: #c4b5fd;
+      border: 1.5px solid rgba(196,181,253,0.3);
+      transition: all 0.2s ease;
+    }
+    .timer-status-badge.running {
+      background: rgba(16,185,129,0.25);
+      color: #34d399;
+      border-color: #10b981;
+      animation: statusPulse 1.5s infinite;
+    }
+    .timer-status-badge.timeup {
+      background: rgba(239,68,68,0.25);
+      color: #f87171;
+      border-color: #ef4444;
+      animation: urgentPulse 0.5s infinite alternate;
+    }
+    @keyframes statusPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.82; transform: scale(1.04); }
+    }
+
+    .timer-ring-wrap {
+      position: relative; width: 140px; height: 140px; margin: 4px 0;
+    }
+    .timer-svg { transform: rotate(-90deg); }
+    .ring-bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 10; }
+    .ring-fg {
+      fill: none;
+      stroke: url(#grad);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-dasharray: 440;
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 0.9s linear;
+      filter: drop-shadow(0 0 10px rgba(124,58,237,0.7));
+    }
+    .ring-fg.urgent {
+      stroke: #ef4444 !important;
+      filter: drop-shadow(0 0 14px rgba(239,68,68,0.9));
+      animation: urgentPulse 0.5s infinite alternate;
+    }
+    @keyframes urgentPulse {
+      from { stroke-width: 10; }
+      to   { stroke-width: 13; }
+    }
+
+    .timer-digits {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      text-align: center;
+    }
+    .timer-num {
+      font-size: 2.8rem; font-weight: 900;
+      color: #f8fafc; line-height: 1;
+    }
+    .ring-fg.urgent ~ .timer-digits .timer-num { color: #ef4444; }
+    .timer-lbl {
+      font-size: 0.65rem; font-weight: 800;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: #94a3b8; margin-top: 3px;
+      white-space: nowrap;
+    }
+
+    /* ── PARTICIPANT MARKS CARD ──────────────────── */
+    .marks-card {
+      background: #0e1626;
+      border-radius: 22px;
+      padding: 16px 16px 14px;
+      width: 100%;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      border: 2px solid rgba(16,185,129,0.3);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .marks-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #10b981, #f59e0b, #7c3aed);
+    }
+    .marks-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .marks-card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.92rem;
+      font-weight: 900;
+      color: #f8fafc;
+    }
+    .marks-badge {
+      font-size: 0.7rem;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 99px;
+      background: rgba(16,185,129,0.2);
+      color: #6ee7b7;
+      border: 1px solid rgba(110,231,183,0.3);
+    }
+    .marks-score-showcase {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(6,78,59,0.4) 0%, rgba(88,28,135,0.4) 100%);
+      border: 1.5px solid rgba(16,185,129,0.35);
+      border-radius: 14px;
+      padding: 10px 8px;
+    }
+    .marks-main-num {
+      font-size: 2.3rem;
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, #34d399, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: transform 0.2s cubic-bezier(.34,1.56,.64,1);
+    }
+    .marks-main-lbl {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-top: 3px;
+    }
+    .marks-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .stat-box {
+      border-radius: 12px;
+      padding: 6px 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .stat-box.correct {
+      background: rgba(6,78,59,0.45);
+      border: 1.5px solid rgba(52,211,153,0.35);
+    }
+    .stat-box.wrong {
+      background: rgba(127,29,29,0.45);
+      border: 1.5px solid rgba(248,113,113,0.35);
+    }
+    .stat-val {
+      font-size: 1.15rem;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+    .stat-box.correct .stat-val { color: #4ade80; }
+    .stat-box.wrong .stat-val { color: #f87171; }
+    .stat-lbl {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #94a3b8;
+    }
+    .marks-progress-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .marks-progress-bar {
+      height: 7px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .marks-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #059669);
+      border-radius: 99px;
+      transition: width 0.4s ease;
+    }
+    .marks-progress-text {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #94a3b8;
+      text-align: right;
+    }
+    .c-btn-open {
+      margin-top: 2px;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: #fff;
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 0 #1e40af;
+      transition: all 0.18s;
+    }
+    .c-btn-open:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.15);
+    }
+
+    /* ── BOTTOM NAV BAR ──────────────────────────── */
+    .bottom-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #090d16;
+      border-top: 2px solid rgba(255,255,255,0.08);
+      padding: 10px 28px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px;
+      box-shadow: 0 -10px 32px rgba(0,0,0,0.7);
+      z-index: 100;
+    }
+    .nav-btn {
+      background: #1e293b;
+      border: 2px solid rgba(255,255,255,0.12);
+      color: #f1f5f9;
+      padding: 10px 22px;
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem; font-weight: 800;
+      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: all 0.2s cubic-bezier(.34,1.56,.64,1);
+      box-shadow: 0 4px 0 rgba(0,0,0,0.5);
+    }
+    .nav-btn:hover {
+      background: #334155; border-color: #818cf8; color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 7px 0 rgba(129,140,248,0.3);
+    }
+    .nav-btn:active { transform: translateY(1px); box-shadow: 0 1px 0 rgba(0,0,0,0.4); }
+
+    /* Next question button */
+    .nav-btn.next {
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: #fff; border-color: #4338ca;
+      box-shadow: 0 4px 0 #1e1b4b;
+      padding: 11px 28px;
+    }
+    .nav-btn.next:hover {
+      background: linear-gradient(135deg, #6d28d9, #1d4ed8);
+      transform: translateY(-3px);
+      box-shadow: 0 7px 0 #172554;
+      color: #fff;
+    }
+
+    /* ── LANGUAGE SWITCHER ────────────────────────── */
+    .lang-switcher {
+      display: flex;
+      background: rgba(255,255,255,0.08);
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 99px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.82rem; font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .lang-btn:hover { color: #fff; background: rgba(255,255,255,0.12); }
+    .lang-btn.active {
+      background: #7c3aed;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(124,58,237,0.4);
+    }
+
+    /* ── TIMER SETTINGS MODAL ────────────────────── */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+      animation: modalFadeIn 0.22s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .modal-card {
+      background: #0e1626;
+      color: #f8fafc;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 2px rgba(124,58,237,0.3);
+      display: flex;
+      flex-direction: column;
+      animation: modalSlideUp 0.28s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes modalSlideUp {
+      from { transform: translateY(30px) scale(0.95); opacity: 0; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1.5px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to right, rgba(124,58,237,0.2), rgba(37,99,235,0.2));
+      border-radius: 24px 24px 0 0;
+    }
+    .modal-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-title h3 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #fff;
+    }
+    .modal-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.1);
+      color: #94a3b8;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s;
+    }
+    .modal-close-btn:hover {
+      background: #ef4444;
+      color: #fff;
+      transform: rotate(90deg);
+    }
+    .modal-body {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .setting-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .setting-label {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .setting-group-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      gap: 12px;
+    }
+    .setting-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .setting-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .setting-desc {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    /* Switch Toggle */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: rgba(255,255,255,0.2);
+      transition: .3s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+    input:checked + .slider {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    /* Radio pill groups */
+    .radio-pill-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .radio-pill-btn {
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: #cbd5e1;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-align: left;
+      transition: all 0.18s;
+    }
+    .radio-pill-btn:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .radio-pill-btn.active {
+      background: rgba(124,58,237,0.3);
+      border-color: #7c3aed;
+      color: #c4b5fd;
+    }
+
+    .threshold-pill-group {
+      display: flex;
+      gap: 8px;
+    }
+    .thresh-btn {
+      flex: 1;
+      padding: 8px 4px;
+      border-radius: 10px;
+      border: 2px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: #cbd5e1;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .thresh-btn:hover {
+      border-color: #f87171;
+      background: rgba(239,68,68,0.15);
+    }
+    .thresh-btn.active {
+      background: rgba(239,68,68,0.3);
+      border-color: #ef4444;
+      color: #fca5a5;
+      font-weight: 900;
+    }
+
+    .modal-footer {
+      padding: 14px 24px 20px;
+      border-top: 1.5px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 0 0 24px 24px;
+    }
+    .btn-secondary {
+      padding: 10px 18px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.05);
+      color: #cbd5e1;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.18s;
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
+    .btn-primary {
+      padding: 10px 22px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(124,58,237,0.35);
+      transition: all 0.18s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(124,58,237,0.45);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────── */
+    @media (max-width: 900px) {
+      main { flex-direction: column; }
+      .right-panel { width: 100%; border-left: none; border-top: 3px solid rgba(124,58,237,0.12); flex-direction: row; flex-wrap: wrap; justify-content: center; padding: 16px; gap: 16px; }
+      .timer-card { width: auto; min-width: 290px; }
+    }
+    @media (max-width: 640px) {
+      .bismillah { font-size: 1.2rem; }
+      header { padding: 12px 16px; flex-wrap: wrap; }
+      .logo-text h1 { font-size: 0.9rem; }
+      .left-panel { padding: 14px 14px 90px; }
+      .question-card { padding: 20px 18px; }
+      .question-text-ml { font-size: 1.45rem; }
+      .question-text-en { font-size: 1rem; }
+      .options-grid { grid-template-columns: 1fr; }
+      .option-btn { padding: 15px 16px; }
+      .option-text { font-size: 1.05rem; }
+      .right-panel { padding: 12px; }
+      .bottom-bar { padding: 8px 14px; gap: 8px; }
+      .nav-btn { padding: 8px 14px; font-size: 0.82rem; }
+      .nav-btn.reveal { padding: 10px 20px; font-size: 0.9rem; }
+      .header-timer-btn { padding: 6px 10px; font-size: 0.76rem; }
+      .lang-btn { padding: 5px 10px; font-size: 0.76rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Confetti -->
+  <canvas id="confettiCanvas" style="position:fixed;inset:0;pointer-events:none;z-index:9999;"></canvas>
+
+  <!-- SVG gradient for timer ring -->
+  <svg style="position:absolute;width:0;height:0;" aria-hidden="true">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%"  stop-color="#7c3aed"/>
+        <stop offset="50%" stop-color="#2563eb"/>
+        <stop offset="100%"stop-color="#0ea5e9"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- ══ HEADER ═══════════════════════════════════ -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-moon"></i></div>
+      <div class="logo-text">
+        <h1>MEELAD FEST GOLIYANGADI</h1>
+        <p>Students Fest • Grand Islamic Quiz</p>
+      </div>
+    </div>
+
+    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+
+    <div class="header-actions">
+      <!-- Participant Live Marks Badge -->
+      <div class="user-marks-badge" id="userMarksBadge" title="Your Total Marks Earned">
+        <i class="fa-solid fa-star" style="color:#fbbf24;"></i>
+        <span>Marks:</span>
+        <span class="user-marks-num" id="userMarksHeader">0</span>
+        <span class="user-marks-pts">Pts</span>
+      </div>
+
+      <!-- Scoreboard Link -->
+      <a href="scoreboard.html" class="header-scoreboard-btn" id="headerScoreboardBtn" title="Open Individual Contestant Scoreboard">
+        <i class="fa-solid fa-trophy" style="color:#fef08a;"></i> Scoreboard
+      </a>
+
+      <!-- Language Switcher -->
+      <div class="lang-switcher">
+        <button class="lang-btn" id="langMlBtn" title="Malayalam Only">മലയാളം</button>
+        <button class="lang-btn" id="langKnBtn" title="Kannada Only">ಕನ್ನಡ</button>
+        <button class="lang-btn active" id="langBothBtn" title="Show Both Languages"><i class="fa-solid fa-language"></i> Both</button>
+        <button class="lang-btn" id="langEnBtn" title="English Only">English</button>
+      </div>
+      <div class="q-counter-badge" id="qCounterText">Q 1 / 10</div>
+    </div>
+  </header>
+
+  <!-- ══ MAIN ══════════════════════════════════════ -->
+  <main>
+
+    <!-- Left: Question + Options -->
+    <div class="left-panel">
+
+      <!-- Question Card -->
+      <div class="question-card" id="questionCard">
+        <div class="question-meta">
+          <div class="meta-badges">
+            <span class="badge badge-round" id="qRoundBadge">
+              <i class="fa-solid fa-star-and-crescent"></i> Seerah un-Nabi ﷺ
+            </span>
+            <span class="badge badge-pts" id="qPointsBadge">
+              <i class="fa-solid fa-gem"></i> +10 Pts
+            </span>
+          </div>
+        </div>
+        <div class="question-text-ml" id="qTextMl">
+          പ്രവാചകൻ മുഹമ്മദ് നബി ﷺ ജനിച്ച 'ആനക്കലാപം' നടന്ന വർഷം (ആമുൽ ഫീൽ) ഏത് ക്രിസ്താബ്ദത്തിലാണ്?
+        </div>
+        <div class="question-text-kn" id="qTextKn">
+          ಪ್ರವಾದಿ ಮುಹಮ್ಮದ್ ﷺ ಜನಿಸಿದ 'ಆನೆಯ ವರ್ಷ' (ಆಮುಲ್ ಫೀಲ್) ಯಾವ ಕ್ರಿ.ಶ. ವರ್ಷದಲ್ಲಿ ಸಂಭವಿಸಿತು?
+        </div>
+        <div class="question-text-en" id="qTextEn">
+          In which historic year was the Holy Prophet Muhammad ﷺ born in Makkah, famously known as the 'Year of the Elephant'?
+        </div>
+      </div>
+
+      <!-- 4 Options -->
+      <div class="options-grid" id="optionsGrid">
+        <button class="option-btn" data-index="0" id="opt0">
+          <div class="option-letter">A</div>
+          <div class="option-text" id="optText0">570 / 571 CE</div>
+        </button>
+        <button class="option-btn" data-index="1" id="opt1">
+          <div class="option-letter">B</div>
+          <div class="option-text" id="optText1">610 CE</div>
+        </button>
+        <button class="option-btn" data-index="2" id="opt2">
+          <div class="option-letter">C</div>
+          <div class="option-text" id="optText2">622 CE</div>
+        </button>
+        <button class="option-btn" data-index="3" id="opt3">
+          <div class="option-letter">D</div>
+          <div class="option-text" id="optText3">632 CE</div>
+        </button>
+      </div>
+
+      <!-- Explanation (shown after reveal) -->
+      <div class="explanation-card" id="explanationCard" style="display:none;">
+        <div class="exp-icon"><i class="fa-solid fa-book-open"></i></div>
+        <div class="exp-content">
+          <h4>Islamic Reference</h4>
+          <p class="exp-ml" id="expTextMl"></p>
+          <p class="exp-en" id="expTextEn"></p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: Configurable Timer & Live Scoreboard -->
+    <div class="right-panel">
+      <!-- Upgraded Timer Card -->
+      <div class="timer-card" id="timerCard">
+        <div class="timer-card-header">
+          <div class="timer-card-title">
+            <i class="fa-solid fa-stopwatch-20"></i>
+            <span>Timer</span>
+          </div>
+          <div class="timer-header-actions">
+            <span class="timer-status-badge" id="timerStatusBadge">15s</span>
+          </div>
+        </div>
+
+        <div class="timer-ring-wrap">
+          <svg class="timer-svg" width="140" height="140" viewBox="0 0 160 160">
+            <circle class="ring-bg" cx="80" cy="80" r="70"></circle>
+            <circle class="ring-fg" id="timerCircle" cx="80" cy="80" r="70"></circle>
+          </svg>
+          <div class="timer-digits">
+            <div class="timer-num" id="timerSeconds">15</div>
+            <div class="timer-lbl" id="timerLabel">15s Timer</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Participant Marks & Performance Card -->
+      <div class="marks-card" id="marksCard">
+        <div class="marks-card-header">
+          <div class="marks-card-title">
+            <i class="fa-solid fa-medal" style="color:#f59e0b;"></i>
+            <span>My Marks</span>
+          </div>
+          <span class="marks-badge" id="accuracyBadge">100% Acc</span>
+        </div>
+
+        <div class="marks-score-showcase">
+          <div class="marks-main-num" id="marksTotalDisplay">0</div>
+          <div class="marks-main-lbl">Total Marks Earned</div>
+        </div>
+
+        <div class="marks-stats-grid">
+          <div class="stat-box correct">
+            <div class="stat-val" id="statsCorrectCount">0</div>
+            <div class="stat-lbl"><i class="fa-solid fa-check"></i> Correct</div>
+          </div>
+          <div class="stat-box wrong">
+            <div class="stat-val" id="statsWrongCount">0</div>
+            <div class="stat-lbl"><i class="fa-solid fa-xmark"></i> Missed</div>
+          </div>
+        </div>
+
+        <div class="marks-progress-wrap">
+          <div class="marks-progress-bar">
+            <div class="marks-progress-fill" id="marksProgressFill" style="width: 0%;"></div>
+          </div>
+          <div class="marks-progress-text" id="marksProgressText">0 / 100 Max Pts</div>
+        </div>
+
+        <a href="scoreboard.html" class="c-btn-open">
+          <span><i class="fa-solid fa-trophy" style="color:#fef08a;margin-right:6px;"></i> All Standings</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ══ BOTTOM NAV BAR ════════════════════════════ -->
+  <div class="bottom-bar">
+    <button class="nav-btn" id="prevQuestionBtn">
+      <i class="fa-solid fa-arrow-left"></i> Previous
+    </button>
+    <button class="nav-btn next" id="nextQuestionBtn">
+      Next <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+
+  <!-- ══ TIMER SETTINGS MODAL ═══════════════════════ -->
+  <div class="modal-backdrop" id="timerSettingsModal" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-sliders" style="color:#7c3aed;font-size:1.2rem;"></i>
+          <h3>Timer & Timing Settings</h3>
+        </div>
+        <button class="modal-close-btn" id="closeTimerSettingsBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Locked 15s Duration Card -->
+        <div class="setting-group">
+          <label class="setting-label"><i class="fa-solid fa-stopwatch" style="color:#7c3aed;"></i> Question Countdown</label>
+          <div style="background:#f8fafc; border:2px solid #e2e8f0; border-radius:12px; padding:12px 16px; display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="background:linear-gradient(135deg,#7c3aed,#2563eb); color:#fff; font-weight:900; font-size:1.15rem; padding:4px 14px; border-radius:8px; box-shadow:0 2px 6px rgba(124,58,237,0.3);">15s</span>
+              <span style="font-weight:800; color:#1e293b; font-size:0.92rem;">Standard Fixed 15 Seconds</span>
+            </div>
+            <span style="font-size:0.75rem; font-weight:900; color:#059669; background:#d1fae5; padding:4px 10px; border-radius:6px; display:flex; align-items:center; gap:5px;"><i class="fa-solid fa-lock"></i> Fixed</span>
+          </div>
+        </div>
+
+        <!-- Auto-Start Toggle -->
+        <div class="setting-group-row">
+          <div class="setting-text">
+            <div class="setting-title"><i class="fa-solid fa-bolt" style="color:#f59e0b;"></i> Auto-Start Timer</div>
+            <div class="setting-desc">Starts timer automatically on navigating to next or previous question</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="autoStartTimerToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <!-- Auto-Reveal on Time's Up Toggle -->
+        <div class="setting-group-row">
+          <div class="setting-text">
+            <div class="setting-title"><i class="fa-solid fa-eye" style="color:#10b981;"></i> Auto-Reveal on Time's Up</div>
+            <div class="setting-desc">Automatically reveals the correct answer when the countdown hits 0</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="autoRevealToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <!-- Sound Mode -->
+        <div class="setting-group">
+          <label class="setting-label"><i class="fa-solid fa-volume-high" style="color:#2563eb;"></i> Timer Sound Effects</label>
+          <div class="radio-pill-group">
+            <button class="radio-pill-btn active" data-sound="all">
+              <i class="fa-solid fa-volume-high"></i> Full Sound (Tick every sec + Urgent Heartbeat + Time's Up buzzer)
+            </button>
+            <button class="radio-pill-btn" data-sound="urgent_only">
+              <i class="fa-solid fa-heart-pulse"></i> Urgent Only (Quiet ticks, Heartbeat in final seconds + Buzzer)
+            </button>
+            <button class="radio-pill-btn" data-sound="silent">
+              <i class="fa-solid fa-volume-xmark"></i> Silent Mode (Visual countdown alerts only)
+            </button>
+          </div>
+        </div>
+
+        <!-- Urgent Threshold -->
+        <div class="setting-group">
+          <label class="setting-label"><i class="fa-solid fa-triangle-exclamation" style="color:#ef4444;"></i> Urgent Warning Pulse Starts At</label>
+          <div class="threshold-pill-group">
+            <button class="thresh-btn" data-thresh="3">Last 3s</button>
+            <button class="thresh-btn active" data-thresh="5">Last 5s</button>
+            <button class="thresh-btn" data-thresh="7">Last 7s</button>
+            <button class="thresh-btn" data-thresh="10">Last 10s</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" id="resetTimerDefaultsBtn">
+          <i class="fa-solid fa-rotate-left"></i> Reset Defaults
+        </button>
+        <button class="btn-primary" id="saveTimerSettingsBtn">
+          <i class="fa-solid fa-check"></i> Save & Apply
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SCRIPTS ════════════════════════════════════ -->
+  <script src="js/questions-data.js"></script>
+  <script src="js/kn-translations.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/scoreboard.js"></script>
+  <script src="js/quiz-engine.js"></script>
+  <script>
+  /* ── Standalone Quiz UI & Timer Controller ───────────── */
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // DOM References
+    const qTextMl         = document.getElementById('qTextMl');
+    const qTextKn         = document.getElementById('qTextKn');
+    const qTextEn         = document.getElementById('qTextEn');
+    const qCounterText    = document.getElementById('qCounterText');
+    const qRoundBadge     = document.getElementById('qRoundBadge');
+    const qPointsBadge    = document.getElementById('qPointsBadge');
+    const optionBtns      = [0,1,2,3].map(i => document.getElementById(`opt${i}`));
+    const optionTexts     = [0,1,2,3].map(i => document.getElementById(`optText${i}`));
+    const explanationCard = document.getElementById('explanationCard');
+    const expTextMl       = document.getElementById('expTextMl');
+    const expTextEn       = document.getElementById('expTextEn');
+
+    // Timer Card Elements
+    const timerCircle       = document.getElementById('timerCircle');
+    const timerSeconds      = document.getElementById('timerSeconds');
+    const timerLabel        = document.getElementById('timerLabel');
+    const timerStatusBadge  = document.getElementById('timerStatusBadge');
+
+    // Marks Display Elements
+    const userMarksBadge    = document.getElementById('userMarksBadge');
+    const userMarksHeader   = document.getElementById('userMarksHeader');
+    const marksTotalDisplay = document.getElementById('marksTotalDisplay');
+    const accuracyBadge     = document.getElementById('accuracyBadge');
+    const statsCorrectCount = document.getElementById('statsCorrectCount');
+    const statsWrongCount   = document.getElementById('statsWrongCount');
+    const marksProgressFill = document.getElementById('marksProgressFill');
+    const marksProgressText = document.getElementById('marksProgressText');
+
+    // Navigation
+    const prevBtn       = document.getElementById('prevQuestionBtn');
+    const nextBtn       = document.getElementById('nextQuestionBtn');
+
+    // Settings Modal Elements
+    const timerModal             = document.getElementById('timerSettingsModal');
+    const openTimerModalBtn      = document.getElementById('openTimerSettingsBtn');
+    const closeTimerModalBtn     = document.getElementById('closeTimerSettingsBtn');
+    const saveTimerSettingsBtn   = document.getElementById('saveTimerSettingsBtn');
+    const resetTimerDefaultsBtn  = document.getElementById('resetTimerDefaultsBtn');
+    const autoStartToggle        = document.getElementById('autoStartTimerToggle');
+    const autoRevealToggle       = document.getElementById('autoRevealToggle');
+    const soundModeBtns          = document.querySelectorAll('.radio-pill-btn');
+    const threshBtns             = document.querySelectorAll('.thresh-btn');
+
+    const CIRC = 440; // SVG circle circumference for r=70: 2 * Math.PI * 70 ≈ 439.82
+
+    // ── Language mode ───────────────────────────────────────
+    let langMode = 'both'; // 'ml' | 'kn' | 'both' | 'en'
+
+    function applyLang() {
+      qTextMl.style.display = 'none';
+      qTextKn.style.display = 'none';
+      qTextEn.style.display = 'none';
+      if      (langMode === 'ml')   { qTextMl.style.display = 'block'; }
+      else if (langMode === 'kn')   { qTextKn.style.display = 'block'; }
+      else if (langMode === 'en')   { qTextEn.style.display = 'block'; }
+      else {
+        qTextMl.style.display = 'block';
+        qTextEn.style.display = 'block';
+      }
+    }
+
+    function setLang(mode, btnId) {
+      langMode = mode;
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(btnId).classList.add('active');
+      applyLang();
+    }
+
+    // ── Timer Visual Refresh (Fixed 15s) ────────────────────
+    function updateTimerUI(remaining) {
+      const dur = 15;
+      const rem = (remaining !== undefined) ? Math.min(15, Math.max(0, remaining)) : Math.min(15, Math.max(0, window.quizEngine.timeRemaining));
+      
+      timerSeconds.textContent = rem;
+      timerLabel.textContent = '15s Timer';
+
+      const progress = (dur - rem) / dur;
+      const offset = Math.max(0, Math.min(CIRC, CIRC * progress));
+      timerCircle.style.strokeDashoffset = offset;
+
+      const isUrgent = rem <= window.quizEngine.urgentThreshold && rem > 0;
+      if (isUrgent) {
+        timerCircle.classList.add('urgent');
+      } else {
+        timerCircle.classList.remove('urgent');
+      }
+
+      // Update badge state
+      if (rem === 0) {
+        timerStatusBadge.className = 'timer-status-badge timeup';
+        timerStatusBadge.textContent = "Time's Up!";
+      } else if (window.quizEngine.isTimerRunning) {
+        timerStatusBadge.className = 'timer-status-badge running';
+        timerStatusBadge.textContent = 'Running';
+      } else {
+        timerStatusBadge.className = 'timer-status-badge';
+        timerStatusBadge.textContent = '15s';
+      }
+    }
+
+    // ── Timer engine callbacks ──────────────────────────────
+    window.quizEngine.onTick = (remaining) => {
+      updateTimerUI(remaining);
+    };
+
+    window.quizEngine.onTimeUp = () => {
+      updateTimerUI(0);
+    };
+
+    window.quizEngine.onStateChange = () => {
+      renderQuestion();
+    };
+
+    // ── Live Participant Marks Refresh ─────────────────────
+    let lastRenderedMarks = 0;
+    function updateMarksUI() {
+      if (!window.quizEngine || !window.quizEngine.getScoreStats) return;
+      const stats = window.quizEngine.getScoreStats();
+
+      if (userMarksHeader)   userMarksHeader.textContent = stats.totalScore;
+      if (marksTotalDisplay) marksTotalDisplay.textContent = stats.totalScore;
+      if (accuracyBadge)     accuracyBadge.textContent = `${stats.accuracyPercent}% Acc`;
+      if (statsCorrectCount) statsCorrectCount.textContent = stats.correctCount;
+      if (statsWrongCount)   statsWrongCount.textContent = stats.wrongCount;
+      if (marksProgressFill) marksProgressFill.style.width = `${stats.progressPercent}%`;
+      if (marksProgressText) marksProgressText.textContent = `${stats.totalScore} / ${stats.maxPossibleScore} Max Pts`;
+
+      // Trigger bounce/pop animation when points are earned
+      if (stats.totalScore > lastRenderedMarks) {
+        if (userMarksBadge) {
+          userMarksBadge.classList.remove('pop');
+          void userMarksBadge.offsetWidth;
+          userMarksBadge.classList.add('pop');
+        }
+        if (marksTotalDisplay) {
+          marksTotalDisplay.style.transform = 'scale(1.2)';
+          setTimeout(() => { marksTotalDisplay.style.transform = 'scale(1)'; }, 250);
+        }
+      }
+      lastRenderedMarks = stats.totalScore;
+    }
+
+    // ── Render active question ──────────────────────────────
+    function renderQuestion() {
+      const q     = window.quizEngine.getCurrentQuestion();
+      const total = window.quizEngine.getTotalQuestions();
+      const idx   = window.quizEngine.getCurrentIndex();
+
+      if (!q) {
+        qTextMl.textContent = 'ചോദ്യങ്ങൾ ലഭ്യമല്ല.';
+        qTextKn.textContent = '';
+        qTextEn.textContent = 'No questions available.';
+        qCounterText.textContent = '0 / 0';
+        updateMarksUI();
+        return;
+      }
+
+      qTextMl.textContent = q.questionMl || '';
+      qTextKn.textContent = (typeof KN_TRANSLATIONS !== 'undefined' && KN_TRANSLATIONS[q.id])
+        ? KN_TRANSLATIONS[q.id]
+        : q.questionEn || '';
+      qTextEn.textContent = q.questionEn || '';
+
+      applyLang();
+      qCounterText.textContent = `Q ${idx + 1} / ${total}`;
+      qRoundBadge.textContent  = q.roundName  || 'Quiz Round';
+      qPointsBadge.textContent = `+${q.points || 10} Pts`;
+
+      optionBtns.forEach((btn, i) => {
+        optionTexts[i].textContent = q.options[i] || '';
+        btn.className = 'option-btn';
+
+        if (window.quizEngine.eliminatedOptions.includes(i))  btn.classList.add('eliminated');
+        if (window.quizEngine.selectedOptionIndex === i)      btn.classList.add('selected');
+
+        if ((window.quizEngine.timeRemaining <= 0 || window.quizEngine.isLocked) && !window.quizEngine.isAnswerRevealed) {
+          btn.classList.add('timeup-disabled');
+        }
+
+        if (window.quizEngine.isAnswerRevealed) {
+          if (i === q.correctIndex) btn.classList.add('correct');
+          else if (window.quizEngine.selectedOptionIndex === i) btn.classList.add('wrong');
+        }
+      });
+
+      // Explanation & confetti
+      if (window.quizEngine.isAnswerRevealed) {
+        explanationCard.style.display = 'flex';
+        expTextMl.textContent = q.explanationMl || '';
+        expTextEn.textContent = q.explanationEn || '';
+        if (window.quizEngine.selectedOptionIndex === q.correctIndex) {
+          spawnConfetti();
+        }
+      } else {
+        explanationCard.style.display = 'none';
+      }
+
+      updateTimerUI();
+      updateMarksUI();
+    }
+
+    // ── Option clicks ───────────────────────────────────────
+    optionBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (window.quizEngine.timeRemaining <= 0 || window.quizEngine.isAnswerRevealed || window.quizEngine.isLocked) return;
+        const i = parseInt(btn.getAttribute('data-index'), 10);
+        window.quizEngine.selectOption(i);
+      });
+    });
+
+    // ── Navigation buttons ──────────────────────────────────
+    prevBtn.addEventListener('click', () => window.quizEngine.prevQuestion());
+    nextBtn.addEventListener('click', () => window.quizEngine.nextQuestion());
+
+    // ── Language button click handlers ──────────────────────
+    document.getElementById('langMlBtn').addEventListener('click',   () => setLang('ml',   'langMlBtn'));
+    document.getElementById('langKnBtn').addEventListener('click',   () => setLang('kn',   'langKnBtn'));
+    document.getElementById('langBothBtn').addEventListener('click', () => setLang('both', 'langBothBtn'));
+    document.getElementById('langEnBtn').addEventListener('click',   () => setLang('en',   'langEnBtn'));
+
+    // ── Timer Settings Modal Logic ──────────────────────────
+    function openTimerModal() {
+      const settings = window.quizEngine.getTimerSettings();
+      autoStartToggle.checked = settings.autoStart;
+      autoRevealToggle.checked = settings.autoReveal;
+
+      soundModeBtns.forEach(btn => {
+        if (btn.getAttribute('data-sound') === settings.soundMode) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      threshBtns.forEach(btn => {
+        const t = parseInt(btn.getAttribute('data-thresh'), 10);
+        if (t === settings.urgentThreshold) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      timerModal.style.display = 'flex';
+    }
+
+    function closeTimerModal() {
+      timerModal.style.display = 'none';
+    }
+
+    if (closeTimerModalBtn) closeTimerModalBtn.addEventListener('click', closeTimerModal);
+
+    timerModal.addEventListener('click', (e) => {
+      if (e.target === timerModal) {
+        closeTimerModal();
+      }
+    });
+
+    soundModeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        soundModeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    threshBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        threshBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    saveTimerSettingsBtn.addEventListener('click', () => {
+      const activeSound = document.querySelector('.radio-pill-btn.active');
+      const soundMode = activeSound ? activeSound.getAttribute('data-sound') : 'all';
+
+      const activeThresh = document.querySelector('.thresh-btn.active');
+      const urgentThreshold = activeThresh ? parseInt(activeThresh.getAttribute('data-thresh'), 10) : 5;
+
+      window.quizEngine.setTimerSettings({
+        autoStart: autoStartToggle.checked,
+        autoReveal: autoRevealToggle.checked,
+        soundMode: soundMode,
+        urgentThreshold: urgentThreshold
+      });
+
+      if (window.soundEngine) window.soundEngine.playCorrect();
+      closeTimerModal();
+      updateTimerUI();
+    });
+
+    resetTimerDefaultsBtn.addEventListener('click', () => {
+      if (confirm('Reset timer configuration to default settings (15 seconds, manual start, full sound)?')) {
+        window.quizEngine.resetTimerDefaults();
+        openTimerModal();
+        updateTimerUI();
+      }
+    });
+
+    // ── Keyboard shortcuts ──────────────────────────────────
+    document.addEventListener('keydown', e => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      switch(e.key) {
+        case '1': case 'a': case 'A': if (!window.quizEngine.isLocked) window.quizEngine.selectOption(0); break;
+        case '2': case 'b': case 'B': if (!window.quizEngine.isLocked) window.quizEngine.selectOption(1); break;
+        case '3': case 'c': case 'C': if (!window.quizEngine.isLocked) window.quizEngine.selectOption(2); break;
+        case '4': case 'd': case 'D': if (!window.quizEngine.isLocked) window.quizEngine.selectOption(3); break;
+        case 'n': case 'N': case 'ArrowRight': window.quizEngine.nextQuestion(); break;
+        case 'p': case 'P': case 'ArrowLeft':  window.quizEngine.prevQuestion(); break;
+        case 'Escape': closeTimerModal(); break;
+      }
+    });
+
+    // ── Confetti Animation ──────────────────────────────────
+    const canvas = document.getElementById('confettiCanvas');
+    const ctx2d  = canvas.getContext('2d');
+    let particles = [];
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    function spawnConfetti() {
+      const colors = ['#e21b3c','#1368ce','#e8a000','#26890c','#7c3aed','#0ea5e9','#f59e0b'];
+      for (let i = 0; i < 120; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: -10,
+          vx: (Math.random() - 0.5) * 4,
+          vy: Math.random() * 4 + 2,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          w: Math.random() * 10 + 6,
+          h: Math.random() * 5 + 4,
+          angle: Math.random() * 360,
+          spin: (Math.random() - 0.5) * 6,
+          life: 1
+        });
+      }
+      drawConfetti();
+    }
+
+    function drawConfetti() {
+      ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, idx) => {
+        p.x += p.vx; p.y += p.vy;
+        p.angle += p.spin; p.vy += 0.08; p.life -= 0.007;
+        if (p.life <= 0 || p.y > canvas.height) {
+          particles.splice(idx, 1); return;
+        }
+        ctx2d.save();
+        ctx2d.globalAlpha = p.life;
+        ctx2d.translate(p.x, p.y);
+        ctx2d.rotate(p.angle * Math.PI / 180);
+        ctx2d.fillStyle = p.color;
+        ctx2d.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+        ctx2d.restore();
+      });
+      if (particles.length > 0) requestAnimationFrame(drawConfetti);
+    }
+
+    window.launchConfetti = () => { spawnConfetti(); };
+
+    // Initial render & auto-start 15s countdown
+    renderQuestion();
+    window.quizEngine.startTimer();
+  });
+  </script>
+
+</body>
+</html>

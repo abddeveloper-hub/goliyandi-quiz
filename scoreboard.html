@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scoreboard & Leaderboard | Meelad Fest Goliyangadi</title>
+  <meta name="description" content="Live individual contestant leaderboard and score tracking for Meelad Fest Goliyangadi Grand Islamic Quiz.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Anek+Malayalam:wght@400;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+    }
+
+    :root {
+      --brand-1: #7c3aed;
+      --brand-2: #2563eb;
+      --brand-3: #0ea5e9;
+      --gold: #f59e0b;
+      --silver: #94a3b8;
+      --bronze: #d97706;
+      --bg: #0f172a;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --font-ui: 'Nunito', sans-serif;
+      --font-ml: 'Anek Malayalam', sans-serif;
+      --font-ar: 'Amiri', serif;
+    }
+
+    body {
+      font-family: var(--font-ui);
+      background: radial-gradient(circle at 50% 10%, #1e1b4b 0%, #0f172a 60%, #020617 100%);
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ══ HEADER ═════════════════════════════════════ */
+    header {
+      background: linear-gradient(135deg, #1e1b4b 0%, #311042 50%, #0f172a 100%);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #f59e0b, #e11d48);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 22px;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+    }
+
+    .brand-text h1 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-text p {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #fbbf24;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .arabic-banner {
+      font-family: var(--font-ar);
+      font-size: 1.5rem;
+      color: #fef08a;
+      text-shadow: 0 0 12px rgba(254, 240, 138, 0.4);
+      direction: rtl;
+    }
+
+    @media (max-width: 900px) {
+      .arabic-banner { display: none; }
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.18s;
+    }
+
+    .btn-nav.back-quiz {
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: #fff;
+      box-shadow: 0 4px 0 #1e40af;
+    }
+
+    .btn-nav.back-quiz:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    .btn-nav.action-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-nav.action-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ══ MAIN CONTAINER ═════════════════════════════ */
+    .main-container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 24px 16px 60px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ══ PODIUM SECTION ═════════════════════════════ */
+    .podium-card {
+      background: linear-gradient(180deg, rgba(30, 27, 75, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border-radius: 24px;
+      border: 2px solid rgba(124, 58, 237, 0.3);
+      padding: 30px 20px 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .podium-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #f59e0b, #ec4899, #7c3aed, #0ea5e9);
+    }
+
+    .podium-title {
+      text-align: center;
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .podium-title i {
+      color: #f59e0b;
+      filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6));
+    }
+
+    .podium-stage {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 16px;
+      min-height: 240px;
+      padding-top: 20px;
+    }
+
+    .podium-column {
+      flex: 1;
+      max-width: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .podium-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 8px;
+      position: relative;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .podium-column.gold .podium-avatar {
+      width: 74px;
+      height: 74px;
+      background: linear-gradient(135deg, #fbbf24, #d97706);
+      border: 3px solid #fef08a;
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+      font-size: 30px;
+    }
+
+    .podium-column.silver .podium-avatar {
+      background: linear-gradient(135deg, #cbd5e1, #64748b);
+      border: 3px solid #f1f5f9;
+    }
+
+    .podium-column.bronze .podium-avatar {
+      background: linear-gradient(135deg, #f59e0b, #b45309);
+      border: 3px solid #fed7aa;
+    }
+
+    .podium-crown {
+      position: absolute;
+      top: -18px;
+      font-size: 24px;
+      color: #f59e0b;
+      filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.8));
+      animation: floatCrown 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatCrown {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-4px); }
+    }
+
+    .podium-name {
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 180px;
+    }
+
+    .podium-score {
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: #fbbf24;
+      margin-bottom: 8px;
+    }
+
+    .podium-pillar {
+      width: 100%;
+      border-radius: 14px 14px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.8rem;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+      box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .podium-column.gold .podium-pillar {
+      height: 140px;
+      background: linear-gradient(180deg, #f59e0b 0%, #b45309 100%);
+      border: 2px solid #fef08a;
+      border-bottom: none;
+    }
+
+    .podium-column.silver .podium-pillar {
+      height: 105px;
+      background: linear-gradient(180deg, #94a3b8 0%, #475569 100%);
+      border: 2px solid #e2e8f0;
+      border-bottom: none;
+    }
+
+    .podium-column.bronze .podium-pillar {
+      height: 80px;
+      background: linear-gradient(180deg, #d97706 0%, #78350f 100%);
+      border: 2px solid #fed7aa;
+      border-bottom: none;
+    }
+
+    /* ══ LEADERBOARD CARD & TABLE ═══════════════════ */
+    .leaderboard-card {
+      background: #0e1626;
+      border-radius: 24px;
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.6);
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+
+    .card-header-bar {
+      padding: 18px 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .card-header-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-header-title h2 {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .participant-count-badge {
+      background: rgba(124, 58, 237, 0.3);
+      color: #c4b5fd;
+      border: 1px solid rgba(196, 181, 253, 0.3);
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-input {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      font-weight: 700;
+      outline: none;
+      width: 200px;
+      transition: all 0.18s;
+    }
+
+    .search-input:focus {
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+    }
+
+    /* Add Participant Form */
+    .add-participant-bar {
+      padding: 16px 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .add-input {
+      flex: 1;
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-family: var(--font-ui);
+      font-size: 0.92rem;
+      font-weight: 700;
+      outline: none;
+      transition: all 0.18s;
+    }
+
+    .add-input:focus {
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-add {
+      background: #10b981;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 0 #059669;
+      transition: all 0.18s;
+    }
+
+    .btn-add:hover {
+      background: #059669;
+      transform: translateY(-2px);
+    }
+
+    .btn-add:active {
+      transform: translateY(2px);
+      box-shadow: none;
+    }
+
+    /* Leaderboard Items */
+    .participants-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .participant-row {
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .participant-row:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .participant-row.rank-1 {
+      background: rgba(245, 158, 11, 0.12);
+      border-left: 6px solid #f59e0b;
+    }
+
+    .participant-row.rank-2 {
+      background: rgba(148, 163, 184, 0.08);
+      border-left: 6px solid #94a3b8;
+    }
+
+    .participant-row.rank-3 {
+      background: rgba(217, 119, 6, 0.1);
+      border-left: 6px solid #d97706;
+    }
+
+    .rank-badge-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 240px;
+    }
+
+    .rank-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1rem;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+    }
+
+    .rank-1 .rank-num { background: #f59e0b; color: #fff; box-shadow: 0 0 12px rgba(245, 158, 11, 0.6); }
+    .rank-2 .rank-num { background: #94a3b8; color: #fff; }
+    .rank-3 .rank-num { background: #d97706; color: #fff; }
+
+    .participant-name-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .participant-name {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #f8fafc;
+      cursor: pointer;
+    }
+
+    .participant-name:hover {
+      color: #a78bfa;
+      text-decoration: underline;
+    }
+
+    .participant-meta {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #64748b;
+    }
+
+    .participant-score-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .score-display {
+      font-size: 1.45rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #a78bfa, #38bdf8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      min-width: 80px;
+      text-align: right;
+    }
+
+    .score-action-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .score-btn {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .score-btn.add-10 { background: rgba(16,185,129,0.25); color: #34d399; border-color: rgba(16,185,129,0.4); }
+    .score-btn.add-10:hover { background: #16a34a; color: #fff; transform: scale(1.06); }
+
+    .score-btn.add-5  { background: rgba(37,99,235,0.25); color: #60a5fa; border-color: rgba(37,99,235,0.4); }
+    .score-btn.add-5:hover { background: #2563eb; color: #fff; transform: scale(1.06); }
+
+    .score-btn.sub-5  { background: rgba(239,68,68,0.25); color: #f87171; border-color: rgba(239,68,68,0.4); }
+    .score-btn.sub-5:hover { background: #dc2626; color: #fff; transform: scale(1.06); }
+
+    .btn-delete {
+      background: transparent;
+      border: none;
+      color: #64748b;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 6px 8px;
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-delete:hover {
+      background: rgba(239,68,68,0.2);
+      color: #ef4444;
+    }
+
+    /* Empty state */
+    .empty-state {
+      padding: 40px 20px;
+      text-align: center;
+      color: #64748b;
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 12px;
+      color: #475569;
+    }
+
+    /* Confetti Canvas */
+    #confettiCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .card-header-bar { flex-direction: column; align-items: stretch; }
+      .participant-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .participant-score-wrap { width: 100%; justify-content: space-between; }
+      .podium-stage { gap: 8px; }
+      .podium-name { max-width: 100px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Canvas for celebration confetti -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- ══ TOP HEADER ═════════════════════════════════ -->
+  <header>
+    <div class="brand-section">
+      <div class="brand-icon">
+        <i class="fa-solid fa-trophy"></i>
+      </div>
+      <div class="brand-text">
+        <h1>MEELAD FEST GOLIYANGADI</h1>
+        <p>Individual Quiz Scoreboard & Leaderboard</p>
+      </div>
+    </div>
+
+    <div class="arabic-banner">
+      بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
+    </div>
+
+    <div class="header-actions">
+      <button class="btn-nav action-btn" id="confettiBtn" title="Celebrate Champions">
+        <i class="fa-solid fa-wand-magic-sparkles" style="color:#f59e0b;"></i> Celebrate
+      </button>
+      <button class="btn-nav action-btn" id="resetAllScoresBtn" title="Reset All Scores to 0">
+        <i class="fa-solid fa-rotate-left"></i> Reset
+      </button>
+      <a href="index.html" class="btn-nav back-quiz">
+        <i class="fa-solid fa-arrow-left"></i> Back to Quiz
+      </a>
+    </div>
+  </header>
+
+  <!-- ══ MAIN CONTENT ═══════════════════════════════ -->
+  <main class="main-container">
+
+    <!-- Podium Showcase -->
+    <div class="podium-card">
+      <div class="podium-title">
+        <i class="fa-solid fa-crown"></i>
+        <span>Top Champions Podium</span>
+      </div>
+
+      <div class="podium-stage" id="podiumStage">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Live Leaderboard Card -->
+    <div class="leaderboard-card">
+      <div class="card-header-bar">
+        <div class="card-header-title">
+          <i class="fa-solid fa-users" style="color:#7c3aed;font-size:1.3rem;"></i>
+          <h2>Individual Contestant Standings</h2>
+          <span class="participant-count-badge" id="participantCountBadge">0 Contestants</span>
+        </div>
+
+        <div class="header-controls">
+          <input type="text" id="searchInput" class="search-input" placeholder="Search contestant...">
+        </div>
+      </div>
+
+      <!-- Add Participant Form -->
+      <div class="add-participant-bar">
+        <input type="text" id="newParticipantInput" class="add-input" placeholder="Enter contestant name or registration number...">
+        <button id="addParticipantBtn" class="btn-add">
+          <i class="fa-solid fa-user-plus"></i> Add Contestant
+        </button>
+      </div>
+
+      <!-- Participants List -->
+      <div class="participants-list" id="participantsList">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/scoreboard.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const podiumStage = document.getElementById('podiumStage');
+    const participantsList = document.getElementById('participantsList');
+    const participantCountBadge = document.getElementById('participantCountBadge');
+    const searchInput = document.getElementById('searchInput');
+    const newParticipantInput = document.getElementById('newParticipantInput');
+    const addParticipantBtn = document.getElementById('addParticipantBtn');
+    const resetAllScoresBtn = document.getElementById('resetAllScoresBtn');
+    const confettiBtn = document.getElementById('confettiBtn');
+
+    // ── Render Podium & List ────────────────────────────────
+    function render() {
+      const search = searchInput.value.trim().toLowerCase();
+      const allRanked = window.scoreboardManager.getRankedParticipants();
+      const filtered = allRanked.filter(p => p.name.toLowerCase().includes(search));
+
+      participantCountBadge.textContent = `${allRanked.length} Contestant${allRanked.length !== 1 ? 's' : ''}`;
+
+      // 1. Render Podium (Top 3)
+      renderPodium(allRanked);
+
+      // 2. Render List
+      if (filtered.length === 0) {
+        participantsList.innerHTML = `
+          <div class="empty-state">
+            <i class="fa-solid fa-user-slash"></i>
+            <p>No contestants found. Add contestants above to begin!</p>
+          </div>
+        `;
+        return;
+      }
+
+      participantsList.innerHTML = '';
+      filtered.forEach((p, idx) => {
+        const actualRank = allRanked.findIndex(item => item.id === p.id) + 1;
+        const row = document.createElement('div');
+        row.className = `participant-row rank-${actualRank}`;
+        
+        row.innerHTML = `
+          <div class="rank-badge-wrap">
+            <div class="rank-num">${actualRank <= 3 ? (actualRank === 1 ? '🥇' : actualRank === 2 ? '🥈' : '🥉') : '#' + actualRank}</div>
+            <div class="participant-name-wrap">
+              <span class="participant-name" data-id="${p.id}" title="Click to rename">${escapeHtml(p.name)}</span>
+              <span class="participant-meta">Correct: ${p.correct || 0} | Wrong: ${p.wrong || 0}</span>
+            </div>
+          </div>
+
+          <div class="participant-score-wrap">
+            <div class="score-display">${p.score} pts</div>
+            <div class="score-action-group">
+              <button class="score-btn add-10" data-id="${p.id}" data-delta="10" title="Add 10 points">+10</button>
+              <button class="score-btn add-5" data-id="${p.id}" data-delta="5" title="Add 5 points">+5</button>
+              <button class="score-btn sub-5" data-id="${p.id}" data-delta="-5" title="Deduct 5 points">−5</button>
+              <button class="btn-delete" data-id="${p.id}" title="Remove Contestant"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </div>
+        `;
+        participantsList.appendChild(row);
+      });
+
+      attachListeners();
+    }
+
+    function renderPodium(ranked) {
+      if (!podiumStage) return;
+      const first  = ranked[0] || null;
+      const second = ranked[1] || null;
+      const third  = ranked[2] || null;
+
+      podiumStage.innerHTML = `
+        <!-- 2nd Place (Silver) -->
+        <div class="podium-column silver">
+          <div class="podium-avatar">
+            <i class="fa-solid fa-medal"></i>
+          </div>
+          <div class="podium-name">${second ? escapeHtml(second.name) : '—'}</div>
+          <div class="podium-score">${second ? second.score + ' pts' : '0 pts'}</div>
+          <div class="podium-pillar">2</div>
+        </div>
+
+        <!-- 1st Place (Gold) -->
+        <div class="podium-column gold">
+          <div class="podium-avatar">
+            <i class="fa-solid fa-crown podium-crown"></i>
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <div class="podium-name">${first ? escapeHtml(first.name) : '—'}</div>
+          <div class="podium-score">${first ? first.score + ' pts' : '0 pts'}</div>
+          <div class="podium-pillar">1</div>
+        </div>
+
+        <!-- 3rd Place (Bronze) -->
+        <div class="podium-column bronze">
+          <div class="podium-avatar">
+            <i class="fa-solid fa-award"></i>
+          </div>
+          <div class="podium-name">${third ? escapeHtml(third.name) : '—'}</div>
+          <div class="podium-score">${third ? third.score + ' pts' : '0 pts'}</div>
+          <div class="podium-pillar">3</div>
+        </div>
+      `;
+    }
+
+    function attachListeners() {
+      // Score modifier buttons
+      participantsList.querySelectorAll('.score-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          const delta = parseInt(btn.getAttribute('data-delta'), 10);
+          window.scoreboardManager.adjustScore(id, delta, delta > 0);
+          if (window.soundEngine) {
+            if (delta > 0) window.soundEngine.playCorrect();
+            else window.soundEngine.playWrong();
+          }
+          render();
+        });
+      });
+
+      // Remove buttons
+      participantsList.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          if (confirm('Are you sure you want to remove this contestant?')) {
+            window.scoreboardManager.removeParticipant(id);
+            render();
+          }
+        });
+      });
+
+      // Rename contestant inline
+      participantsList.querySelectorAll('.participant-name').forEach(el => {
+        el.addEventListener('click', () => {
+          const id = el.getAttribute('data-id');
+          const currentName = el.textContent;
+          const newName = prompt('Enter new name for contestant:', currentName);
+          if (newName && newName.trim()) {
+            window.scoreboardManager.updateParticipantName(id, newName.trim());
+            render();
+          }
+        });
+      });
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[m]));
+    }
+
+    // ── Add Contestant ─────────────────────────────────────
+    function handleAddParticipant() {
+      const name = newParticipantInput.value.trim();
+      if (name) {
+        window.scoreboardManager.addParticipant(name);
+        newParticipantInput.value = '';
+        if (window.soundEngine) window.soundEngine.playSelect();
+        render();
+      }
+    }
+
+    addParticipantBtn.addEventListener('click', handleAddParticipant);
+    newParticipantInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleAddParticipant();
+    });
+
+    // ── Search Filter ──────────────────────────────────────
+    searchInput.addEventListener('input', () => render());
+
+    // ── Reset All Scores ───────────────────────────────────
+    resetAllScoresBtn.addEventListener('click', () => {
+      if (confirm('Reset all contestant scores to 0? (Contestants will remain in list)')) {
+        window.scoreboardManager.resetAllScores();
+        if (window.soundEngine) window.soundEngine.playWrong();
+        render();
+      }
+    });
+
+    // ── Confetti Animation ──────────────────────────────────
+    const canvas = document.getElementById('confettiCanvas');
+    const ctx2d  = canvas.getContext('2d');
+    let particles = [];
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    function spawnConfetti() {
+      const colors = ['#f59e0b','#10b981','#7c3aed','#0ea5e9','#ec4899','#fbbf24','#ef4444'];
+      for (let i = 0; i < 150; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: -10,
+          vx: (Math.random() - 0.5) * 5,
+          vy: Math.random() * 5 + 2,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          w: Math.random() * 12 + 6,
+          h: Math.random() * 6 + 4,
+          angle: Math.random() * 360,
+          spin: (Math.random() - 0.5) * 8,
+          life: 1
+        });
+      }
+      drawConfetti();
+      if (window.soundEngine) window.soundEngine.playVictory();
+    }
+
+    function drawConfetti() {
+      ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, idx) => {
+        p.x += p.vx; p.y += p.vy;
+        p.angle += p.spin; p.vy += 0.08; p.life -= 0.006;
+        if (p.life <= 0 || p.y > canvas.height) {
+          particles.splice(idx, 1); return;
+        }
+        ctx2d.save();
+        ctx2d.globalAlpha = p.life;
+        ctx2d.translate(p.x, p.y);
+        ctx2d.rotate(p.angle * Math.PI / 180);
+        ctx2d.fillStyle = p.color;
+        ctx2d.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+        ctx2d.restore();
+      });
+      if (particles.length > 0) requestAnimationFrame(drawConfetti);
+    }
+
+    confettiBtn.addEventListener('click', spawnConfetti);
+
+    // Sync when storage updates from other tabs
+    window.addEventListener('storage', () => render());
+
+    // Initial render
+    render();
+  });
+  </script>
+</body>
+</html>
