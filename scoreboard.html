@@ -782,6 +782,173 @@
     .auth-submit-btn.admin-btn { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; box-shadow: 0 4px 0 #b45309; }
     .auth-submit-btn.admin-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #b45309; filter: brightness(1.1); }
 
+    /* ── TIE-BREAKER ALERT BANNER ───────────────── */
+    .tie-alert-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(239, 68, 68, 0.25));
+      border: 2px solid rgba(245, 158, 11, 0.6);
+      border-radius: 18px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.25);
+      animation: tiePulse 2.5s infinite ease-in-out;
+    }
+    @keyframes tiePulse {
+      0%, 100% { box-shadow: 0 8px 24px rgba(245, 158, 11, 0.25); border-color: rgba(245, 158, 11, 0.6); }
+      50% { box-shadow: 0 10px 32px rgba(239, 68, 68, 0.45); border-color: rgba(239, 68, 68, 0.8); }
+    }
+    .tie-alert-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .tie-alert-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(245,158,11,0.4);
+    }
+    .tie-alert-text h4 {
+      font-size: 1rem;
+      font-weight: 900;
+      color: #fef08a;
+      letter-spacing: 0.3px;
+    }
+    .tie-alert-text p {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+    .btn-sudden-death {
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, #ef4444, #b91c1c);
+      color: #fff;
+      font-family: var(--font-ui);
+      font-size: 0.88rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 0 #991b1b, 0 6px 16px rgba(239,68,68,0.4);
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .btn-sudden-death:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 #991b1b, 0 10px 24px rgba(239,68,68,0.6);
+      filter: brightness(1.1);
+    }
+
+    /* Sudden Death Modal Styles */
+    .sd-modal-card {
+      max-width: 640px !important;
+      border: 2px solid rgba(239, 68, 68, 0.4) !important;
+    }
+    .sd-header {
+      background: linear-gradient(to right, rgba(239,68,68,0.3), rgba(245,158,11,0.3)) !important;
+    }
+    .sd-q-box {
+      background: rgba(0,0,0,0.5);
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 18px;
+      text-align: center;
+    }
+    .sd-q-ml { font-family: var(--font-ml); font-size: 1.4rem; font-weight: 800; color: #f8fafc; line-height: 1.45; }
+    .sd-q-en { font-size: 1rem; font-weight: 600; color: #94a3b8; margin-top: 8px; }
+    .sd-options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .sd-option-btn {
+      background: rgba(255,255,255,0.06);
+      border: 2px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #fff;
+      font-family: var(--font-ui);
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .sd-option-btn.correct-highlight {
+      background: rgba(16,185,129,0.3) !important;
+      border-color: #10b981 !important;
+      box-shadow: 0 0 14px rgba(16,185,129,0.4);
+    }
+    .sd-awards-panel {
+      background: rgba(245,158,11,0.1);
+      border: 1px dashed rgba(245,158,11,0.4);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+    }
+    .sd-awards-title { font-size: 0.85rem; font-weight: 800; color: #fbbf24; }
+    .sd-candidates-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .sd-award-btn {
+      flex: 1 1 140px;
+      padding: 11px 16px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      font-family: var(--font-ui);
+      font-size: 0.88rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      box-shadow: 0 4px 0 #047857;
+      transition: all 0.18s;
+    }
+    .sd-award-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 #047857;
+      filter: brightness(1.1);
+    }
+
+    /* Joint 1st Place Podium */
+    .joint-1st-tag {
+      background: #f59e0b;
+      color: #000;
+      font-size: 0.62rem;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 99px;
+      margin-left: 4px;
+      letter-spacing: 0.4px;
+      display: inline-block;
+    }
+
     /* ── COMPREHENSIVE RESPONSIVE MOBILE CSS ───── */
     @media (max-width: 900px) {
       header {
@@ -1020,6 +1187,9 @@
   <!-- ══ MAIN CONTENT ═══════════════════════════════ -->
   <main class="main-container">
 
+    <!-- Tie Alert Container -->
+    <div id="tieAlertContainer"></div>
+
     <!-- Podium Showcase -->
     <div class="podium-card">
       <div class="podium-title">
@@ -1059,6 +1229,58 @@
         <!-- Rendered by JS -->
       </div>
     </div>
+
+  <!-- ══ SUDDEN DEATH TIE-BREAKER MODAL ═══════════════ -->
+  <div class="modal-backdrop" id="suddenDeathModal" style="display:none;">
+    <div class="modal-card sd-modal-card">
+      <div class="modal-header sd-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-bolt-lightning" style="color:#ef4444;font-size:1.35rem;"></i>
+          <div>
+            <h3 style="color:#fef08a;">Sudden Death Tie-Breaker Round</h3>
+            <p style="font-size:0.75rem;color:#fca5a5;font-weight:700;">Meelad Fest Grand Championship Decider</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="closeSuddenDeathBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body" style="gap:16px;">
+        <!-- Rapid 10s Timer -->
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);padding:10px 18px;border-radius:14px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <i class="fa-solid fa-stopwatch" style="color:#f87171;font-size:1.2rem;"></i>
+            <span style="font-size:0.88rem;font-weight:800;color:#fca5a5;">Rapid Response Timer:</span>
+          </div>
+          <div style="font-size:1.5rem;font-weight:900;color:#fef08a;font-family:var(--font-ui);" id="sdTimerSeconds">10s</div>
+        </div>
+
+        <!-- Question Box -->
+        <div class="sd-q-box">
+          <div class="sd-q-ml" id="sdQuestionMl">ലോഡ് ചെയ്യുന്നു...</div>
+          <div class="sd-q-en" id="sdQuestionEn">Loading Question...</div>
+          <div class="sd-options-grid" id="sdOptionsGrid"></div>
+        </div>
+
+        <!-- Reveal & Next Buttons -->
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn-nav" id="sdRevealBtn" style="background:#2563eb;color:#fff;border:none;padding:9px 16px;border-radius:10px;cursor:pointer;">
+            <i class="fa-solid fa-eye"></i> Reveal Correct Answer
+          </button>
+          <button class="btn-nav" id="sdNextQBtn" style="background:#7c3aed;color:#fff;border:none;padding:9px 16px;border-radius:10px;cursor:pointer;">
+            <i class="fa-solid fa-forward"></i> Next Tie Question
+          </button>
+        </div>
+
+        <!-- Candidate Award Selection -->
+        <div class="sd-awards-panel">
+          <div class="sd-awards-title"><i class="fa-solid fa-trophy"></i> Crown 1st Place Winner (+10 Bonus Points)</div>
+          <div class="sd-candidates-row" id="sdCandidatesRow">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ══ AUTHENTICATION MODAL ═════════════════════════ -->
   <div class="modal-backdrop" id="authModal" style="display:none;">
@@ -1162,6 +1384,7 @@
   <script src="js/firebase-config.js"></script>
   <script src="js/firebase-service.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/tiebreaker-data.js"></script>
   <script src="js/audio.js"></script>
   <script src="js/scoreboard.js"></script>
   <script>
@@ -1364,19 +1587,74 @@
       };
     }
 
+    // Sound Engine
+    window.soundEngine = window.soundEngine || (typeof SoundEngine !== 'undefined' ? new SoundEngine() : null);
+
+    // Sudden Death Modal Elements
+    const suddenDeathModal   = document.getElementById('suddenDeathModal');
+    const closeSuddenDeathBtn = document.getElementById('closeSuddenDeathBtn');
+    const sdTimerSeconds     = document.getElementById('sdTimerSeconds');
+    const sdQuestionMl       = document.getElementById('sdQuestionMl');
+    const sdQuestionEn       = document.getElementById('sdQuestionEn');
+    const sdOptionsGrid      = document.getElementById('sdOptionsGrid');
+    const sdRevealBtn        = document.getElementById('sdRevealBtn');
+    const sdNextQBtn         = document.getElementById('sdNextQBtn');
+    const sdCandidatesRow    = document.getElementById('sdCandidatesRow');
+    const tieAlertContainer  = document.getElementById('tieAlertContainer');
+
+    let sdCurrentQIndex = 0;
+    let sdTimerInterval = null;
+    let sdSecondsLeft   = 10;
+    let sdCurrentTie    = null;
+
     // ── Render Podium & List ────────────────────────────────
     function render() {
       const search = searchInput.value.trim().toLowerCase();
-      const allRanked = window.scoreboardManager.getRankedParticipants();
+      const allRanked = window.scoreboardManager.getRankedParticipantsWithTies();
       const filtered = allRanked.filter(p => p.name.toLowerCase().includes(search));
       const currentUser = window.authManager ? window.authManager.getCurrentUser() : null;
 
       participantCountBadge.textContent = `${allRanked.length} Contestant${allRanked.length !== 1 ? 's' : ''}`;
 
-      // 1. Render Podium (Top 3)
-      renderPodium(allRanked, currentUser);
+      // Check for 1st Place Tie
+      const tie1st = window.scoreboardManager.get1stPlaceTie();
+      sdCurrentTie = tie1st;
 
-      // 2. Render List
+      // 1. Render Tie-Breaker Alert Banner if 1st place tied
+      if (tieAlertContainer) {
+        if (tie1st.hasTie) {
+          const tiedNames = tie1st.participants.map(p => `<strong>${escapeHtml(p.name)}</strong>`).join(' & ');
+          tieAlertContainer.innerHTML = `
+            <div class="tie-alert-banner">
+              <div class="tie-alert-left">
+                <div class="tie-alert-icon"><i class="fa-solid fa-bolt-lightning"></i></div>
+                <div class="tie-alert-text">
+                  <h4>⚡ 1ST PLACE TIE DETECTED (${tie1st.score} PTS)!</h4>
+                  <p>Contestants ${tiedNames} share 1st Place. Launch Sudden Death Question or recognize shared champions.</p>
+                </div>
+              </div>
+              <button id="openSuddenDeathBtn" class="btn-sudden-death">
+                <i class="fa-solid fa-play"></i> Start Sudden Death Tie-Breaker
+              </button>
+            </div>
+          `;
+          const openSdBtn = document.getElementById('openSuddenDeathBtn');
+          if (openSdBtn) {
+            openSdBtn.addEventListener('click', () => {
+              requireAdminAction(() => {
+                openSuddenDeathRound(tie1st);
+              });
+            });
+          }
+        } else {
+          tieAlertContainer.innerHTML = '';
+        }
+      }
+
+      // 2. Render Podium (Top 3 or Shared 1st)
+      renderPodium(allRanked, currentUser, tie1st);
+
+      // 3. Render List
       if (filtered.length === 0) {
         participantsList.innerHTML = `
           <div class="empty-state">
@@ -1388,18 +1666,24 @@
       }
 
       participantsList.innerHTML = '';
-      filtered.forEach((p, idx) => {
-        const actualRank = allRanked.findIndex(item => item.id === p.id) + 1;
+      filtered.forEach((p) => {
+        const actualRank = p.olympicRank;
         const isSelf = currentUser && (currentUser.id === p.id || currentUser.name.toLowerCase() === p.name.toLowerCase());
         const row = document.createElement('div');
         row.className = `participant-row rank-${actualRank} ${isSelf ? 'is-current-user' : ''}`;
         
+        let rankBadge = `#${actualRank}`;
+        if (actualRank === 1) rankBadge = p.isTied ? '🥇 Joint 1st' : '🥇';
+        else if (actualRank === 2) rankBadge = '🥈';
+        else if (actualRank === 3) rankBadge = '🥉';
+
         row.innerHTML = `
           <div class="rank-badge-wrap">
-            <div class="rank-num">${actualRank <= 3 ? (actualRank === 1 ? '🥇' : actualRank === 2 ? '🥈' : '🥉') : '#' + actualRank}</div>
+            <div class="rank-num" style="${p.isTied && actualRank === 1 ? 'font-size:0.85rem;font-weight:900;color:#fbbf24;' : ''}">${rankBadge}</div>
             <div class="participant-name-wrap">
-              <div style="display:flex;align-items:center;">
+              <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;">
                 <span class="participant-name" data-id="${p.id}" title="Click to rename">${escapeHtml(p.name)}</span>
+                ${p.isTied && actualRank === 1 ? '<span class="joint-1st-tag">🥇 TIED 1ST</span>' : ''}
                 ${isSelf ? '<span class="you-pill-badge"><i class="fa-solid fa-star"></i> YOU</span>' : ''}
               </div>
               <span class="participant-meta">Correct: ${p.correct || 0} | Wrong: ${p.wrong || 0}</span>
@@ -1422,8 +1706,56 @@
       attachListeners();
     }
 
-    function renderPodium(ranked, currentUser) {
+    function renderPodium(ranked, currentUser, tie1st) {
       if (!podiumStage) return;
+
+      // Handle Shared 1st Place in Podium
+      if (tie1st && tie1st.hasTie && tie1st.participants.length >= 2) {
+        const p1 = tie1st.participants[0];
+        const p2 = tie1st.participants[1];
+        const p3 = ranked.find(p => p.olympicRank > 1) || null;
+
+        const isP1Self = currentUser && (currentUser.id === p1.id || currentUser.name.toLowerCase() === p1.name.toLowerCase());
+        const isP2Self = currentUser && (currentUser.id === p2.id || currentUser.name.toLowerCase() === p2.name.toLowerCase());
+        const isP3Self = currentUser && p3 && (currentUser.id === p3.id || currentUser.name.toLowerCase() === p3.name.toLowerCase());
+
+        podiumStage.innerHTML = `
+          <!-- Joint 1st Place A -->
+          <div class="podium-column gold ${isP1Self ? 'is-self' : ''}">
+            <div class="podium-avatar">
+              <i class="fa-solid fa-crown podium-crown"></i>
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <div class="podium-name">${escapeHtml(p1.name)} ${isP1Self ? '⭐' : ''}</div>
+            <div class="podium-score">${p1.score} pts (🥇 Joint 1st)</div>
+            <div class="podium-pillar">1</div>
+          </div>
+
+          <!-- Joint 1st Place B -->
+          <div class="podium-column gold ${isP2Self ? 'is-self' : ''}">
+            <div class="podium-avatar">
+              <i class="fa-solid fa-crown podium-crown"></i>
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <div class="podium-name">${escapeHtml(p2.name)} ${isP2Self ? '⭐' : ''}</div>
+            <div class="podium-score">${p2.score} pts (🥇 Joint 1st)</div>
+            <div class="podium-pillar">1</div>
+          </div>
+
+          <!-- 3rd Place (Olympic Skip) -->
+          <div class="podium-column bronze ${isP3Self ? 'is-self' : ''}">
+            <div class="podium-avatar">
+              <i class="fa-solid fa-award"></i>
+            </div>
+            <div class="podium-name">${p3 ? escapeHtml(p3.name) : '—'} ${isP3Self ? '⭐' : ''}</div>
+            <div class="podium-score">${p3 ? p3.score + ' pts' : '0 pts'}</div>
+            <div class="podium-pillar">3</div>
+          </div>
+        `;
+        return;
+      }
+
+      // Standard Top 3 Podium
       const first  = ranked[0] || null;
       const second = ranked[1] || null;
       const third  = ranked[2] || null;
@@ -1464,6 +1796,120 @@
           <div class="podium-pillar">3</div>
         </div>
       `;
+    }
+
+    // ── SUDDEN DEATH TIE-BREAKER CONTROLLER ──────────────────
+    function openSuddenDeathRound(tieInfo) {
+      if (!suddenDeathModal) return;
+      suddenDeathModal.style.display = 'flex';
+      sdCurrentTie = tieInfo;
+      sdCurrentQIndex = 0;
+      loadSuddenDeathQuestion(sdCurrentQIndex);
+      renderSuddenDeathCandidates(tieInfo.participants);
+      startSuddenDeathTimer();
+    }
+
+    function closeSuddenDeathRound() {
+      if (suddenDeathModal) suddenDeathModal.style.display = 'none';
+      clearInterval(sdTimerInterval);
+    }
+
+    if (closeSuddenDeathBtn) {
+      closeSuddenDeathBtn.addEventListener('click', closeSuddenDeathRound);
+    }
+
+    function loadSuddenDeathQuestion(index) {
+      const qList = window.TIEBREAKER_QUESTIONS || [];
+      if (!qList.length) return;
+      const q = qList[index % qList.length];
+
+      sdQuestionMl.textContent = q.questionMl;
+      sdQuestionEn.textContent = q.questionEn;
+
+      sdOptionsGrid.innerHTML = '';
+      q.options.forEach(opt => {
+        const optBtn = document.createElement('div');
+        optBtn.className = 'sd-option-btn';
+        optBtn.setAttribute('data-id', opt.id);
+        optBtn.innerHTML = `
+          <strong style="color:#fbbf24;font-size:1.1rem;margin-right:6px;">${opt.id}.</strong>
+          <span>${escapeHtml(opt.ml)} <span style="color:#94a3b8;font-size:0.85rem;">(${escapeHtml(opt.en)})</span></span>
+        `;
+        sdOptionsGrid.appendChild(optBtn);
+      });
+    }
+
+    function startSuddenDeathTimer() {
+      clearInterval(sdTimerInterval);
+      sdSecondsLeft = 10;
+      sdTimerSeconds.textContent = `${sdSecondsLeft}s`;
+      sdTimerSeconds.style.color = '#fef08a';
+
+      sdTimerInterval = setInterval(() => {
+        sdSecondsLeft--;
+        sdTimerSeconds.textContent = `${sdSecondsLeft}s`;
+
+        if (sdSecondsLeft <= 3) {
+          sdTimerSeconds.style.color = '#ef4444';
+          if (window.soundEngine) window.soundEngine.playTick(true);
+        } else {
+          if (window.soundEngine) window.soundEngine.playTick(false);
+        }
+
+        if (sdSecondsLeft <= 0) {
+          clearInterval(sdTimerInterval);
+          sdTimerSeconds.textContent = "TIME'S UP!";
+          if (window.soundEngine) window.soundEngine.playTimesUp();
+        }
+      }, 1000);
+    }
+
+    if (sdRevealBtn) {
+      sdRevealBtn.addEventListener('click', () => {
+        const qList = window.TIEBREAKER_QUESTIONS || [];
+        if (!qList.length) return;
+        const q = qList[sdCurrentQIndex % qList.length];
+
+        sdOptionsGrid.querySelectorAll('.sd-option-btn').forEach(btn => {
+          if (btn.getAttribute('data-id') === q.correctAnswer) {
+            btn.classList.add('correct-highlight');
+          }
+        });
+        if (window.soundEngine) window.soundEngine.playCorrect();
+      });
+    }
+
+    if (sdNextQBtn) {
+      sdNextQBtn.addEventListener('click', () => {
+        sdCurrentQIndex++;
+        loadSuddenDeathQuestion(sdCurrentQIndex);
+        startSuddenDeathTimer();
+      });
+    }
+
+    function renderSuddenDeathCandidates(participants) {
+      if (!sdCandidatesRow) return;
+      sdCandidatesRow.innerHTML = '';
+      participants.forEach(p => {
+        const btn = document.createElement('button');
+        btn.className = 'sd-award-btn';
+        btn.innerHTML = `<i class="fa-solid fa-trophy"></i> Crown ${escapeHtml(p.name)} (+10 pts)`;
+        btn.addEventListener('click', () => {
+          awardSuddenDeathWinner(p.id, p.name);
+        });
+        sdCandidatesRow.appendChild(btn);
+      });
+    }
+
+    function awardSuddenDeathWinner(winnerId, winnerName) {
+      window.scoreboardManager.resolveSuddenDeath(winnerId, 10);
+      closeSuddenDeathRound();
+      spawnConfetti();
+      if (window.soundEngine) {
+        window.soundEngine.playVictory();
+      }
+      alert(`🎉 Congratulations! ${winnerName} won the Sudden Death Tie-Breaker (+10 pts) and is crowned Grand Champion!`);
+      render();
     }
 
     function requireAdminAction(callback) {
