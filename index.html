@@ -280,6 +280,29 @@
       transform: scale(1.1);
     }
 
+    .header-switch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      border-radius: 99px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .header-switch-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #38bdf8;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+    }
+
     .q-counter-badge {
       background: rgba(255,255,255,0.08);
       border: 2px solid rgba(255,255,255,0.18);
@@ -1669,6 +1692,11 @@
     <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
 
     <div class="header-actions">
+      <!-- Change / Switch Account Button -->
+      <a href="login.html?redirect=index.html" class="header-switch-btn" id="headerSwitchAccountBtn" title="Switch or Change Contestant Account">
+        <i class="fa-solid fa-user-pen"></i> <span id="headerContestantName">Change Account</span>
+      </a>
+
       <!-- Scoreboard Link -->
       <a href="scoreboard.html" class="header-scoreboard-btn" id="headerScoreboardBtn" title="Open Individual Contestant Scoreboard">
         <i class="fa-solid fa-trophy" style="color:#fef08a;"></i> Scoreboard
@@ -2098,6 +2126,9 @@
           <button id="resultsReviewBtn" type="button" style="background:#f1f5f9;border:1px solid #cbd5e1;color:#1e293b;padding:10px 14px;border-radius:10px;font-weight:800;font-size:0.82rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.15s;">
             <i class="fa-solid fa-rotate-left"></i> Review All Answers & Explanations
           </button>
+          <a href="login.html?redirect=index.html" style="text-decoration:none;background:#ffffff;border:1.5px solid #e2e8f0;color:#64748b;padding:9px 14px;border-radius:10px;font-weight:800;font-size:0.8rem;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.15s;">
+            <i class="fa-solid fa-user-pen" style="color:#38bdf8;"></i> Switch / Change Contestant Account
+          </a>
         </div>
       </div>
     </div>

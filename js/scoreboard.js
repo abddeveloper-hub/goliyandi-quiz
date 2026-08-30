@@ -7,12 +7,7 @@
 class ScoreboardManager {
   constructor() {
     this.storageKey = 'meelad_quiz_participants_v2';
-    this.defaultParticipants = [
-      { id: 'p_1', name: 'Participant 1 (മത്സരാർത്ഥി 1)', score: 0, correct: 0, wrong: 0, totalTime: 0, color: '#10b981' },
-      { id: 'p_2', name: 'Participant 2 (മത്സരാർത്ഥി 2)', score: 0, correct: 0, wrong: 0, totalTime: 0, color: '#f59e0b' },
-      { id: 'p_3', name: 'Participant 3 (മത്സരാർത്ഥി 3)', score: 0, correct: 0, wrong: 0, totalTime: 0, color: '#06b6d4' },
-      { id: 'p_4', name: 'Participant 4 (മത്സരാർത്ഥി 4)', score: 0, correct: 0, wrong: 0, totalTime: 0, color: '#a855f7' }
-    ];
+    this.defaultParticipants = [];
     this.participants = this.loadParticipants();
     this.activeParticipantId = null;
     this.onScoreboardChange = null;
@@ -24,8 +19,9 @@ class ScoreboardManager {
   initFirestoreListener() {
     if (window.firebaseService) {
       window.firebaseService.listenToParticipants((remoteParticipants) => {
-        if (Array.isArray(remoteParticipants) && remoteParticipants.length > 0) {
-          this.participants = remoteParticipants;
+        if (Array.isArray(remoteParticipants)) {
+          // Filter out dummy placeholders
+          this.participants = remoteParticipants.filter(p => p && p.name && !p.name.startsWith('Participant '));
           this.saveLocalOnly();
           if (this.onScoreboardChange) this.onScoreboardChange(this.participants);
         }
@@ -39,8 +35,8 @@ class ScoreboardManager {
         if (e.key === this.storageKey && e.newValue) {
           try {
             const parsed = JSON.parse(e.newValue);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              this.participants = parsed;
+            if (Array.isArray(parsed)) {
+              this.participants = parsed.filter(p => p && p.name && !p.name.startsWith('Participant '));
               if (this.onScoreboardChange) this.onScoreboardChange(this.participants);
             }
           } catch (err) {
@@ -56,14 +52,14 @@ class ScoreboardManager {
       const saved = localStorage.getItem(this.storageKey);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
+        if (Array.isArray(parsed)) {
+          return parsed.filter(p => p && p.name && !p.name.startsWith('Participant '));
         }
       }
     } catch (e) {
       console.error('Error reading participants from storage:', e);
     }
-    return JSON.parse(JSON.stringify(this.defaultParticipants));
+    return [];
   }
 
   saveLocalOnly() {
@@ -320,8 +316,25 @@ class ScoreboardManager {
     }
   }
 
+  resetAndClearAllParticipants() {
+    this.participants = [];
+    this.saveLocalOnly();
+    localStorage.removeItem(this.storageKey);
+    localStorage.removeItem('meelad_quiz_teams_v1');
+    localStorage.removeItem('meelad_quiz_progress_v2');
+    if (this.onScoreboardChange) this.onScoreboardChange(this.participants);
+
+    if (window.firebaseService && window.firebaseService.isAvailable() && window.firestoreDb) {
+      window.firestoreDb.collection('participants').get().then(snap => {
+        const batch = window.firestoreDb.batch();
+        snap.forEach(doc => batch.delete(doc.ref));
+        return batch.commit();
+      }).catch(e => console.warn('Clear firestore participants:', e));
+    }
+  }
+
   resetToDefault() {
-    this.participants = JSON.parse(JSON.stringify(this.defaultParticipants));
+    this.participants = [];
     this.saveParticipants();
   }
 
