@@ -377,12 +377,25 @@ html, body {
   }
 
   .timer-ring-wrap {
-    width: 110px !important;
-    height: 110px !important;
+    width: 135px !important;
+    height: 135px !important;
+    margin: 8px auto 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+  }
+
+  .timer-svg {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    overflow: visible !important;
   }
 
   .timer-num {
-    font-size: 2.2rem !important;
+    font-size: 2.5rem !important;
     color: #0f172a !important;
   }
 
@@ -549,12 +562,25 @@ html, body {
   }
 
   .timer-ring-wrap {
-    width: 100px !important;
-    height: 100px !important;
+    width: 125px !important;
+    height: 125px !important;
+    margin: 6px auto 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+  }
+
+  .timer-svg {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    overflow: visible !important;
   }
 
   .timer-num {
-    font-size: 1.9rem !important;
+    font-size: 2.3rem !important;
   }
 
   .right-panel {
