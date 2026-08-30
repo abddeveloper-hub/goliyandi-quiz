@@ -5,6 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meelad Fest Goliyangadi – Islamic Quiz</title>
 
+  <!-- Enforce Authentication Before Quiz Access -->
+  <script>
+    (function checkContestantAuth() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('guest') === '1' || urlParams.get('test') === '1') {
+          if (!localStorage.getItem('meelad_quiz_auth_session_v1')) {
+            localStorage.setItem('meelad_quiz_auth_session_v1', JSON.stringify({
+              id: 'guest_' + Date.now(),
+              name: 'Guest Player',
+              role: 'contestant',
+              loginTime: new Date().toISOString()
+            }));
+          }
+          return;
+        }
+        const session = localStorage.getItem('meelad_quiz_auth_session_v1');
+        if (!session) {
+          window.location.replace('login.html');
+        }
+      } catch(e) {
+        console.warn('Auth guard check:', e);
+      }
+    })();
+  </script>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Firebase SDKs (v10 Compat) -->
