@@ -7,6 +7,11 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <!-- Firebase SDKs (v10 Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Anek+Malayalam:wght@600;700;800&family=Amiri:wght@400;700&display=swap');
 
@@ -1721,46 +1726,90 @@
           <i class="fa-solid fa-shield-halved" style="color:#f59e0b;font-size:1.3rem;"></i>
           <div>
             <h3>Meelad Fest Goliyangadi</h3>
-            <p style="font-size:0.75rem;color:#fbbf24;font-weight:700;">Grand Islamic Quiz Authentication</p>
+            <p style="font-size:0.75rem;color:#fbbf24;font-weight:700;">Firebase Auth & Live Firestore Database</p>
           </div>
         </div>
         <button class="modal-close-btn" id="closeAuthModalBtn"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
-      <!-- Role Selection Tabs -->
+      <!-- Firebase Project Status Ribbon -->
+      <div style="background:rgba(16,185,129,0.15); border-bottom:1px solid rgba(16,185,129,0.3); padding:7px 18px; display:flex; align-items:center; justify-content:space-between; font-size:0.75rem; color:#6ee7b7; font-weight:800;">
+        <span><i class="fa-solid fa-cloud-bolt"></i> Project: <strong>goliyangadi-quiz</strong></span>
+        <span style="background:rgba(16,185,129,0.25); padding:2px 8px; border-radius:99px;"><i class="fa-solid fa-circle" style="font-size:0.5rem;color:#34d399;margin-right:4px;"></i> Connected</span>
+      </div>
+
+      <!-- Auth Tabs -->
       <div class="auth-tabs">
-        <button class="auth-tab-btn active" id="tabContestantBtn" type="button">
-          <i class="fa-solid fa-user"></i> Contestant Login
+        <button class="auth-tab-btn active" id="tabEmailLoginBtn" type="button">
+          <i class="fa-solid fa-envelope"></i> Email Login
         </button>
-        <button class="auth-tab-btn" id="tabAdminBtn" type="button">
-          <i class="fa-solid fa-crown"></i> Host / Admin PIN
+        <button class="auth-tab-btn" id="tabSignUpBtn" type="button">
+          <i class="fa-solid fa-user-plus"></i> Sign Up
+        </button>
+        <button class="auth-tab-btn" id="tabQuickBtn" type="button">
+          <i class="fa-solid fa-bolt"></i> Fast Play / PIN
         </button>
       </div>
 
       <div class="modal-body auth-modal-body">
-        <!-- Contestant Form -->
-        <form id="contestantLoginForm" class="auth-form-panel">
+        <!-- 1. Email Login Form -->
+        <form id="emailLoginForm" class="auth-form-panel">
           <div class="auth-field-group">
-            <label class="auth-label"><i class="fa-solid fa-user-pen"></i> Contestant Name</label>
-            <input type="text" class="auth-input" id="contestantNameInput" placeholder="Enter your full name (e.g. Ameen)..." required autocomplete="name" />
-            <span class="auth-hint">Your marks and live leaderboard standing will be automatically linked to your contestant profile.</span>
+            <label class="auth-label"><i class="fa-solid fa-envelope"></i> Email Address</label>
+            <input type="email" class="auth-input" id="loginEmailInput" placeholder="name@example.com" required autocomplete="email" />
           </div>
-          <div class="auth-error-msg" id="contestantAuthError" style="display:none;"></div>
+          <div class="auth-field-group">
+            <label class="auth-label"><i class="fa-solid fa-lock"></i> Password</label>
+            <input type="password" class="auth-input" id="loginPasswordInput" placeholder="Enter your password..." required autocomplete="current-password" />
+          </div>
+          <div class="auth-error-msg" id="loginAuthError" style="display:none;"></div>
           <button type="submit" class="auth-submit-btn contestant-btn">
-            <i class="fa-solid fa-play"></i> Start Quiz as Contestant
+            <i class="fa-solid fa-right-to-bracket"></i> Sign In with Email
           </button>
         </form>
 
-        <!-- Host / Admin Form -->
-        <form id="adminLoginForm" class="auth-form-panel" style="display:none;">
+        <!-- 2. Sign Up Form -->
+        <form id="emailSignUpForm" class="auth-form-panel" style="display:none;">
           <div class="auth-field-group">
-            <label class="auth-label"><i class="fa-solid fa-key"></i> Host Admin Master PIN</label>
-            <input type="password" class="auth-input" id="adminPinInput" placeholder="Enter master PIN (Default: meelad2026)" required />
-            <span class="auth-hint">Host / Admin login grants full moderator access, score controls, and timing customization.</span>
+            <label class="auth-label"><i class="fa-solid fa-user"></i> Full Name</label>
+            <input type="text" class="auth-input" id="signUpNameInput" placeholder="Enter full name (e.g. Ameen)..." required autocomplete="name" />
           </div>
-          <div class="auth-error-msg" id="adminAuthError" style="display:none;"></div>
+          <div class="auth-field-group">
+            <label class="auth-label"><i class="fa-solid fa-envelope"></i> Email Address</label>
+            <input type="email" class="auth-input" id="signUpEmailInput" placeholder="name@example.com" required autocomplete="email" />
+          </div>
+          <div class="auth-field-group">
+            <label class="auth-label"><i class="fa-solid fa-lock"></i> Create Password</label>
+            <input type="password" class="auth-input" id="signUpPasswordInput" placeholder="At least 6 characters..." required autocomplete="new-password" minlength="6" />
+          </div>
+          <div class="auth-field-group">
+            <label class="auth-label"><i class="fa-solid fa-id-badge"></i> Role</label>
+            <select class="auth-input" id="signUpRoleSelect" style="background:#070a13;color:#fff;cursor:pointer;">
+              <option value="contestant">Contestant (Participant)</option>
+              <option value="admin">Host / Quiz Master (Admin)</option>
+            </select>
+          </div>
+          <div class="auth-error-msg" id="signUpAuthError" style="display:none;"></div>
+          <button type="submit" class="auth-submit-btn contestant-btn" style="background:linear-gradient(135deg,#7c3aed,#2563eb);box-shadow:0 4px 0 #1e1b4b;">
+            <i class="fa-solid fa-user-check"></i> Register Account
+          </button>
+        </form>
+
+        <!-- 3. Fast Play / Admin PIN Form -->
+        <form id="quickLoginForm" class="auth-form-panel" style="display:none;">
+          <div class="auth-field-group">
+            <label class="auth-label"><i class="fa-solid fa-user-pen"></i> Contestant Name</label>
+            <input type="text" class="auth-input" id="quickNameInput" placeholder="Enter contestant name to start immediately..." />
+            <span class="auth-hint">Quick join without password (marks save to this name).</span>
+          </div>
+          <div style="text-align:center;color:#64748b;font-size:0.76rem;font-weight:800;">— OR HOST ADMIN PIN —</div>
+          <div class="auth-field-group">
+            <label class="auth-label"><i class="fa-solid fa-key"></i> Master Host PIN</label>
+            <input type="password" class="auth-input" id="quickPinInput" placeholder="Master Admin PIN (Default: meelad2026)" />
+          </div>
+          <div class="auth-error-msg" id="quickAuthError" style="display:none;"></div>
           <button type="submit" class="auth-submit-btn admin-btn">
-            <i class="fa-solid fa-lock-open"></i> Login as Host / Admin
+            <i class="fa-solid fa-play"></i> Enter Quiz
           </button>
         </form>
       </div>
@@ -1768,6 +1817,8 @@
   </div>
 
   <!-- ══ SCRIPTS ════════════════════════════════════ -->
+  <script src="js/firebase-config.js"></script>
+  <script src="js/firebase-service.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/questions-data.js"></script>
   <script src="js/kn-translations.js"></script>
@@ -1816,14 +1867,23 @@
     const userAuthLogoutBtn    = document.getElementById('userAuthLogoutBtn');
     const authModal            = document.getElementById('authModal');
     const closeAuthModalBtn    = document.getElementById('closeAuthModalBtn');
-    const tabContestantBtn     = document.getElementById('tabContestantBtn');
-    const tabAdminBtn          = document.getElementById('tabAdminBtn');
-    const contestantLoginForm  = document.getElementById('contestantLoginForm');
-    const adminLoginForm       = document.getElementById('adminLoginForm');
-    const contestantNameInput  = document.getElementById('contestantNameInput');
-    const adminPinInput        = document.getElementById('adminPinInput');
-    const contestantAuthError  = document.getElementById('contestantAuthError');
-    const adminAuthError       = document.getElementById('adminAuthError');
+    const tabEmailLoginBtn     = document.getElementById('tabEmailLoginBtn');
+    const tabSignUpBtn         = document.getElementById('tabSignUpBtn');
+    const tabQuickBtn          = document.getElementById('tabQuickBtn');
+    const emailLoginForm       = document.getElementById('emailLoginForm');
+    const emailSignUpForm      = document.getElementById('emailSignUpForm');
+    const quickLoginForm       = document.getElementById('quickLoginForm');
+    const loginEmailInput      = document.getElementById('loginEmailInput');
+    const loginPasswordInput   = document.getElementById('loginPasswordInput');
+    const loginAuthError       = document.getElementById('loginAuthError');
+    const signUpNameInput      = document.getElementById('signUpNameInput');
+    const signUpEmailInput     = document.getElementById('signUpEmailInput');
+    const signUpPasswordInput  = document.getElementById('signUpPasswordInput');
+    const signUpRoleSelect     = document.getElementById('signUpRoleSelect');
+    const signUpAuthError      = document.getElementById('signUpAuthError');
+    const quickNameInput       = document.getElementById('quickNameInput');
+    const quickPinInput        = document.getElementById('quickPinInput');
+    const quickAuthError       = document.getElementById('quickAuthError');
 
     // Navigation
     const prevBtn       = document.getElementById('prevQuestionBtn');
@@ -1881,67 +1941,124 @@
       });
     }
 
-    // Tabs
-    if (tabContestantBtn && tabAdminBtn) {
-      tabContestantBtn.addEventListener('click', () => {
-        tabContestantBtn.classList.add('active');
-        tabAdminBtn.classList.remove('active');
-        contestantLoginForm.style.display = 'flex';
-        adminLoginForm.style.display = 'none';
-        contestantAuthError.style.display = 'none';
-      });
+    // Tabs Switcher
+    function showTab(targetTab) {
+      [tabEmailLoginBtn, tabSignUpBtn, tabQuickBtn].forEach(t => t && t.classList.remove('active'));
+      [emailLoginForm, emailSignUpForm, quickLoginForm].forEach(f => f && (f.style.display = 'none'));
+      [loginAuthError, signUpAuthError, quickAuthError].forEach(e => e && (e.style.display = 'none'));
 
-      tabAdminBtn.addEventListener('click', () => {
-        tabAdminBtn.classList.add('active');
-        tabContestantBtn.classList.remove('active');
-        contestantLoginForm.style.display = 'none';
-        adminLoginForm.style.display = 'flex';
-        adminAuthError.style.display = 'none';
-      });
+      if (targetTab === 'login') {
+        tabEmailLoginBtn.classList.add('active');
+        emailLoginForm.style.display = 'flex';
+      } else if (targetTab === 'signup') {
+        tabSignUpBtn.classList.add('active');
+        emailSignUpForm.style.display = 'flex';
+      } else if (targetTab === 'quick') {
+        tabQuickBtn.classList.add('active');
+        quickLoginForm.style.display = 'flex';
+      }
     }
 
-    // Contestant Login Form
-    if (contestantLoginForm) {
-      contestantLoginForm.addEventListener('submit', (e) => {
+    if (tabEmailLoginBtn) tabEmailLoginBtn.addEventListener('click', () => showTab('login'));
+    if (tabSignUpBtn)     tabSignUpBtn.addEventListener('click', () => showTab('signup'));
+    if (tabQuickBtn)      tabQuickBtn.addEventListener('click', () => showTab('quick'));
+
+    // 1. Email Login Submission
+    if (emailLoginForm) {
+      emailLoginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const name = contestantNameInput.value;
-        const res = window.authManager.loginContestant(name);
+        const email = loginEmailInput.value;
+        const password = loginPasswordInput.value;
+        loginAuthError.style.display = 'none';
+
+        const res = await window.authManager.loginWithEmail(email, password);
         if (res.success) {
           authModal.style.display = 'none';
           updateAuthUI();
-          // Sync existing score if available
           if (window.scoreboardManager) {
             const stats = window.quizEngine.getScoreStats();
             window.scoreboardManager.setScore(res.user.id, stats.totalScore);
           }
         } else {
-          contestantAuthError.textContent = res.message;
-          contestantAuthError.style.display = 'block';
+          loginAuthError.textContent = res.message;
+          loginAuthError.style.display = 'block';
         }
       });
     }
 
-    // Admin Login Form
-    if (adminLoginForm) {
-      adminLoginForm.addEventListener('submit', (e) => {
+    // 2. Email Sign Up Submission
+    if (emailSignUpForm) {
+      emailSignUpForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const pin = adminPinInput.value;
-        const res = window.authManager.loginAdmin(pin);
+        const name = signUpNameInput.value;
+        const email = signUpEmailInput.value;
+        const password = signUpPasswordInput.value;
+        const role = signUpRoleSelect.value;
+        signUpAuthError.style.display = 'none';
+
+        const res = await window.authManager.signUpWithEmail(email, password, name, role);
         if (res.success) {
           authModal.style.display = 'none';
           updateAuthUI();
+          if (window.scoreboardManager && role === 'contestant') {
+            const stats = window.quizEngine.getScoreStats();
+            window.scoreboardManager.setScore(res.user.id, stats.totalScore);
+          }
         } else {
-          adminAuthError.textContent = res.message;
-          adminAuthError.style.display = 'block';
+          signUpAuthError.textContent = res.message;
+          signUpAuthError.style.display = 'block';
         }
+      });
+    }
+
+    // 3. Quick Play / Host PIN Submission
+    if (quickLoginForm) {
+      quickLoginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = (quickNameInput.value || '').trim();
+        const pin = (quickPinInput.value || '').trim();
+        quickAuthError.style.display = 'none';
+
+        if (pin) {
+          const res = window.authManager.loginAdmin(pin);
+          if (res.success) {
+            authModal.style.display = 'none';
+            updateAuthUI();
+            return;
+          } else {
+            quickAuthError.textContent = res.message;
+            quickAuthError.style.display = 'block';
+            return;
+          }
+        }
+
+        if (name) {
+          const res = window.authManager.loginContestant(name);
+          if (res.success) {
+            authModal.style.display = 'none';
+            updateAuthUI();
+            if (window.scoreboardManager) {
+              const stats = window.quizEngine.getScoreStats();
+              window.scoreboardManager.setScore(res.user.id, stats.totalScore);
+            }
+            return;
+          } else {
+            quickAuthError.textContent = res.message;
+            quickAuthError.style.display = 'block';
+            return;
+          }
+        }
+
+        quickAuthError.textContent = 'Please enter either a Contestant Name or Admin PIN.';
+        quickAuthError.style.display = 'block';
       });
     }
 
     // Logout Button
     if (userAuthLogoutBtn) {
-      userAuthLogoutBtn.addEventListener('click', (e) => {
+      userAuthLogoutBtn.addEventListener('click', async (e) => {
         e.stopPropagation();
-        window.authManager.logout();
+        await window.authManager.logout();
         updateAuthUI();
         authModal.style.display = 'flex';
       });

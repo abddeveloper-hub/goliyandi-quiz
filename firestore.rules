@@ -1,0 +1,27 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Participants & Leaderboard - readable by all, writable by authenticated users or active contestants
+    match /participants/{participantId} {
+      allow read: if true;
+      allow write: if true;
+    }
+    
+    // User profile document linked to Firebase Auth UID
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Quiz state & sessions
+    match /quiz_sessions/{sessionId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Default fallback
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

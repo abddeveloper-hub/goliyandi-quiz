@@ -1,5 +1,6 @@
 /**
  * Meelad Fest Goliyangadi - Individual Participant Scoreboard & Leaderboard Manager
+ * Synchronized with Firebase Firestore Database & localStorage
  */
 
 class ScoreboardManager {
@@ -13,6 +14,21 @@ class ScoreboardManager {
     ];
     this.participants = this.loadParticipants();
     this.activeParticipantId = null;
+    this.onScoreboardChange = null;
+
+    this.initFirestoreListener();
+  }
+
+  initFirestoreListener() {
+    if (window.firebaseService) {
+      window.firebaseService.listenToParticipants((remoteParticipants) => {
+        if (Array.isArray(remoteParticipants) && remoteParticipants.length > 0) {
+          this.participants = remoteParticipants;
+          this.saveLocalOnly();
+          if (this.onScoreboardChange) this.onScoreboardChange(this.participants);
+        }
+      });
+    }
   }
 
   loadParticipants() {
@@ -24,28 +40,23 @@ class ScoreboardManager {
           return parsed;
         }
       }
-      // Migration from legacy teams key if available
-      const legacySaved = localStorage.getItem('meelad_quiz_teams_v1');
-      if (legacySaved) {
-        const legacyParsed = JSON.parse(legacySaved);
-        if (Array.isArray(legacyParsed) && legacyParsed.length > 0) {
-          return legacyParsed;
-        }
-      }
     } catch (e) {
       console.error('Error reading participants from storage:', e);
     }
     return JSON.parse(JSON.stringify(this.defaultParticipants));
   }
 
-  saveParticipants() {
+  saveLocalOnly() {
     try {
       localStorage.setItem(this.storageKey, JSON.stringify(this.participants));
-      // Also sync to legacy key for cross-compatibility
       localStorage.setItem('meelad_quiz_teams_v1', JSON.stringify(this.participants));
     } catch (e) {
-      console.error('Error saving participants:', e);
+      console.error('Error saving participants locally:', e);
     }
+  }
+
+  saveParticipants() {
+    this.saveLocalOnly();
   }
 
   getParticipants() {
@@ -69,6 +80,12 @@ class ScoreboardManager {
     };
     this.participants.push(newParticipant);
     this.saveParticipants();
+
+    // Sync to Firestore
+    if (window.firebaseService && window.firebaseService.isAvailable()) {
+      window.firebaseService.addParticipant(newParticipant);
+    }
+
     return newParticipant;
   }
 
@@ -77,6 +94,10 @@ class ScoreboardManager {
     if (p && newName.trim()) {
       p.name = newName.trim();
       this.saveParticipants();
+
+      if (window.firebaseService && window.firebaseService.isAvailable()) {
+        window.firebaseService.addParticipant(p);
+      }
     }
   }
 
@@ -86,6 +107,11 @@ class ScoreboardManager {
       this.activeParticipantId = null;
     }
     this.saveParticipants();
+
+    // Delete in Firestore
+    if (window.firebaseService && window.firebaseService.isAvailable()) {
+      window.firebaseService.deleteParticipant(id);
+    }
   }
 
   adjustScore(id, delta, isCorrect = null) {
@@ -98,6 +124,11 @@ class ScoreboardManager {
         p.wrong = (p.wrong || 0) + 1;
       }
       this.saveParticipants();
+
+      // Sync in Firestore
+      if (window.firebaseService && window.firebaseService.isAvailable()) {
+        window.firebaseService.updateParticipantScore(id, p.score, p.correct, p.wrong);
+      }
       return p;
     }
     return null;
@@ -108,6 +139,11 @@ class ScoreboardManager {
     if (p) {
       p.score = Math.max(0, parseInt(newScore, 10) || 0);
       this.saveParticipants();
+
+      // Sync in Firestore
+      if (window.firebaseService && window.firebaseService.isAvailable()) {
+        window.firebaseService.updateParticipantScore(id, p.score, p.correct, p.wrong);
+      }
       return p;
     }
     return null;
@@ -120,6 +156,11 @@ class ScoreboardManager {
       p.wrong = 0;
     });
     this.saveParticipants();
+
+    // Sync in Firestore
+    if (window.firebaseService && window.firebaseService.isAvailable()) {
+      window.firebaseService.resetAllScores(this.participants);
+    }
   }
 
   resetToDefault() {
