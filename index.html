@@ -2920,6 +2920,11 @@
     // Initialize Auth UI
     updateAuthUI();
 
+    // Load progress for active contestant (or start fresh if new contestant)
+    if (window.quizEngine) {
+      window.quizEngine.loadProgress();
+    }
+
     // Initial render for Question 1 (Timer remains paused at 15s until user clicks Start Quiz)
     renderQuestion();
     updateStartBtnState();

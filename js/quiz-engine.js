@@ -59,9 +59,21 @@ class QuizEngine {
     this.loadProgress();
   }
 
+  getStorageProgressKey() {
+    try {
+      const user = window.authManager ? window.authManager.getCurrentUser() : null;
+      if (user && (user.id || user.phone || user.name)) {
+        const id = (user.id || user.phone || user.name).toString().replace(/[^a-zA-Z0-9_]/g, '_');
+        return `meelad_quiz_progress_${id}`;
+      }
+    } catch (e) {}
+    return 'meelad_quiz_progress_guest';
+  }
+
   loadProgress() {
     try {
-      const data = localStorage.getItem(this.storageProgressKey);
+      const key = this.getStorageProgressKey();
+      const data = localStorage.getItem(key);
       if (data) {
         const parsed = JSON.parse(data);
         if (parsed && typeof parsed.questionStates === 'object') {
@@ -78,9 +90,17 @@ class QuizEngine {
             this.eliminatedOptions = saved.eliminatedOptions || [];
             this.audiencePollData = saved.audiencePollData || null;
             this.timeRemaining = saved.timeRemaining !== undefined ? saved.timeRemaining : 0;
+          } else {
+            this.resetQuestionState();
           }
           return true;
         }
+      } else {
+        // Fresh user: start at question 1 with 0 points
+        this.questionStates = {};
+        this.currentIndex = 0;
+        this.maxVisitedIndex = 0;
+        this.resetQuestionState();
       }
     } catch (e) {
       console.warn('Could not load saved quiz progress:', e);
@@ -91,6 +111,7 @@ class QuizEngine {
   saveProgress() {
     try {
       this.saveCurrentQuestionState();
+      const key = this.getStorageProgressKey();
       const payload = {
         currentIndex: this.currentIndex,
         maxVisitedIndex: this.maxVisitedIndex,
@@ -98,7 +119,7 @@ class QuizEngine {
         lifelinesUsed: this.lifelinesUsed,
         updatedAt: new Date().toISOString()
       };
-      localStorage.setItem(this.storageProgressKey, JSON.stringify(payload));
+      localStorage.setItem(key, JSON.stringify(payload));
     } catch (e) {
       console.warn('Could not save quiz progress:', e);
     }
@@ -106,7 +127,8 @@ class QuizEngine {
 
   resetProgress() {
     try {
-      localStorage.removeItem(this.storageProgressKey);
+      const key = this.getStorageProgressKey();
+      localStorage.removeItem(key);
     } catch (e) {}
     this.questionStates = {};
     this.currentIndex = 0;
