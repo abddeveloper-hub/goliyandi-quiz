@@ -16,8 +16,8 @@ class QuizEngine {
     this.timeRemaining = 15;
     this.timerInterval = null;
     this.isTimerRunning = false;
-    this.hasStarted = true;
-    this.autoStartTimer = true;
+    this.hasStarted = false;
+    this.autoStartTimer = false;
     this.autoRevealOnTimeUp = false;
     this.urgentThreshold = 5; // seconds
     this.soundMode = 'all'; // 'all' | 'urgent_only' | 'silent'
@@ -53,7 +53,7 @@ class QuizEngine {
     if (typeof getStoredQuestions === 'function') {
       this.questions = getStoredQuestions();
     }
-    this.setRound('all');
+    this.setRound('all', false);
   }
 
   loadTimerSettings() {
@@ -136,7 +136,7 @@ class QuizEngine {
   }
 
   // ── Round Filtering ─────────────────────────────────────────
-  setRound(roundKey = 'all') {
+  setRound(roundKey = 'all', autoStart = false) {
     this.currentRound = roundKey;
     if (roundKey === 'all') {
       this.filteredQuestions = [...this.questions];
@@ -146,9 +146,10 @@ class QuizEngine {
     this.currentIndex = 0;
     this.maxVisitedIndex = 0;
     this.questionStates = {};
-    this.hasStarted = true;
+    this.hasStarted = Boolean(autoStart);
+    this.isTimerRunning = false;
     this.resetQuestionState();
-    if (!this.isUntimed) {
+    if (autoStart && !this.isUntimed) {
       this.startTimer();
     }
     this.notifyStateChange();
