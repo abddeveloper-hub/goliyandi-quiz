@@ -1,9 +1,11 @@
 /**
  * Meelad Fest Goliyangadi - Quiz State Engine & Timer Controller
+ * Includes State & Score Persistence in localStorage + Live Sync
  */
 
 class QuizEngine {
   constructor() {
+    this.storageProgressKey = 'meelad_quiz_progress_v2';
     this.questions = [];
     this.currentRound = 'all';
     this.filteredQuestions = [];
@@ -33,7 +35,7 @@ class QuizEngine {
     this.eliminatedOptions = [];
     this.audiencePollData = null;
 
-    // Lifeline availability tracking per round or game
+    // Lifeline availability tracking
     this.lifelinesUsed = {
       fiftyFifty: false,
       audiencePoll: false,
@@ -54,6 +56,63 @@ class QuizEngine {
       this.questions = getStoredQuestions();
     }
     this.setRound('all', false);
+    this.loadProgress();
+  }
+
+  loadProgress() {
+    try {
+      const data = localStorage.getItem(this.storageProgressKey);
+      if (data) {
+        const parsed = JSON.parse(data);
+        if (parsed && typeof parsed.questionStates === 'object') {
+          this.questionStates = parsed.questionStates || {};
+          this.currentIndex = Math.min(Math.max(0, parsed.currentIndex || 0), (this.filteredQuestions.length || 1) - 1);
+          this.maxVisitedIndex = parsed.maxVisitedIndex || 0;
+          this.lifelinesUsed = parsed.lifelinesUsed || this.lifelinesUsed;
+
+          const saved = this.questionStates[this.currentIndex];
+          if (saved) {
+            this.selectedOptionIndex = saved.selectedOptionIndex;
+            this.isAnswerRevealed = saved.isAnswerRevealed;
+            this.isLocked = saved.isLocked;
+            this.eliminatedOptions = saved.eliminatedOptions || [];
+            this.audiencePollData = saved.audiencePollData || null;
+            this.timeRemaining = saved.timeRemaining !== undefined ? saved.timeRemaining : 0;
+          }
+          return true;
+        }
+      }
+    } catch (e) {
+      console.warn('Could not load saved quiz progress:', e);
+    }
+    return false;
+  }
+
+  saveProgress() {
+    try {
+      this.saveCurrentQuestionState();
+      const payload = {
+        currentIndex: this.currentIndex,
+        maxVisitedIndex: this.maxVisitedIndex,
+        questionStates: this.questionStates,
+        lifelinesUsed: this.lifelinesUsed,
+        updatedAt: new Date().toISOString()
+      };
+      localStorage.setItem(this.storageProgressKey, JSON.stringify(payload));
+    } catch (e) {
+      console.warn('Could not save quiz progress:', e);
+    }
+  }
+
+  resetProgress() {
+    try {
+      localStorage.removeItem(this.storageProgressKey);
+    } catch (e) {}
+    this.questionStates = {};
+    this.currentIndex = 0;
+    this.maxVisitedIndex = 0;
+    this.resetQuestionState();
+    this.notifyStateChange();
   }
 
   loadTimerSettings() {
@@ -69,7 +128,6 @@ class QuizEngine {
     } catch(e) {
       console.warn('Could not load timer settings from storage:', e);
     }
-    // Strictly enforce 15 seconds
     this.timerDuration = 15;
     this.timeRemaining = 15;
     this.isUntimed = false;
@@ -217,6 +275,7 @@ class QuizEngine {
       this.saveCurrentQuestionState();
       this.currentIndex++;
       this.restoreQuestionState(this.currentIndex, false);
+      this.saveProgress();
       this.notifyStateChange();
       return true;
     }
@@ -228,6 +287,7 @@ class QuizEngine {
       this.saveCurrentQuestionState();
       this.currentIndex--;
       this.restoreQuestionState(this.currentIndex, true);
+      this.saveProgress();
       this.notifyStateChange();
       return true;
     }
@@ -240,6 +300,7 @@ class QuizEngine {
       const isBackwards = index < this.currentIndex || index < this.maxVisitedIndex;
       this.currentIndex = index;
       this.restoreQuestionState(this.currentIndex, isBackwards);
+      this.saveProgress();
       this.notifyStateChange();
       return true;
     }
@@ -440,6 +501,7 @@ class QuizEngine {
     // Reveal answer immediately when participant selects option
     this.revealAnswer();
     this.saveCurrentQuestionState();
+    this.saveProgress();
   }
 
   revealAnswer() {
@@ -457,6 +519,7 @@ class QuizEngine {
         }
       }
     }
+    this.saveProgress();
     this.notifyStateChange();
   }
 
@@ -485,6 +548,7 @@ class QuizEngine {
     this.eliminatedOptions = wrongIndices.slice(0, 2);
 
     if (window.soundEngine) window.soundEngine.playLifeline();
+    this.saveProgress();
     this.notifyStateChange();
     return true;
   }
@@ -513,6 +577,7 @@ class QuizEngine {
 
     this.audiencePollData = percentages;
     if (window.soundEngine) window.soundEngine.playLifeline();
+    this.saveProgress();
     this.notifyStateChange();
     return true;
   }

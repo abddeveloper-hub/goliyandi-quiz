@@ -347,13 +347,13 @@
     .card-header-title h2 {
       font-size: 1.25rem;
       font-weight: 900;
-      color: #fff;
+      color: #0f172a;
     }
 
     .participant-count-badge {
-      background: rgba(124, 58, 237, 0.3);
-      color: #c4b5fd;
-      border: 1px solid rgba(196, 181, 253, 0.3);
+      background: #ede9fe;
+      color: #6d28d9;
+      border: 1px solid #c4b5fd;
       font-size: 0.8rem;
       font-weight: 800;
       padding: 3px 10px;
@@ -367,29 +367,35 @@
     }
 
     .search-input {
-      padding: 8px 14px;
-      border-radius: 10px;
-      border: 2px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.06);
-      color: #fff;
+      padding: 9px 16px;
+      border-radius: 12px;
+      border: 2px solid #cbd5e1;
+      background: #f8fafc;
+      color: #0f172a;
       font-family: var(--font-ui);
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 700;
       outline: none;
-      width: 200px;
+      width: 220px;
       transition: all 0.18s;
+    }
+
+    .search-input::placeholder {
+      color: #94a3b8;
+      font-weight: 600;
     }
 
     .search-input:focus {
       border-color: #7c3aed;
-      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
     }
 
     /* Add Participant Form */
     .add-participant-bar {
       padding: 16px 24px;
-      background: rgba(255, 255, 255, 0.02);
-      border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+      background: #f8fafc;
+      border-bottom: 2px solid #e2e8f0;
       display: flex;
       gap: 10px;
       align-items: center;
@@ -397,21 +403,26 @@
 
     .add-input {
       flex: 1;
-      padding: 10px 16px;
+      padding: 11px 18px;
       border-radius: 12px;
-      border: 2px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.06);
-      color: #fff;
+      border: 2px solid #cbd5e1;
+      background: #ffffff;
+      color: #0f172a;
       font-family: var(--font-ui);
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       font-weight: 700;
       outline: none;
       transition: all 0.18s;
     }
 
+    .add-input::placeholder {
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
     .add-input:focus {
       border-color: #10b981;
-      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
     }
 
     .btn-add {
@@ -419,9 +430,9 @@
       color: #fff;
       border: none;
       border-radius: 12px;
-      padding: 10px 20px;
+      padding: 11px 22px;
       font-family: var(--font-ui);
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 900;
       cursor: pointer;
       display: flex;
@@ -453,27 +464,36 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid #f1f5f9;
       transition: background 0.15s, transform 0.15s;
+      background: #ffffff;
     }
 
     .participant-row:hover {
-      background: rgba(255, 255, 255, 0.04);
+      background: #f8fafc;
     }
 
     .participant-row.rank-1 {
-      background: rgba(245, 158, 11, 0.12);
-      border-left: 6px solid #f59e0b;
+      background: #ecfdf5;
+      border-left: 6px solid #10b981;
     }
 
     .participant-row.rank-2 {
-      background: rgba(148, 163, 184, 0.08);
+      background: #f8fafc;
       border-left: 6px solid #94a3b8;
     }
 
     .participant-row.rank-3 {
-      background: rgba(217, 119, 6, 0.1);
-      border-left: 6px solid #d97706;
+      background: #fffbeb;
+      border-left: 6px solid #f59e0b;
+    }
+
+    .participant-row.is-current-user {
+      background: #f0fdf4 !important;
+      border: 2px solid #10b981 !important;
+      border-radius: 14px;
+      margin: 4px 12px;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.15);
     }
 
     .rank-badge-wrap {
@@ -484,44 +504,46 @@
     }
 
     .rank-num {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 900;
-      font-size: 1rem;
+      font-size: 1.05rem;
       flex-shrink: 0;
-      background: rgba(255, 255, 255, 0.08);
-      color: #cbd5e1;
+      background: #e2e8f0;
+      color: #334155;
     }
 
-    .rank-1 .rank-num { background: #f59e0b; color: #fff; box-shadow: 0 0 12px rgba(245, 158, 11, 0.6); }
-    .rank-2 .rank-num { background: #94a3b8; color: #fff; }
-    .rank-3 .rank-num { background: #d97706; color: #fff; }
+    .rank-1 .rank-num { background: linear-gradient(135deg,#fbbf24,#f59e0b); color: #fff; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4); }
+    .rank-2 .rank-num { background: linear-gradient(135deg,#cbd5e1,#94a3b8); color: #fff; }
+    .rank-3 .rank-num { background: linear-gradient(135deg,#fed7aa,#d97706); color: #fff; }
 
     .participant-name-wrap {
       display: flex;
       flex-direction: column;
+      gap: 2px;
     }
 
     .participant-name {
-      font-weight: 800;
-      font-size: 1.05rem;
-      color: #f8fafc;
+      font-weight: 900;
+      font-size: 1.12rem;
+      color: #0f172a !important;
       cursor: pointer;
+      letter-spacing: -0.2px;
     }
 
     .participant-name:hover {
-      color: #a78bfa;
+      color: #10b981 !important;
       text-decoration: underline;
     }
 
     .participant-meta {
-      font-size: 0.76rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      color: #64748b;
+      color: #475569 !important;
     }
 
     .participant-score-wrap {
@@ -531,14 +553,12 @@
     }
 
     .score-display {
-      font-size: 1.45rem;
+      font-size: 1.55rem;
       font-weight: 900;
-      background: linear-gradient(135deg, #a78bfa, #38bdf8);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      min-width: 80px;
+      color: #2563eb;
+      min-width: 90px;
       text-align: right;
+      letter-spacing: -0.5px;
     }
 
     .score-action-group {
@@ -548,11 +568,11 @@
     }
 
     .score-btn {
-      padding: 6px 12px;
-      border-radius: 8px;
+      padding: 7px 14px;
+      border-radius: 9px;
       border: 1px solid transparent;
       font-family: var(--font-ui);
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       font-weight: 900;
       cursor: pointer;
       transition: all 0.15s;
@@ -1336,46 +1356,42 @@
       <!-- Auth Tabs -->
       <div class="auth-tabs">
         <button class="auth-tab-btn active" id="tabEmailLoginBtn" type="button">
-          <i class="fa-solid fa-envelope"></i> Email Login
+          <i class="fa-solid fa-right-to-bracket"></i> Sign In
         </button>
         <button class="auth-tab-btn" id="tabSignUpBtn" type="button">
-          <i class="fa-solid fa-user-plus"></i> Sign Up
+          <i class="fa-solid fa-user-plus"></i> Register
         </button>
         <button class="auth-tab-btn" id="tabQuickBtn" type="button">
-          <i class="fa-solid fa-bolt"></i> Fast Play / PIN
+          <i class="fa-solid fa-bolt"></i> Fast Play
         </button>
       </div>
 
       <div class="modal-body auth-modal-body">
-        <!-- 1. Email Login Form -->
+        <!-- 1. Sign In Form (Name & Phone) -->
         <form id="emailLoginForm" class="auth-form-panel">
           <div class="auth-field-group">
-            <label class="auth-label"><i class="fa-solid fa-envelope"></i> Email Address</label>
-            <input type="email" class="auth-input" id="loginEmailInput" placeholder="name@example.com" required autocomplete="email" />
+            <label class="auth-label"><i class="fa-solid fa-user"></i> Contestant / User Name</label>
+            <input type="text" class="auth-input" id="loginNameInput" placeholder="Enter your contestant name..." required autocomplete="name" />
           </div>
           <div class="auth-field-group">
-            <label class="auth-label"><i class="fa-solid fa-lock"></i> Password</label>
-            <input type="password" class="auth-input" id="loginPasswordInput" placeholder="Enter your password..." required autocomplete="current-password" />
+            <label class="auth-label"><i class="fa-solid fa-phone"></i> Phone Number</label>
+            <input type="tel" class="auth-input" id="loginPhoneInput" placeholder="Enter phone / mobile number..." required autocomplete="tel" />
           </div>
           <div class="auth-error-msg" id="loginAuthError" style="display:none;"></div>
           <button type="submit" class="auth-submit-btn contestant-btn">
-            <i class="fa-solid fa-right-to-bracket"></i> Sign In with Email
+            <i class="fa-solid fa-right-to-bracket"></i> Sign In
           </button>
         </form>
 
-        <!-- 2. Sign Up Form -->
+        <!-- 2. Sign Up Form (Name & Phone) -->
         <form id="emailSignUpForm" class="auth-form-panel" style="display:none;">
           <div class="auth-field-group">
-            <label class="auth-label"><i class="fa-solid fa-user"></i> Full Name</label>
-            <input type="text" class="auth-input" id="signUpNameInput" placeholder="Enter full name (e.g. Ameen)..." required autocomplete="name" />
+            <label class="auth-label"><i class="fa-solid fa-user"></i> Full Name / Team Name</label>
+            <input type="text" class="auth-input" id="signUpNameInput" placeholder="Enter full name or team name..." required autocomplete="name" />
           </div>
           <div class="auth-field-group">
-            <label class="auth-label"><i class="fa-solid fa-envelope"></i> Email Address</label>
-            <input type="email" class="auth-input" id="signUpEmailInput" placeholder="name@example.com" required autocomplete="email" />
-          </div>
-          <div class="auth-field-group">
-            <label class="auth-label"><i class="fa-solid fa-lock"></i> Create Password</label>
-            <input type="password" class="auth-input" id="signUpPasswordInput" placeholder="At least 6 characters..." required autocomplete="new-password" minlength="6" />
+            <label class="auth-label"><i class="fa-solid fa-phone"></i> Phone Number</label>
+            <input type="tel" class="auth-input" id="signUpPhoneInput" placeholder="Enter phone / mobile number..." required autocomplete="tel" />
           </div>
           <div class="auth-error-msg" id="signUpAuthError" style="display:none;"></div>
           <button type="submit" class="auth-submit-btn contestant-btn" style="background:linear-gradient(135deg,#8b5cf6,#3b82f6);box-shadow:0 4px 0 #1e1b4b;">
@@ -1388,6 +1404,10 @@
           <div class="auth-field-group">
             <label class="auth-label"><i class="fa-solid fa-user-pen"></i> Contestant Name</label>
             <input type="text" class="auth-input" id="quickNameInput" placeholder="Enter contestant name..." required />
+          </div>
+          <div class="auth-field-group">
+            <label class="auth-label"><i class="fa-solid fa-phone"></i> Phone Number (Optional)</label>
+            <input type="tel" class="auth-input" id="quickPhoneInput" placeholder="Enter phone number (optional)..." />
             <span class="auth-hint">Quick identify on leaderboard without password.</span>
           </div>
           <div class="auth-error-msg" id="quickAuthError" style="display:none;"></div>
@@ -1439,15 +1459,15 @@
     const emailLoginForm       = document.getElementById('emailLoginForm');
     const emailSignUpForm      = document.getElementById('emailSignUpForm');
     const quickLoginForm       = document.getElementById('quickLoginForm');
-    const loginEmailInput      = document.getElementById('loginEmailInput');
-    const loginPasswordInput   = document.getElementById('loginPasswordInput');
+    const loginNameInput       = document.getElementById('loginNameInput');
+    const loginPhoneInput      = document.getElementById('loginPhoneInput');
     const loginAuthError       = document.getElementById('loginAuthError');
     const signUpNameInput      = document.getElementById('signUpNameInput');
-    const signUpEmailInput     = document.getElementById('signUpEmailInput');
-    const signUpPasswordInput  = document.getElementById('signUpPasswordInput');
+    const signUpPhoneInput     = document.getElementById('signUpPhoneInput');
     const signUpRoleSelect     = document.getElementById('signUpRoleSelect');
     const signUpAuthError      = document.getElementById('signUpAuthError');
     const quickNameInput       = document.getElementById('quickNameInput');
+    const quickPhoneInput      = document.getElementById('quickPhoneInput');
     const quickPinInput        = document.getElementById('quickPinInput');
     const quickAuthError       = document.getElementById('quickAuthError');
 
@@ -1515,15 +1535,15 @@
     if (tabSignUpBtn)     tabSignUpBtn.addEventListener('click', () => showTab('signup'));
     if (tabQuickBtn)      tabQuickBtn.addEventListener('click', () => showTab('quick'));
 
-    // 1. Email Login Submission
+    // 1. Sign In Submission (Name & Phone)
     if (emailLoginForm) {
       emailLoginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const email = loginEmailInput.value;
-        const password = loginPasswordInput.value;
+        const name = loginNameInput ? loginNameInput.value.trim() : '';
+        const phone = loginPhoneInput ? loginPhoneInput.value.trim() : '';
         loginAuthError.style.display = 'none';
 
-        const res = await window.authManager.loginWithEmail(email, password);
+        const res = await window.authManager.loginWithPhone(name, phone);
         if (res.success) {
           authModal.style.display = 'none';
           updateAuthUI();
@@ -1534,16 +1554,15 @@
       });
     }
 
-    // 2. Email Sign Up Submission
+    // 2. Sign Up Submission (Name & Phone)
     if (emailSignUpForm) {
       emailSignUpForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const name = signUpNameInput.value;
-        const email = signUpEmailInput.value;
-        const password = signUpPasswordInput.value;
+        const name = signUpNameInput ? signUpNameInput.value.trim() : '';
+        const phone = signUpPhoneInput ? signUpPhoneInput.value.trim() : '';
         signUpAuthError.style.display = 'none';
 
-        const res = await window.authManager.signUpWithEmail(email, password, name, 'contestant');
+        const res = await window.authManager.signUpWithPhone(name, phone, 'contestant');
         if (res.success) {
           authModal.style.display = 'none';
           updateAuthUI();
@@ -1559,10 +1578,11 @@
       quickLoginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = (quickNameInput.value || '').trim();
+        const phone = quickPhoneInput ? (quickPhoneInput.value || '').trim() : '';
         quickAuthError.style.display = 'none';
 
         if (name) {
-          const res = window.authManager.loginContestant(name);
+          const res = window.authManager.loginContestant(name, phone);
           if (res.success) {
             authModal.style.display = 'none';
             updateAuthUI();

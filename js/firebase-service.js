@@ -18,83 +18,103 @@ class FirebaseService {
     return Boolean(window.isFirebaseInitialized && this.auth && this.db);
   }
 
-  // ════ AUTHENTICATION METHODS ═════════════════════════════
+  // ════ AUTHENTICATION METHODS (NAME & PHONE) ═══════════════
 
   /**
-   * Register a new user with Email & Password
+   * Register a new user with User Name & Phone Number
    */
-  async signUp(email, password, displayName, role = 'contestant') {
-    if (!this.isAvailable()) {
-      return { success: false, message: 'Firebase service is not initialized yet. Check your config.' };
+  async signUpWithPhone(name, phone, role = 'contestant') {
+    const cleanPhone = String(phone || '').trim().replace(/[^0-9+]/g, '');
+    const cleanName = String(name || '').trim();
+
+    if (!cleanName || cleanName.length < 2) {
+      return { success: false, message: 'Please enter a valid contestant / team name.' };
+    }
+    if (!cleanPhone || cleanPhone.length < 5) {
+      return { success: false, message: 'Please enter a valid phone number (at least 5-10 digits).' };
     }
 
-    try {
-      const userCredential = await this.auth.createUserWithEmailAndPassword(email.trim(), password);
-      const user = userCredential.user;
+    const userId = 'u_' + cleanPhone.replace(/\+/g, '');
+    const userDoc = {
+      uid: userId,
+      displayName: cleanName,
+      name: cleanName,
+      phone: cleanPhone,
+      role: role || 'contestant',
+      updatedAt: (window.firebase && window.firebase.firestore && window.firebase.firestore.FieldValue) ? 
+        firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
+    };
 
-      if (displayName) {
-        await user.updateProfile({ displayName: displayName.trim() });
+    if (this.isAvailable() && this.db) {
+      try {
+        await this.db.collection('users').doc(userId).set(userDoc, { merge: true });
+        await this.ensureParticipantRecord(userId, cleanName, cleanPhone);
+      } catch (err) {
+        console.warn('Firestore user save notice:', err);
       }
-
-      // Save user profile in Firestore
-      const userDoc = {
-        uid: user.uid,
-        email: user.email,
-        displayName: displayName ? displayName.trim() : user.email.split('@')[0],
-        role: role,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      };
-
-      await this.db.collection('users').doc(user.uid).set(userDoc, { merge: true });
-
-      // If registered as contestant, ensure participant doc exists
-      if (role === 'contestant') {
-        await this.ensureParticipantRecord(user.uid, userDoc.displayName);
-      }
-
-      return { success: true, user: userDoc };
-    } catch (error) {
-      console.error('Firebase SignUp Error:', error);
-      return { success: false, message: this.getFriendlyErrorMessage(error) };
     }
+
+    return { success: true, user: userDoc };
   }
 
   /**
-   * Sign In with Email & Password
+   * Sign In with User Name & Phone Number
    */
-  async signIn(email, password) {
-    if (!this.isAvailable()) {
-      return { success: false, message: 'Firebase service is not initialized yet.' };
+  async signInWithPhone(name, phone) {
+    const cleanPhone = String(phone || '').trim().replace(/[^0-9+]/g, '');
+    const cleanName = String(name || '').trim();
+
+    if (!cleanName || cleanName.length < 2) {
+      return { success: false, message: 'Please enter your registered user name.' };
+    }
+    if (!cleanPhone || cleanPhone.length < 5) {
+      return { success: false, message: 'Please enter your phone number.' };
     }
 
-    try {
-      const userCredential = await this.auth.signInWithEmailAndPassword(email.trim(), password);
-      const user = userCredential.user;
+    const userId = 'u_' + cleanPhone.replace(/\+/g, '');
+    let userDoc = {
+      uid: userId,
+      displayName: cleanName,
+      name: cleanName,
+      phone: cleanPhone,
+      role: 'contestant'
+    };
 
-      // Fetch user profile from Firestore
-      let userDocData = {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName || user.email.split('@')[0],
-        role: 'contestant'
-      };
-
+    if (this.isAvailable() && this.db) {
       try {
-        const docSnap = await this.db.collection('users').doc(user.uid).get();
-        if (docSnap.exists) {
-          userDocData = { ...userDocData, ...docSnap.data() };
+        const snap = await this.db.collection('users').doc(userId).get();
+        if (snap.exists) {
+          userDoc = { ...userDoc, ...snap.data(), name: cleanName, displayName: cleanName, phone: cleanPhone };
+          await this.db.collection('users').doc(userId).set(userDoc, { merge: true });
         } else {
-          await this.db.collection('users').doc(user.uid).set(userDocData, { merge: true });
+          await this.db.collection('users').doc(userId).set({
+            ...userDoc,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
         }
-      } catch (docErr) {
-        console.warn('Could not read user doc from Firestore:', docErr);
+        await this.ensureParticipantRecord(userId, cleanName, cleanPhone);
+      } catch (err) {
+        console.warn('Firestore read error during signIn:', err);
       }
-
-      return { success: true, user: userDocData };
-    } catch (error) {
-      console.error('Firebase SignIn Error:', error);
-      return { success: false, message: this.getFriendlyErrorMessage(error) };
     }
+
+    return { success: true, user: userDoc };
+  }
+
+  /**
+   * Legacy alias for backward compatibility
+   */
+  async signUp(emailOrName, passwordOrPhone, displayName, role = 'contestant') {
+    const name = displayName || emailOrName;
+    const phone = passwordOrPhone || emailOrName;
+    return this.signUpWithPhone(name, phone, role);
+  }
+
+  /**
+   * Legacy alias for backward compatibility
+   */
+  async signIn(emailOrName, passwordOrPhone) {
+    return this.signInWithPhone(emailOrName, passwordOrPhone);
   }
 
   /**
@@ -169,7 +189,7 @@ class FirebaseService {
   /**
    * Ensure a participant record exists for a contestant
    */
-  async ensureParticipantRecord(id, name) {
+  async ensureParticipantRecord(id, name, phone = '') {
     if (!this.db) return;
     try {
       const ref = this.db.collection('participants').doc(id);
@@ -177,12 +197,18 @@ class FirebaseService {
       if (!snap.exists) {
         await ref.set({
           name: name.trim(),
+          phone: phone ? phone.trim() : '',
           score: 0,
           correct: 0,
           wrong: 0,
           color: '#10b981',
           updatedAt: firebase.firestore.FieldValue.serverTimestamp()
         });
+      } else {
+        const update = {};
+        if (name) update.name = name.trim();
+        if (phone) update.phone = phone.trim();
+        await ref.set(update, { merge: true });
       }
     } catch (e) {
       console.warn('Error ensuring participant doc:', e);

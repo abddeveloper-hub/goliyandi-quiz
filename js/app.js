@@ -124,6 +124,23 @@ document.addEventListener('DOMContentLoaded', () => {
   window.quizEngine.onStateChange = () => {
     renderCurrentQuestion();
     renderQuickScores();
+
+    if (window.scoreboardManager && window.quizEngine.getScoreStats) {
+      const stats = window.quizEngine.getScoreStats();
+      const currentUser = window.authManager ? window.authManager.getCurrentUser() : null;
+      let targetId = null;
+
+      if (currentUser && currentUser.name) {
+        targetId = currentUser.id;
+      } else {
+        const activeP = window.scoreboardManager.getActiveParticipant() || window.scoreboardManager.getParticipants()[0];
+        if (activeP) targetId = activeP.id;
+      }
+
+      if (targetId) {
+        window.scoreboardManager.setScore(targetId, stats.totalScore, stats.correctCount, stats.wrongCount);
+      }
+    }
   };
 
   // 3. Render Active Question & UI State

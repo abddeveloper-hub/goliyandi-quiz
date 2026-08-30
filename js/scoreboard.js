@@ -18,6 +18,7 @@ class ScoreboardManager {
     this.onScoreboardChange = null;
 
     this.initFirestoreListener();
+    this.initStorageListener();
   }
 
   initFirestoreListener() {
@@ -27,6 +28,24 @@ class ScoreboardManager {
           this.participants = remoteParticipants;
           this.saveLocalOnly();
           if (this.onScoreboardChange) this.onScoreboardChange(this.participants);
+        }
+      });
+    }
+  }
+
+  initStorageListener() {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('storage', (e) => {
+        if (e.key === this.storageKey && e.newValue) {
+          try {
+            const parsed = JSON.parse(e.newValue);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              this.participants = parsed;
+              if (this.onScoreboardChange) this.onScoreboardChange(this.participants);
+            }
+          } catch (err) {
+            console.warn('Storage sync error:', err);
+          }
         }
       });
     }
@@ -58,6 +77,7 @@ class ScoreboardManager {
 
   saveParticipants() {
     this.saveLocalOnly();
+    if (this.onScoreboardChange) this.onScoreboardChange(this.participants);
   }
 
   getParticipants() {
@@ -166,11 +186,34 @@ class ScoreboardManager {
   }
 
   addParticipant(name, color) {
+    const cleanName = (name || '').trim();
+    if (!cleanName) return null;
+
+    // Check if participant already exists with this name
+    const existing = this.participants.find(p => p.name.toLowerCase() === cleanName.toLowerCase());
+    if (existing) {
+      if (color) existing.color = color;
+      this.saveParticipants();
+      return existing;
+    }
+
+    // Check if we can replace an unscored default placeholder
+    const defaultPlaceholder = this.participants.find(p => p.name.startsWith('Participant ') && p.score === 0 && (p.correct || 0) === 0);
+    if (defaultPlaceholder) {
+      defaultPlaceholder.name = cleanName;
+      if (color) defaultPlaceholder.color = color;
+      this.saveParticipants();
+      if (window.firebaseService && window.firebaseService.isAvailable()) {
+        window.firebaseService.addParticipant(defaultPlaceholder);
+      }
+      return defaultPlaceholder;
+    }
+
     const colors = ['#10b981', '#f59e0b', '#06b6d4', '#a855f7', '#ec4899', '#3b82f6', '#14b8a6', '#f97316'];
     const chosenColor = color || colors[this.participants.length % colors.length];
     const newParticipant = {
       id: 'p_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
-      name: name.trim() || `Participant ${this.participants.length + 1}`,
+      name: cleanName,
       score: 0,
       correct: 0,
       wrong: 0,
@@ -233,19 +276,33 @@ class ScoreboardManager {
     return null;
   }
 
-  setScore(id, newScore) {
-    const p = this.participants.find(item => item.id === id);
+  setScore(id, newScore, correct = null, wrong = null) {
+    let p = this.participants.find(item => item.id === id);
+    if (!p && id) {
+      p = this.participants.find(item => item.name.toLowerCase() === id.toLowerCase() || (item.phone && item.phone === id));
+    }
+    if (!p && id) {
+      const cleanName = (window.authManager && window.authManager.getCurrentUser() && window.authManager.getCurrentUser().name) || id;
+      p = this.addParticipant(cleanName);
+    }
+
     if (p) {
       p.score = Math.max(0, parseInt(newScore, 10) || 0);
+      if (correct !== null) p.correct = Math.max(0, parseInt(correct, 10) || 0);
+      if (wrong !== null) p.wrong = Math.max(0, parseInt(wrong, 10) || 0);
       this.saveParticipants();
 
       // Sync in Firestore
       if (window.firebaseService && window.firebaseService.isAvailable()) {
-        window.firebaseService.updateParticipantScore(id, p.score, p.correct, p.wrong);
+        window.firebaseService.updateParticipantScore(p.id, p.score, p.correct, p.wrong);
       }
       return p;
     }
     return null;
+  }
+
+  updateParticipantScore(id, score, correct = null, wrong = null) {
+    return this.setScore(id, score, correct, wrong);
   }
 
   resetAllScores() {

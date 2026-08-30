@@ -575,19 +575,22 @@
       <div class="session-avatar" id="sessionAvatar">U</div>
       <div>
         <h3 class="session-user-name" id="sessionUserName">Contestant</h3>
-        <p style="font-size:0.8rem;color:#94a3b8;margin-top:2px;" id="sessionUserEmail">user@quiz.com</p>
+        <p style="font-size:0.85rem;color:#64748b;margin-top:4px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px;" id="sessionUserPhoneContainer">
+          <i class="fa-solid fa-phone" style="font-size:0.78rem;color:#10b981;"></i>
+          <span id="sessionUserEmail"></span>
+        </p>
       </div>
       <div class="session-user-role" id="sessionUserRole">
         <i class="fa-solid fa-user-check"></i> Contestant
       </div>
 
       <div class="session-actions">
-        <button type="button" class="btn-submit btn-green" id="continueToQuizBtn">
+        <a href="index.html" class="btn-submit btn-green" id="continueToQuizBtn" onclick="window.location.href='index.html'; return false;" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;">
           <i class="fa-solid fa-play"></i> Continue to Quiz Stage
-        </button>
-        <button type="button" class="btn-submit btn-amber" id="continueToScoreboardBtn">
+        </a>
+        <a href="scoreboard.html" class="btn-submit btn-amber" id="continueToScoreboardBtn" onclick="window.location.href='scoreboard.html'; return false;" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;">
           <i class="fa-solid fa-trophy"></i> Open Live Scoreboard
-        </button>
+        </a>
         <button type="button" class="btn-submit btn-dark" id="switchAccountBtn">
           <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out / Switch Account
         </button>
@@ -610,21 +613,17 @@
       </div>
 
       <div class="auth-form-container">
-        <!-- 1. Sign In Form -->
+        <!-- 1. Sign In Form (User Name & Phone Number) -->
         <form id="signInForm" class="form-panel">
           <div class="form-group">
-            <label class="input-label" for="loginEmail"><i class="fa-solid fa-envelope" style="color:#38bdf8;"></i> Email Address</label>
-            <input type="email" class="input-box" id="loginEmail" placeholder="yourname@gmail.com" required autocomplete="email" />
+            <label class="input-label" for="loginName"><i class="fa-solid fa-user" style="color:#10b981;"></i> User Name / Contestant Name</label>
+            <input type="text" class="input-box" id="loginName" placeholder="Enter your contestant name..." required autocomplete="name" />
           </div>
 
           <div class="form-group">
-            <label class="input-label" for="loginPassword"><i class="fa-solid fa-lock" style="color:#fbbf24;"></i> Password</label>
-            <div class="input-wrapper">
-              <input type="password" class="input-box" id="loginPassword" placeholder="Enter your password..." required autocomplete="current-password" />
-              <button type="button" class="input-toggle-btn" id="toggleLoginPwd" title="Show/Hide Password">
-                <i class="fa-solid fa-eye"></i>
-              </button>
-            </div>
+            <label class="input-label" for="loginPhone"><i class="fa-solid fa-phone" style="color:#38bdf8;"></i> Phone Number</label>
+            <input type="tel" class="input-box" id="loginPhone" placeholder="Enter mobile / phone number..." required autocomplete="tel" />
+            <span class="input-hint">Fast 1-step sign in with your name and phone.</span>
           </div>
 
           <div class="auth-error" id="loginError" style="display:none;"></div>
@@ -635,7 +634,7 @@
           </button>
         </form>
 
-        <!-- 2. Register Form -->
+        <!-- 2. Register Form (Full Name & Phone Number) -->
         <form id="signUpForm" class="form-panel" style="display:none;">
           <div class="form-group">
             <label class="input-label" for="regName"><i class="fa-solid fa-user" style="color:#34d399;"></i> Full Name / Team Name</label>
@@ -643,19 +642,9 @@
           </div>
 
           <div class="form-group">
-            <label class="input-label" for="regEmail"><i class="fa-solid fa-envelope" style="color:#38bdf8;"></i> Email Address</label>
-            <input type="email" class="input-box" id="regEmail" placeholder="yourname@gmail.com" required autocomplete="email" />
-          </div>
-
-          <div class="form-group">
-            <label class="input-label" for="regPassword"><i class="fa-solid fa-lock" style="color:#fbbf24;"></i> Create Password</label>
-            <div class="input-wrapper">
-              <input type="password" class="input-box" id="regPassword" placeholder="At least 6 characters..." required autocomplete="new-password" minlength="6" />
-              <button type="button" class="input-toggle-btn" id="toggleRegPwd" title="Show/Hide Password">
-                <i class="fa-solid fa-eye"></i>
-              </button>
-            </div>
-            <span class="input-hint">Must contain at least 6 characters.</span>
+            <label class="input-label" for="regPhone"><i class="fa-solid fa-phone" style="color:#38bdf8;"></i> Phone Number</label>
+            <input type="tel" class="input-box" id="regPhone" placeholder="Enter mobile / phone number..." required autocomplete="tel" />
+            <span class="input-hint">Marks & answers will be synced in real-time.</span>
           </div>
 
           <div class="auth-error" id="signUpError" style="display:none;"></div>
@@ -671,7 +660,12 @@
           <div class="form-group">
             <label class="input-label" for="quickName"><i class="fa-solid fa-user-pen" style="color:#34d399;"></i> Contestant Name</label>
             <input type="text" class="input-box" id="quickName" placeholder="Enter your name to start instantly..." autocomplete="off" required />
-            <span class="input-hint">Fast contestant join without password. Marks sync in real-time to this name.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="input-label" for="quickPhone"><i class="fa-solid fa-phone" style="color:#38bdf8;"></i> Phone Number (Optional)</label>
+            <input type="tel" class="input-box" id="quickPhone" placeholder="Mobile number (optional)..." autocomplete="off" />
+            <span class="input-hint">Fast contestant join. Marks sync in real-time to this name.</span>
           </div>
 
           <div class="auth-error" id="quickError" style="display:none;"></div>
@@ -716,46 +710,38 @@
       const signUpForm    = document.getElementById('signUpForm');
       const quickForm     = document.getElementById('quickForm');
 
-      const loginEmail    = document.getElementById('loginEmail');
-      const loginPassword = document.getElementById('loginPassword');
+      const loginName     = document.getElementById('loginName');
+      const loginPhone    = document.getElementById('loginPhone');
       const loginError    = document.getElementById('loginError');
       const loginSuccess  = document.getElementById('loginSuccess');
       const loginSubmitBtn= document.getElementById('loginSubmitBtn');
 
       const regName       = document.getElementById('regName');
-      const regEmail      = document.getElementById('regEmail');
-      const regPassword   = document.getElementById('regPassword');
+      const regPhone      = document.getElementById('regPhone');
       const signUpError   = document.getElementById('signUpError');
       const signUpSuccess = document.getElementById('signUpSuccess');
       const signUpSubmitBtn = document.getElementById('signUpSubmitBtn');
 
       const quickName     = document.getElementById('quickName');
+      const quickPhone    = document.getElementById('quickPhone');
       const quickError    = document.getElementById('quickError');
       const quickSuccess  = document.getElementById('quickSuccess');
       const quickSubmitBtn= document.getElementById('quickSubmitBtn');
 
-      // Password toggles
-      function setupToggle(btnId, inputId) {
-        const btn = document.getElementById(btnId);
-        const input = document.getElementById(inputId);
-        if (!btn || !input) return;
-        btn.addEventListener('click', () => {
-          const isPwd = input.type === 'password';
-          input.type = isPwd ? 'text' : 'password';
-          btn.innerHTML = isPwd ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
-        });
-      }
-      setupToggle('toggleLoginPwd', 'loginPassword');
-      setupToggle('toggleRegPwd', 'regPassword');
-
       // Get redirect destination from query params (e.g. ?redirect=scoreboard.html)
-      const urlParams = new URLSearchParams(window.location.search);
-      const redirectUrl = urlParams.get('redirect') || 'index.html';
+      function getTargetUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const raw = urlParams.get('redirect');
+        if (raw && !raw.includes('login') && !raw.includes('auth')) {
+          return raw;
+        }
+        return 'index.html';
+      }
 
       function redirectToTarget() {
         setTimeout(() => {
-          window.location.href = redirectUrl;
-        }, 350);
+          window.location.href = getTargetUrl();
+        }, 300);
       }
 
       // Check current session state
@@ -764,7 +750,7 @@
           const user = window.authManager.getCurrentUser();
           if (user) {
             sessionUserName.textContent = user.name || 'User';
-            sessionUserEmail.textContent = user.email || (user.id || '');
+            sessionUserEmail.textContent = user.phone ? user.phone : (user.id || '');
             
             const initials = (user.name || 'U').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
             sessionAvatar.textContent = initials || 'U';
@@ -783,13 +769,19 @@
 
       checkActiveSession();
 
-      continueToQuizBtn.addEventListener('click', () => {
-        window.location.href = 'index.html';
-      });
+      if (continueToQuizBtn) {
+        continueToQuizBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.location.href = 'index.html';
+        });
+      }
 
-      continueToScoreboardBtn.addEventListener('click', () => {
-        window.location.href = 'scoreboard.html';
-      });
+      if (continueToScoreboardBtn) {
+        continueToScoreboardBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.location.href = 'scoreboard.html';
+        });
+      }
 
       switchAccountBtn.addEventListener('click', async () => {
         if (window.authManager) {
@@ -820,18 +812,18 @@
       tabSignUpBtn.addEventListener('click', () => switchTab('signup'));
       tabQuickBtn.addEventListener('click', () => switchTab('quick'));
 
-      // 1. Handle Email Sign In
+      // 1. Handle Sign In (User Name & Phone Number)
       signInForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const email = loginEmail.value.trim();
-        const password = loginPassword.value;
+        const name = loginName.value.trim();
+        const phone = loginPhone.value.trim();
         loginError.style.display = 'none';
         loginSuccess.style.display = 'none';
         loginSubmitBtn.disabled = true;
         loginSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
 
         try {
-          const res = await window.authManager.loginWithEmail(email, password);
+          const res = await window.authManager.loginWithPhone(name, phone);
           if (res.success) {
             loginSuccess.innerHTML = '<i class="fa-solid fa-circle-check"></i> Signed in successfully! Redirecting...';
             loginSuccess.style.display = 'flex';
@@ -850,19 +842,18 @@
         }
       });
 
-      // 2. Handle Email Sign Up
+      // 2. Handle Register / Sign Up (Full Name & Phone Number)
       signUpForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const name = regName.value.trim();
-        const email = regEmail.value.trim();
-        const password = regPassword.value;
+        const phone = regPhone.value.trim();
         signUpError.style.display = 'none';
         signUpSuccess.style.display = 'none';
         signUpSubmitBtn.disabled = true;
         signUpSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
 
         try {
-          const res = await window.authManager.signUpWithEmail(email, password, name, 'contestant');
+          const res = await window.authManager.signUpWithPhone(name, phone, 'contestant');
           if (res.success) {
             signUpSuccess.innerHTML = '<i class="fa-solid fa-circle-check"></i> Account created! Redirecting to quiz...';
             signUpSuccess.style.display = 'flex';
@@ -885,11 +876,12 @@
       quickForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = (quickName.value || '').trim();
+        const phone = (quickPhone.value || '').trim();
         quickError.style.display = 'none';
         quickSuccess.style.display = 'none';
 
         if (name) {
-          const res = window.authManager.loginContestant(name);
+          const res = window.authManager.loginContestant(name, phone);
           if (res.success) {
             quickSuccess.innerHTML = `<i class="fa-solid fa-user-check"></i> Welcome, ${name}! Redirecting...`;
             quickSuccess.style.display = 'flex';

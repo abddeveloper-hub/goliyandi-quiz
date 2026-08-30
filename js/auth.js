@@ -1,11 +1,12 @@
 /**
  * Meelad Fest Goliyangadi - Authentication & Session Manager
- * Integrated with Firebase Authentication (Email/Password) & Firestore User Profiles
+ * Powered by Contestant Name & Phone Number Authentication + Live Firestore Sync
  */
 
 class AuthManager {
   constructor() {
-    this.sessionKey = 'meelad_quiz_auth_session_v1';
+    this.sessionKey = 'meelad_quiz_auth_session_v2';
+    this.legacySessionKey = 'meelad_quiz_auth_session_v1';
     this.adminPinKey = 'meelad_quiz_admin_pin_v1';
     this.defaultAdminPin = 'meelad2026';
     
@@ -23,8 +24,8 @@ class AuthManager {
         if (firebaseUserDoc) {
           this.currentUser = {
             id: firebaseUserDoc.uid,
-            name: firebaseUserDoc.displayName || firebaseUserDoc.email,
-            email: firebaseUserDoc.email,
+            name: firebaseUserDoc.displayName || firebaseUserDoc.name || 'Contestant',
+            phone: firebaseUserDoc.phone || '',
             role: firebaseUserDoc.role || 'contestant',
             isFirebase: true,
             loginTime: new Date().toISOString()
@@ -38,9 +39,15 @@ class AuthManager {
 
   loadSession() {
     try {
-      const data = localStorage.getItem(this.sessionKey);
+      let data = localStorage.getItem(this.sessionKey);
+      if (!data) {
+        data = localStorage.getItem(this.legacySessionKey);
+      }
       if (data) {
         this.currentUser = JSON.parse(data);
+        if (this.currentUser && !this.currentUser.phone && this.currentUser.email) {
+          this.currentUser.phone = this.currentUser.email.replace(/@.*$/, '');
+        }
       } else {
         this.currentUser = null;
       }
@@ -54,8 +61,10 @@ class AuthManager {
     try {
       if (this.currentUser) {
         localStorage.setItem(this.sessionKey, JSON.stringify(this.currentUser));
+        localStorage.setItem(this.legacySessionKey, JSON.stringify(this.currentUser));
       } else {
         localStorage.removeItem(this.sessionKey);
+        localStorage.removeItem(this.legacySessionKey);
       }
     } catch (e) {
       console.warn('Could not save auth session:', e);
@@ -73,109 +82,138 @@ class AuthManager {
     localStorage.setItem(this.adminPinKey, newPin.trim());
   }
 
-  // ════ FIREBASE EMAIL / PASSWORD SIGN IN ══════════════════
-  async loginWithEmail(email, password) {
-    if (!email || !password) {
-      return { success: false, message: 'Please provide both email and password.' };
+  // ════ USER NAME & PHONE NUMBER SIGN IN ══════════════════
+  async loginWithPhone(name, phone) {
+    const cleanName = (name || '').trim();
+    const cleanPhone = (phone || '').trim().replace(/[^0-9+]/g, '');
+
+    if (!cleanName || cleanName.length < 2) {
+      return { success: false, message: 'Please enter your Contestant / User Name (at least 2 characters).' };
+    }
+    if (!cleanPhone || cleanPhone.length < 5) {
+      return { success: false, message: 'Please enter a valid phone number (at least 5 digits).' };
     }
 
-    if (window.firebaseService && window.firebaseService.isAvailable()) {
-      try {
-        const res = await window.firebaseService.signIn(email, password);
-        if (res.success) {
-          this.currentUser = {
-            id: res.user.uid,
-            name: res.user.displayName || res.user.email.split('@')[0],
-            email: res.user.email,
-            role: res.user.role || 'contestant',
-            isFirebase: true,
-            loginTime: new Date().toISOString()
-          };
-          this.saveSession();
-          if (this.onAuthChange) this.onAuthChange(this.currentUser);
-          return { success: true, user: this.currentUser };
-        }
-        
-        // If error is not related to API key configuration, return error
-        const msg = String(res.message || '');
-        if (!msg.toLowerCase().includes('api-key') && !msg.toLowerCase().includes('api_key') && !msg.toLowerCase().includes('not-valid')) {
-          return res;
-        }
-      } catch (err) {
-        console.warn('Firebase signIn exception, falling back to local session:', err);
-      }
-    }
-
-    // Local simulated auth (instant fallback)
-    const cleanName = email.split('@')[0];
-    this.currentUser = {
-      id: 'usr_' + Date.now(),
-      name: cleanName.charAt(0).toUpperCase() + cleanName.slice(1),
-      email: email.trim(),
+    const userId = 'usr_' + cleanPhone.replace(/\+/g, '');
+    let userObj = {
+      id: userId,
+      name: cleanName,
+      phone: cleanPhone,
       role: 'contestant',
       isFirebase: false,
       loginTime: new Date().toISOString()
     };
-    this.saveSession();
-    if (window.scoreboardManager && this.currentUser.name) {
-      window.scoreboardManager.addParticipant(this.currentUser.name);
+
+    if (window.firebaseService) {
+      try {
+        const res = await window.firebaseService.signInWithPhone(cleanName, cleanPhone);
+        if (res.success && res.user) {
+          userObj.id = res.user.uid || userObj.id;
+          userObj.role = res.user.role || 'contestant';
+          userObj.isFirebase = window.firebaseService.isAvailable();
+        }
+      } catch (err) {
+        console.warn('Firebase signIn notice:', err);
+      }
     }
+
+    this.currentUser = userObj;
+    this.saveSession();
+
+    // Ensure participant is in scoreboardManager
+    if (window.scoreboardManager) {
+      const existing = window.scoreboardManager.getParticipants().find(
+        p => (p.name && p.name.toLowerCase() === cleanName.toLowerCase()) || (p.phone && p.phone === cleanPhone)
+      );
+      if (existing) {
+        window.scoreboardManager.updateParticipantName(existing.id, cleanName);
+        this.currentUser.id = existing.id;
+        window.scoreboardManager.setActiveParticipant(existing.id);
+        this.saveSession();
+      } else {
+        const added = window.scoreboardManager.addParticipant(cleanName);
+        if (added) {
+          this.currentUser.id = added.id;
+          window.scoreboardManager.setActiveParticipant(added.id);
+          this.saveSession();
+        }
+      }
+    }
+
     if (this.onAuthChange) this.onAuthChange(this.currentUser);
     return { success: true, user: this.currentUser };
   }
 
-  // ════ FIREBASE EMAIL / PASSWORD SIGN UP ══════════════════
-  async signUpWithEmail(email, password, displayName, role = 'contestant') {
-    if (!email || !password || !displayName) {
-      return { success: false, message: 'Please fill in all required fields (Name, Email, Password).' };
+  // ════ USER NAME & PHONE NUMBER SIGN UP ══════════════════
+  async signUpWithPhone(name, phone, role = 'contestant') {
+    const cleanName = (name || '').trim();
+    const cleanPhone = (phone || '').trim().replace(/[^0-9+]/g, '');
+
+    if (!cleanName || cleanName.length < 2) {
+      return { success: false, message: 'Please enter Full Name / Team Name (at least 2 characters).' };
+    }
+    if (!cleanPhone || cleanPhone.length < 5) {
+      return { success: false, message: 'Please enter a valid phone number (at least 5 digits).' };
     }
 
-    if (password.length < 6) {
-      return { success: false, message: 'Password must be at least 6 characters.' };
-    }
-
-    if (window.firebaseService && window.firebaseService.isAvailable()) {
-      try {
-        const res = await window.firebaseService.signUp(email, password, displayName, role);
-        if (res.success) {
-          this.currentUser = {
-            id: res.user.uid,
-            name: res.user.displayName,
-            email: res.user.email,
-            role: res.user.role,
-            isFirebase: true,
-            loginTime: new Date().toISOString()
-          };
-          this.saveSession();
-          if (this.onAuthChange) this.onAuthChange(this.currentUser);
-          return { success: true, user: this.currentUser };
-        }
-        
-        // If error is not related to API key configuration, return error
-        const msg = String(res.message || '');
-        if (!msg.toLowerCase().includes('api-key') && !msg.toLowerCase().includes('api_key') && !msg.toLowerCase().includes('not-valid')) {
-          return res;
-        }
-      } catch (err) {
-        console.warn('Firebase signUp exception, falling back to local session:', err);
-      }
-    }
-
-    // Local fallback if Firebase is not configured or dummy API key
-    this.currentUser = {
-      id: 'usr_' + Date.now(),
-      name: displayName.trim(),
-      email: email.trim(),
-      role: role,
+    const userId = 'usr_' + cleanPhone.replace(/\+/g, '');
+    let userObj = {
+      id: userId,
+      name: cleanName,
+      phone: cleanPhone,
+      role: role || 'contestant',
       isFirebase: false,
       loginTime: new Date().toISOString()
     };
-    this.saveSession();
-    if (window.scoreboardManager && this.currentUser.name) {
-      window.scoreboardManager.addParticipant(this.currentUser.name);
+
+    if (window.firebaseService) {
+      try {
+        const res = await window.firebaseService.signUpWithPhone(cleanName, cleanPhone, role);
+        if (res.success && res.user) {
+          userObj.id = res.user.uid || userObj.id;
+          userObj.role = res.user.role || role;
+          userObj.isFirebase = window.firebaseService.isAvailable();
+        }
+      } catch (err) {
+        console.warn('Firebase signUp notice:', err);
+      }
     }
+
+    this.currentUser = userObj;
+    this.saveSession();
+
+    if (window.scoreboardManager) {
+      const existing = window.scoreboardManager.getParticipants().find(
+        p => (p.name && p.name.toLowerCase() === cleanName.toLowerCase()) || (p.phone && p.phone === cleanPhone)
+      );
+      if (existing) {
+        window.scoreboardManager.updateParticipantName(existing.id, cleanName);
+        this.currentUser.id = existing.id;
+        window.scoreboardManager.setActiveParticipant(existing.id);
+        this.saveSession();
+      } else {
+        const added = window.scoreboardManager.addParticipant(cleanName);
+        if (added) {
+          this.currentUser.id = added.id;
+          window.scoreboardManager.setActiveParticipant(added.id);
+          this.saveSession();
+        }
+      }
+    }
+
     if (this.onAuthChange) this.onAuthChange(this.currentUser);
     return { success: true, user: this.currentUser };
+  }
+
+  // ════ BACKWARD COMPATIBLE ALIASES ════════════════════════
+  async loginWithEmail(nameOrPhone, phoneOrName) {
+    return this.loginWithPhone(nameOrPhone, phoneOrName);
+  }
+
+  async signUpWithEmail(nameOrPhone, phoneOrPassword, displayName, role = 'contestant') {
+    const finalName = displayName || nameOrPhone;
+    const finalPhone = phoneOrPassword || nameOrPhone;
+    return this.signUpWithPhone(finalName, finalPhone, role);
   }
 
   // ════ HOST ADMIN MASTER PIN LOGIN ════════════════════════
@@ -188,7 +226,7 @@ class AuthManager {
     this.currentUser = {
       id: 'admin_host',
       name: 'Host Admin',
-      email: 'admin@goliyangadi.quiz',
+      phone: 'Admin Master',
       role: 'admin',
       isFirebase: false,
       loginTime: new Date().toISOString()
@@ -200,17 +238,18 @@ class AuthManager {
   }
 
   // ════ QUICK CONTESTANT NAME LOGIN ════════════════════════
-  loginContestant(name) {
+  loginContestant(name, phone = '') {
     const trimmed = (name || '').trim();
+    const cleanPhone = (phone || '').trim().replace(/[^0-9+]/g, '');
     if (!trimmed || trimmed.length < 2) {
       return { success: false, message: 'Please enter a valid contestant name (at least 2 characters).' };
     }
 
     // Ensure participant exists in scoreboardManager / Firestore
-    let participantId = 'p_' + trimmed.toLowerCase().replace(/[^a-z0-9]/g, '_');
+    let participantId = cleanPhone ? ('p_' + cleanPhone.replace(/\+/g, '')) : ('p_' + trimmed.toLowerCase().replace(/[^a-z0-9]/g, '_'));
     if (window.scoreboardManager) {
       const existing = window.scoreboardManager.getParticipants().find(
-        p => p.name.toLowerCase() === trimmed.toLowerCase()
+        p => p.name.toLowerCase() === trimmed.toLowerCase() || (cleanPhone && p.phone === cleanPhone)
       );
       if (existing) {
         participantId = existing.id;
@@ -218,12 +257,13 @@ class AuthManager {
         const added = window.scoreboardManager.addParticipant(trimmed);
         if (added) participantId = added.id;
       }
+      window.scoreboardManager.setActiveParticipant(participantId);
     }
 
     this.currentUser = {
       id: participantId,
       name: trimmed,
-      email: `${participantId}@goliyangadi.quiz`,
+      phone: cleanPhone || '',
       role: 'contestant',
       isFirebase: false,
       loginTime: new Date().toISOString()
