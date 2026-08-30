@@ -1721,12 +1721,6 @@
 
           <div class="participant-score-wrap">
             <div class="score-display">${p.score} pts</div>
-            <div class="score-action-group">
-              <button class="score-btn add-10" data-id="${p.id}" data-delta="10" title="Add 10 points">+10</button>
-              <button class="score-btn add-5" data-id="${p.id}" data-delta="5" title="Add 5 points">+5</button>
-              <button class="score-btn sub-5" data-id="${p.id}" data-delta="-5" title="Deduct 5 points">−5</button>
-              <button class="btn-delete" data-id="${p.id}" title="Remove Contestant"><i class="fa-solid fa-trash"></i></button>
-            </div>
           </div>
         `;
         participantsList.appendChild(row);
@@ -1946,36 +1940,7 @@
     }
 
     function attachListeners() {
-      // Score modifier buttons
-      participantsList.querySelectorAll('.score-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          requireAdminAction(() => {
-            const id = btn.getAttribute('data-id');
-            const delta = parseInt(btn.getAttribute('data-delta'), 10);
-            window.scoreboardManager.adjustScore(id, delta, delta > 0);
-            if (window.soundEngine) {
-              if (delta > 0) window.soundEngine.playCorrect();
-              else window.soundEngine.playWrong();
-            }
-            render();
-          });
-        });
-      });
-
-      // Remove buttons
-      participantsList.querySelectorAll('.btn-delete').forEach(btn => {
-        btn.addEventListener('click', () => {
-          requireAdminAction(() => {
-            const id = btn.getAttribute('data-id');
-            if (confirm('Are you sure you want to remove this contestant?')) {
-              window.scoreboardManager.removeParticipant(id);
-              render();
-            }
-          });
-        });
-      });
-
-      // Rename contestant inline
+      // Rename contestant inline (Optional)
       participantsList.querySelectorAll('.participant-name').forEach(el => {
         el.addEventListener('click', () => {
           requireAdminAction(() => {
