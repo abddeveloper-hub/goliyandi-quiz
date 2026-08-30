@@ -5,12 +5,14 @@
 
 // Default Firebase Configuration for goliyangadi-quiz
 const DEFAULT_FIREBASE_CONFIG = {
-  apiKey: "AIzaSyDummyKeyReplaceWithYourOwnIfCustom",
+  apiKey: "AIzaSyA6EkfYXyjNQtxUlyXVXuxpLBjHa_M9N_I",
   authDomain: "goliyangadi-quiz.firebaseapp.com",
+  databaseURL: "https://goliyangadi-quiz-default-rtdb.firebaseio.com",
   projectId: "goliyangadi-quiz",
   storageBucket: "goliyangadi-quiz.firebasestorage.app",
-  messagingSenderId: "1008766776695",
-  appId: "1:1008766776695:web:goliyangadi_quiz_app"
+  messagingSenderId: "470818301689",
+  appId: "1:470818301689:web:ede3b4871fc296c9e6e428",
+  measurementId: "G-RYER1NMGZ1"
 };
 
 // Check if user has saved custom Firebase config in localStorage

@@ -15,7 +15,9 @@ class FirebaseService {
     if (!config || !config.apiKey || config.apiKey.includes('DummyKey') || config.apiKey.length < 20) {
       return false;
     }
-    return Boolean(window.isFirebaseInitialized && this.auth && this.db);
+    if (!this.db && window.firestoreDb) this.db = window.firestoreDb;
+    if (!this.auth && window.firebaseAuth) this.auth = window.firebaseAuth;
+    return Boolean(window.isFirebaseInitialized && this.db);
   }
 
   // ════ AUTHENTICATION METHODS (NAME & PHONE) ═══════════════
