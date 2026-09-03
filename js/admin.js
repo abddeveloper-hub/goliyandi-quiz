@@ -5,7 +5,7 @@
 
 class AdminManager {
   constructor() {
-    this.storageKey = 'meelad_quiz_questions_v2';
+    this.storageKey = 'meelad_quiz_questions_v3';
     this.pinStorageKey = 'meelad_quiz_admin_auth';
     this.defaultPin = '2026';
     this.isAuthenticated = false;
@@ -84,7 +84,7 @@ class AdminManager {
   async fetchQuestionsFromFirestore() {
     if (window.firebaseService && window.firebaseService.isAvailable() && window.firestoreDb) {
       try {
-        const docSnap = await window.firestoreDb.collection('quiz_bank').doc('master_questions').get();
+        const docSnap = await window.firestoreDb.collection('quiz_bank').doc('master_questions_v3').get();
         if (docSnap.exists) {
           const data = docSnap.data();
           if (data && Array.isArray(data.questions) && data.questions.length > 0) {
@@ -115,7 +115,7 @@ class AdminManager {
   async syncToFirestore() {
     if (window.firebaseService && window.firebaseService.isAvailable() && window.firestoreDb) {
       try {
-        await window.firestoreDb.collection('quiz_bank').doc('master_questions').set({
+        await window.firestoreDb.collection('quiz_bank').doc('master_questions_v3').set({
           questions: this.questions,
           updatedAt: (window.firebase && window.firebase.firestore && window.firebase.firestore.FieldValue)
             ? firebase.firestore.FieldValue.serverTimestamp()

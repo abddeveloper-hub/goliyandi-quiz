@@ -1,938 +1,519 @@
 /**
  * Meelad Fest Goliyangadi - Master Islamic Question Bank
- * Curated with authentic Seerah un-Nabi ﷺ, Quran, Sahaba, Islamic History, and Public Audience questions.
+ * Specialized in Fiqh of Imam al-Shafi'i (رحمه الله)
+ * 25 Comprehensive Jurisprudence Questions across 5 Essential Chapters
  * Bilingual: English and Malayalam (മലയാളം)
  */
 
 const DEFAULT_QUESTIONS = [
-  // ================= ROUND 1: SEERAH UN-NABI ﷺ (പ്രവാചക ചരിത്രം) =================
+  // ================= ROUND 1: TAHARAH - PURITY & WATER (ത്വഹാറത്ത് / ശുദ്ധി) =================
   {
-    id: "sq_1",
+    id: "fq_1",
     round: "r1",
-    roundName: "Seerah un-Nabi ﷺ",
-    roundNameMl: "പ്രവാചക ചരിത്രം ﷺ",
-    category: "Seerah",
+    roundName: "Shafi'i Fiqh: Taharah (Purity)",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: ത്വഹാറത്ത് (ശുദ്ധി)",
+    category: "Taharah",
     difficulty: "Easy",
-    questionEn: "In which historic year was the Holy Prophet Muhammad ﷺ born in Makkah, famously known as the 'Year of the Elephant'?",
-    questionMl: "പ്രവാചകൻ മുഹമ്മദ് നബി ﷺ ജനിച്ച 'ആനക്കലാപം' നടന്ന വർഷം (ആമുൽ ഫീൽ) ഏത് ക്രിസ്താബ്ദത്തിലാണ്?",
+    questionEn: "According to the Shafi'i madhhab, how many obligatory pillars (Fard / Arkan) of Wudu (ablution) are there?",
+    questionMl: "ശാഫിഈ മദ്ഹബ് പ്രകാരം വുളൂഇന്റെ നിർബന്ധ ഫർളുകൾ (അർകാനുകൾ) എത്രയാണ്?",
     options: [
-      "570 / 571 CE",
-      "610 CE",
-      "622 CE",
-      "632 CE"
+      "6 (Niyyah, Face, Arms, Part of Head, Feet, Tarteeb)",
+      "4 (Face, Arms, Head, Feet)",
+      "7 (Including rubbing / Dalk)",
+      "8 (Including Bismillah and gargling)"
     ],
     correctIndex: 0,
-    explanationEn: "Prophet Muhammad ﷺ was born on 12th Rabi' al-Awwal in 570/571 CE in Makkah, in the year of the Elephant (Aam al-Feel).",
-    explanationMl: "ഹിജ്റക്ക് മുൻപ് എ.ഡി 570/571-ൽ റബീഉൽ അവ്വൽ മാസത്തിലാണ് പുണ്യ നബി ﷺ മക്കയിൽ ഭൂജാതരായത്.",
+    explanationEn: "In the Shafi'i school, Wudu has 6 Fards: 1. Intention (Niyyah), 2. Washing the face, 3. Washing arms including elbows, 4. Wiping part of the head, 5. Washing feet including ankles, and 6. Tarteeb (observing this sequence).",
+    explanationMl: "ശാഫിഈ മദ്ഹബിൽ വുളൂഇന് 6 ഫർളുകളാണുള്ളത്: നിയ്യത്ത്, മുഖം കഴുകൽ, കൈകൾ മുട്ടോട് കൂടി കഴുകൽ, തലയുടെ കുറച്ചു ഭാഗം തടവൽ, കാലുകൾ ഞെരിയാണിയോട് കൂടി കഴുകൽ, തർതീബ് (ക്രമം പാലിക്കൽ).",
     points: 10
   },
   {
-    id: "sq_2",
+    id: "fq_2",
     round: "r1",
-    roundName: "Seerah un-Nabi ﷺ",
-    roundNameMl: "പ്രവാചക ചരിത്രം ﷺ",
-    category: "Seerah",
+    roundName: "Shafi'i Fiqh: Taharah (Purity)",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: ത്വഹാറത്ത് (ശുദ്ധി)",
+    category: "Taharah",
+    difficulty: "Medium",
+    questionEn: "In Shafi'i Fiqh, what is the approximate volume of 'Qullatayn' (large volume of water) that does not become impure by contact with Najis unless its taste, color, or smell alters?",
+    questionMl: "ശാഫിഈ കർമ്മശാസ്ത്ര പ്രകാരം അശുദ്ധി വീണാലും രുചി, നിറം, ഗന്ധം എന്നിവ മാറാത്ത പക്ഷം നജിസാവാത്ത 'ഖുല്ലത്തൈൻ' (വലിയ അളവ് വെള്ളം) ഏകദേശം എത്ര ലിറ്ററാണ്?",
+    options: [
+      "Approx. 192 to 216 Liters (~500 Iraqi Ratl)",
+      "Approx. 50 Liters",
+      "Approx. 500 Liters",
+      "Approx. 1000 Liters"
+    ],
+    correctIndex: 0,
+    explanationEn: "Qullatayn is approximately 500 Iraqi Ratls, evaluated by contemporary scholars as around 192 to 216 liters (roughly 200 liters or a cubic space of 1.25 cubits in height, width, and length).",
+    explanationMl: "ശാഫിഈ കർമ്മശാസ്ത്രത്തിൽ ഖുല്ലത്തൈൻ എന്നാൽ 500 ബഗ്ദാദി റത്തൽ ആണ്. ആധുനിക കണക്കനുസരിച്ച് ഇത് ഏകദേശം 192 മുതൽ 216 ലിറ്റർ (ഏകദേശം 200 ലിറ്റർ) ജലമാണ്.",
+    points: 10
+  },
+  {
+    id: "fq_3",
+    round: "r1",
+    roundName: "Shafi'i Fiqh: Taharah (Purity)",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: ത്വഹാറത്ത് (ശുദ്ധി)",
+    category: "Taharah",
+    difficulty: "Medium",
+    questionEn: "According to the authentic Shafi'i position, does direct skin-to-skin contact between a marriageable man and woman (non-mahram) without a barrier invalidate Wudu?",
+    questionMl: "ശാഫിഈ മദ്ഹബിലെ പ്രബല വിധി പ്രകാരം, മറയില്ലാതെ അന്യസ്ത്രീയും പുരുഷനും തമ്മിൽ തൊലിപ്പുറത്ത് നേരിട്ട് സ്പർശിച്ചാൽ വുളൂഅ് മുറിയുമോ?",
+    options: [
+      "Yes, it invalidates the Wudu of both the toucher and touched",
+      "Only if accompanied by sexual desire / lust (Shahwah)",
+      "No, skin contact never invalidates Wudu",
+      "Only the person who initiated the touch loses Wudu"
+    ],
+    correctIndex: 0,
+    explanationEn: "In the Shafi'i school, direct skin contact between an adult male and an unrelated marriageable female (non-mahram) invalidates Wudu for both parties, whether intentional or accidental, with or without desire.",
+    explanationMl: "ശാഫിഈ മദ്ഹബിൽ അന്യസ്ത്രീ-പുരുഷന്മാരുടെ ത്വക്കുകൾ യാതൊരു മറയുമില്ലാതെ സ്പർശിച്ചാൽ വികാരമുണ്ടെങ്കിലും ഇല്ലെങ്കിലും മനഃപൂർവ്വമാണെങ്കിലും അല്ലെങ്കിലും രണ്ടുപേരുടെയും വുളൂഅ് മുറിയും.",
+    points: 10
+  },
+  {
+    id: "fq_4",
+    round: "r1",
+    roundName: "Shafi'i Fiqh: Taharah (Purity)",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: ത്വഹാറത്ത് (ശുദ്ധി)",
+    category: "Taharah",
+    difficulty: "Medium",
+    questionEn: "How must an item contaminated by severe impurity (Najasah Mughalladhah) from a dog or pig be purified in the Shafi'i madhhab?",
+    questionMl: "നായ അല്ലെങ്കിൽ പന്നി തട്ടി കടുപ്പമേറിയ നജസ് (മുഗല്ലള) ആയ ഒരു വസ്തുവിനെ ശുദ്ധിയാക്കാൻ ശാഫിഈ മദ്ഹബ് കൽപ്പിക്കുന്ന മാർഗ്ഗമേത്?",
+    options: [
+      "Washing 7 times, one of which must be mixed with clean purifying soil",
+      "Washing 3 times with pure water and soap",
+      "Washing once thoroughly with hot water",
+      "Sprinkling water over it until moist"
+    ],
+    correctIndex: 0,
+    explanationEn: "Severe impurity (Najasah Mughalladhah) must be washed seven times with pure water, and one of those seven washings must be mixed with pure soil/earth (Tuhr / Turab).",
+    explanationMl: "നായ, പന്നി എന്നിവ മൂലമുണ്ടാകുന്ന മുഗല്ലളായ നജസ് നീക്കം ചെയ്യാൻ മണ്ണു കലക്കിയ ശുദ്ധജലം കൊണ്ട് ഒരു തവണയും അല്ലാതെ 6 തവണയുമായി ആകെ 7 പ്രാവശ്യം കഴുകി ശുദ്ധിയാക്കൽ നിർബന്ധമാണ്.",
+    points: 10
+  },
+  {
+    id: "fq_5",
+    round: "r1",
+    roundName: "Shafi'i Fiqh: Taharah (Purity)",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: ത്വഹാറത്ത് (ശുദ്ധി)",
+    category: "Taharah",
     difficulty: "Easy",
-    questionEn: "Who was the foster mother of Prophet Muhammad ﷺ who nursed him in the desert of Banu Sa'd?",
-    questionMl: "ബനൂ സഅ്ദ് ഗോത്രത്തിൽ പ്രവാചകൻ മുഹമ്മദ് നബി ﷺ-യെ പോറ്റി വളർത്തിയ മുലയൂട്ടിയ മാതാവ് ആരാണ്?",
+    questionEn: "How many obligatory integrals (Fard) are required for a valid purificatory bath (Ghusl) in the Shafi'i school?",
+    questionMl: "വലിയ അശുദ്ധിയിൽ നിന്നുള്ള നിർബന്ധ കുളി (ഗുസ്‌ൽ) സാധുവാകാൻ ശാഫിഈ മദ്ഹബ് പ്രകാരം എത്ര ഫർളുകൾ നിർവ്വഹിക്കണം?",
     options: [
-      "Halimah al-Sa'diyyah (റ)",
-      "Barakah / Umm Ayman (റ)",
-      "Fatimah bint Asad (റ)",
-      "Thuwaybah (റ)"
+      "2 (Niyyah and washing the entire body, skin, and hair)",
+      "3 (Gargling, rinsing nose, and washing body)",
+      "5 (Including wudu before ghusl)",
+      "1 (Washing the body only)"
     ],
     correctIndex: 0,
-    explanationEn: "Sayyidatuna Halimah al-Sa'diyyah (RA) took baby Muhammad ﷺ to the desert of Banu Sa'd and was blessed with immense Barakah.",
-    explanationMl: "ബനൂ സഅ്ദ് ഗോത്രത്തിൽ നിന്നുള്ള ഹലീമത്തുസ്സഅ്ദിയ്യ (റ) ആണ് നബി ﷺ-യെ മുലയൂട്ടി വളർത്തിയത്.",
-    points: 10
-  },
-  {
-    id: "sq_3",
-    round: "r1",
-    roundName: "Seerah un-Nabi ﷺ",
-    roundNameMl: "പ്രവാചക ചരിത്രം ﷺ",
-    category: "Seerah",
-    difficulty: "Medium",
-    questionEn: "In which cave did Prophet Muhammad ﷺ receive the very first divine revelation of the Holy Quran through Angel Jibreel (AS)?",
-    questionMl: "ജിബ്‌രീൽ (അ) മുഖേന വിശുദ്ധ ഖുർആനിലെ പ്രഥമ ദിവ്യസന്ദേശം നബി ﷺ-ക്ക് അവതരിച്ച ഗുഹ ഏതാണ്?",
-    options: [
-      "Cave of Hira (ഹിറാ ഗുഹ)",
-      "Cave of Thawr (സൗർ ഗുഹ)",
-      "Cave of Uhud (ഉഹ്ദ് ഗുഹ)",
-      "Cave of Kahf (കഹ്ഫ് ഗുഹ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "The first revelation (Surah Al-Alaq: 1-5) was revealed in Cave Hira on Jabal al-Noor during Ramadan in 610 CE.",
-    explanationMl: "ജബലുന്നുറിലെ ഹിറാ ഗുഹയിൽ ധ്യാനത്തിലിരിക്കുമ്പോഴാണ് നബി ﷺ-ക്ക് ആദ്യമായി 'ഇഖ്റഅ്' എന്ന ദിവ്യവചനങ്ങൾ ലഭിച്ചത്.",
-    points: 10
-  },
-  {
-    id: "sq_4",
-    round: "r1",
-    roundName: "Seerah un-Nabi ﷺ",
-    roundNameMl: "പ്രവാചക ചരിത്രം ﷺ",
-    category: "Seerah",
-    difficulty: "Medium",
-    questionEn: "What was the name of the trusted camel ridden by Prophet Muhammad ﷺ during the historic Hijrah from Makkah to Madinah?",
-    questionMl: "മക്കയിൽ നിന്ന് മദീനയിലേക്കുള്ള ചരിത്രപ്രസിദ്ധമായ ഹിജ്റ വേളയിൽ നബി ﷺ സഞ്ചരിച്ച ഒട്ടകത്തിന്റെ പേരെന്ത്?",
-    options: [
-      "Al-Qaswa (ഖസ്വാഅ്)",
-      "Al-Adhba (അദ്ബാഅ്)",
-      "Al-Jad'a (ജദ്ആഅ്)",
-      "Al-Buraq (ബുറാഖ്)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Al-Qaswa was the beloved she-camel of the Prophet ﷺ that determined the location of Masjid an-Nabawi in Madinah.",
-    explanationMl: "നബി ﷺ-യുടെ പ്രിയപ്പെട്ട ഒട്ടകമായ 'ഖസ്വാഅ്' മദീനയിൽ എത്തിയപ്പോൾ ഇരുന്ന സ്ഥലത്താണ് മസ്ജിദുന്നബവി നിർമ്മിച്ചത്.",
-    points: 10
-  },
-  {
-    id: "sq_5",
-    round: "r1",
-    roundName: "Seerah un-Nabi ﷺ",
-    roundNameMl: "പ്രവാചക ചരിത്രം ﷺ",
-    category: "Seerah",
-    difficulty: "Hard",
-    questionEn: "Who was the companion who accompanied the Prophet Muhammad ﷺ during the secret journey of Hijrah in the Cave of Thawr?",
-    questionMl: "ഹിജ്റ വേളയിൽ സൗർ ഗുഹയിൽ വെച്ച് നബി ﷺ-യോടൊപ്പം കൂട്ടുകാരനായി നിലകൊണ്ട സ്വഹാബി ആര്?",
-    options: [
-      "Abu Bakr as-Siddiq (റ)",
-      "Umar ibn al-Khattab (റ)",
-      "Ali ibn Abi Talib (റ)",
-      "Uthman ibn Affan (റ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Sayyiduna Abu Bakr as-Siddiq (RA) was the sole companion in the Cave of Thawr ('The Second of the Two').",
-    explanationMl: "ഖുർആൻ 'രണ്ടാളുകളിൽ രണ്ടാമൻ' എന്ന് വിശേഷിപ്പിച്ച അബൂബക്കർ സിദ്ദീഖ് (റ) ആണ് സൗർ ഗുഹയിൽ നബി ﷺ-ക്ക് കൂട്ടായിരുന്നത്.",
-    points: 10
-  },
-  {
-    id: "sq_6",
-    round: "r1",
-    roundName: "Seerah un-Nabi ﷺ",
-    roundNameMl: "പ്രവാചക ചരിത്രം ﷺ",
-    category: "Seerah",
-    difficulty: "Medium",
-    questionEn: "What was the title given to Prophet Muhammad ﷺ by the people of Makkah even before Prophethood due to his honesty and trustworthiness?",
-    questionMl: "നബിത്വത്തിന് മുൻപ് തന്നെ സത്യസന്ധതയും വിശ്വസ്തതയും കണ്ട് മക്കക്കാർ നബി ﷺ-ക്ക് നൽകിയ നാമവിശേഷണം എന്തായിരുന്നു?",
-    options: [
-      "Al-Sadiq & Al-Ameen (അസ്സ്വാദിഖ് & അൽ അമീൻ)",
-      "Al-Farooq (അൽ ഫാറൂഖ്)",
-      "Dhun-Noorayn (ദുന്നൂറൈൻ)",
-      "Asadullah (അസദുല്ലാഹ്)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Makkans called him 'Al-Sadiq' (The Truthful) and 'Al-Ameen' (The Trustworthy).",
-    explanationMl: "ഏറ്റവും വലിയ സത്യസന്ധനും വിശ്വസ്തനുമായതിനാൽ മക്കക്കാർ നബി ﷺ-യെ അസ്സ്വാദിഖുൽ അമീൻ എന്ന് വിളിച്ചു.",
-    points: 10
-  },
-  {
-    id: "sq_7",
-    round: "r1",
-    roundName: "Seerah un-Nabi ﷺ",
-    roundNameMl: "പ്രവാചക ചരിത്രം ﷺ",
-    category: "Seerah",
-    difficulty: "Hard",
-    questionEn: "In which year of the prophetic mission did the miraculous Night Journey (Isra' and Mi'raj) take place?",
-    questionMl: "പ്രവാചകത്വത്തിന്റെ എത്രാമത്തെ വർഷത്തിലാണ് പരിശുദ്ധ ഇസ്റാഅ് - മിഅ്റാജ് (നിശാപ്രയാണം) നടന്നത്?",
-    options: [
-      "10th / 11th Year of Prophethood (നബിത്വത്തിന്റെ 10-11 ആം വർഷം)",
-      "1st Year of Prophethood (ഒന്നാം വർഷം)",
-      "5th Year of Hijrah (ഹിജ്റ 5-ൽ)",
-      "8th Year of Hijrah (ഹിജ്റ 8-ൽ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Isra and Mi'raj occurred around the 10th-11th year of Prophethood (approx. 620-621 CE), before the Hijrah to Madinah.",
-    explanationMl: "നബിത്വത്തിന്റെ 10-11 ആം വർഷത്തിൽ (ഹിജ്റക്ക് തൊട്ടുമുൻപ്) റജബ് മാസത്തിലാണ് ഇസ്റാഅ് മിഅ്റാജ് നടന്നത്.",
-    points: 10
-  },
-  {
-    id: "sq_8",
-    round: "r1",
-    roundName: "Seerah un-Nabi ﷺ",
-    roundNameMl: "പ്രവാചക ചരിത്രം ﷺ",
-    category: "Seerah",
-    difficulty: "Medium",
-    questionEn: "What was the name of the peace treaty signed in 6 AH between the Muslims of Madinah and the Quraysh of Makkah?",
-    questionMl: "ഹിജ്റ ആറാം വർഷത്തിൽ മുസ്ലിംകളും മക്കയിലെ ഖുറൈശികളും തമ്മിൽ ഒപ്പുവെച്ച ചരിത്രപ്രസിദ്ധമായ സമാധാന ഉടമ്പടി ഏതാണ്?",
-    options: [
-      "Treaty of Hudaybiyyah (ഹുദൈബിയ്യ സന്ധി)",
-      "Pledge of Ridwan (ബൈഅത്തുർ രിള്‌വാൻ)",
-      "Constitution of Madinah (മദീന ചാർട്ടർ)",
-      "Pledge of Aqabah (അഖബ ഉടമ്പടി)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Sulh al-Hudaybiyyah was called 'Fathan Mubeena' (a clear victory) in Surah Al-Fath.",
-    explanationMl: "ഹുദൈബിയ്യ സന്ധിയെ വിശുദ്ധ ഖുർആൻ 'പ്രത്യക്ഷമായ വിജയം' (ഫത്‌ഹൻ മുബീന) എന്നാണ് വിശേഷിപ്പിച്ചത്.",
-    points: 10
-  },
-  {
-    id: "sq_9",
-    round: "r1",
-    roundName: "Seerah un-Nabi ﷺ",
-    roundNameMl: "പ്രവാചക ചരിത്രം ﷺ",
-    category: "Seerah",
-    difficulty: "Easy",
-    questionEn: "Who was the grandfather of Prophet Muhammad ﷺ who took care of him after the demise of his mother Sayyidatuna Aminah (RA)?",
-    questionMl: "മാതാവ് ആമിന ബീവിയുടെ വഫാത്തിന് ശേഷം ബാലനായ നബി ﷺ-യെ സംരക്ഷിച്ച പിതാമഹൻ (മുത്തശ്ശൻ) ആരാണ്?",
-    options: [
-      "Abdul Muttalib (അബ്ദുൽ മുത്ത്വലിബ്)",
-      "Abu Talib (അബൂ ത്വാലിബ്)",
-      "Hamzah ibn Abdul Muttalib (ഹംസ)",
-      "Abbas ibn Abdul Muttalib (അബ്ബാസ്)"
-    ],
-    correctIndex: 0,
-    explanationEn: "His grandfather Abdul Muttalib cared for him until he passed away when the Prophet ﷺ was eight years old.",
-    explanationMl: "മുത്തശ്ശൻ അബ്ദുൽ മുത്ത്വലിബ് എട്ടാം വയസ്സ് വരെ നബി ﷺ-യെ സ്വന്തം മക്കളെക്കാൾ സ്നേഹത്തോടെ പോറ്റി വളർത്തി.",
-    points: 10
-  },
-  {
-    id: "sq_10",
-    round: "r1",
-    roundName: "Seerah un-Nabi ﷺ",
-    roundNameMl: "പ്രവാചക ചരിത്രം ﷺ",
-    category: "Seerah",
-    difficulty: "Hard",
-    questionEn: "How old was Prophet Muhammad ﷺ when he delivered the historic Farewell Sermon (Khutbat al-Wada') and completed his worldly mission?",
-    questionMl: "വിടവാങ്ങൽ ഹജ്ജ് വേളയിൽ ചരിത്രപ്രസിദ്ധമായ വിടവാങ്ങൽ പ്രസംഗം നടത്തുമ്പോൾ പുണ്യ നബി ﷺ-യുടെ പ്രായം എത്രയായിരുന്നു?",
-    options: [
-      "63 Lunar Years (63 വയസ്സ്)",
-      "60 Years (60 വയസ്സ്)",
-      "65 Years (65 വയസ്സ്)",
-      "58 Years (58 വയസ്സ്)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Prophet Muhammad ﷺ completed his mission and passed away at the age of 63 lunar years in 11 AH (632 CE).",
-    explanationMl: "ഹിജ്റ 11-ൽ 63-ാം വയസ്സിലാണ് തിരുനബി ﷺ ഈ ലോകത്തോട് വിടപറഞ്ഞത്.",
+    explanationEn: "In Shafi'i Fiqh, Ghusl has only 2 mandatory pillars: 1. The intention (Niyyah) at the onset of washing, and 2. Ensuring water reaches all external parts of the body including every strand of hair and all skin.",
+    explanationMl: "ശാഫിഈ മദ്ഹബിൽ കുളിയുടെ ഫർളുകൾ രണ്ടെണ്ണം മാത്രമാണ്: 1. വലിയ അശുദ്ധിയെ ഉയർത്തുന്നുവെന്ന നിയ്യത്ത്, 2. തലമുടി, രോമങ്ങൾ, ചർമ്മം എന്നിവയുൾപ്പെടെ ശരീരം മുഴുവൻ വെള്ളം എത്തിക്കൽ.",
     points: 10
   },
 
-  // ================= ROUND 2: HOLY QURAN (വിശുദ്ധ ഖുർആൻ) =================
+  // ================= ROUND 2: SALAH - PRAYER & ITS RULES (സ്വലാത്ത് / നിസ്കാരം) =================
   {
-    id: "qq_1",
+    id: "fq_6",
     round: "r2",
-    roundName: "Holy Quran & Revelations",
-    roundNameMl: "വിശുദ്ധ ഖുർആൻ",
-    category: "Quran",
+    roundName: "Shafi'i Fiqh: Salah (Prayer)",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: സ്വലാത്ത് (നിസ്കാരം)",
+    category: "Salah",
     difficulty: "Easy",
-    questionEn: "Which Surah in the Holy Quran is known as 'Umm al-Kitab' (The Mother of the Book) and is recited in every unit of Salah?",
-    questionMl: "വിശുദ്ധ ഖുർആനിലെ 'ഉമ്മുൽ കിതാബ്' (വേദഗ്രന്ഥത്തിന്റെ മാതാവ്) എന്നറിയപ്പെടുന്നതും എല്ലാ നമസ്കാരത്തിലും നിർബന്ധമായും ഓതുന്നതുമായ സൂറത്ത് ഏത്?",
+    questionEn: "In the Shafi'i madhhab, is 'Bismillahir-Rahmanir-Rahim' considered an obligatory verse of Surah Al-Fatihah in Salah?",
+    questionMl: "ശാഫിഈ മദ്ഹബ് പ്രകാരം നിസ്കാരത്തിൽ 'ബിസ്മില്ലാഹിർറഹ്മാനിർറഹീം' എന്നത് സൂറത്തുൽ ഫാത്തിഹയിലെ നിർബന്ധ ആയത്താണോ?",
     options: [
-      "Surah Al-Fatihah (സൂറത്തുൽ ഫാത്തിഹ)",
-      "Surah Al-Baqarah (സൂറത്തുൽ ബഖറ)",
-      "Surah Ya-Sin (സൂറത്തു യാസീൻ)",
-      "Surah Al-Ikhlas (സൂറത്തുൽ ഇഖ്‌ലാസ്)"
+      "Yes, it is the first verse of Al-Fatihah; omitting it invalidates the prayer",
+      "No, reciting it is only a voluntary Sunnah",
+      "It is only recited quietly in Sirri (silent) prayers",
+      "It is only required in the very first Rak'ah"
     ],
     correctIndex: 0,
-    explanationEn: "Surah Al-Fatihah is the opening chapter of the Quran and the foundation of every Rak'ah of prayer.",
-    explanationMl: "സൂറത്തുൽ ഫാത്തിഹയാണ് ഖുർആന്റെ തുടക്കവും എല്ലാ റക്അത്തിലും പാരായണം ചെയ്യേണ്ടതുമായ സൂറത്ത്.",
+    explanationEn: "Imam al-Shafi'i established that 'Bismillahir-Rahmanir-Rahim' is a full, counted verse (Ayah) of Surah Al-Fatihah. Omitting it deliberately or unintentionally invalidates the recitation of Al-Fatihah and the prayer.",
+    explanationMl: "ശാഫിഈ മദ്ഹബിൽ ബിസ്മി എന്നത് സൂറത്തുൽ ഫാത്തിഹയിലെ ഏഴ് ആയത്തുകളിൽ ഒന്നാമത്തെ പൂർണ്ണ ആയത്താണ്. ബിസ്മി ഉപേക്ഷിച്ചാൽ ഫാത്തിഹ സാധുവാകില്ല, നിസ്കാരവും അസാധുവാകും.",
     points: 10
   },
   {
-    id: "qq_2",
+    id: "fq_7",
     round: "r2",
-    roundName: "Holy Quran & Revelations",
-    roundNameMl: "വിശുദ്ധ ഖുർആൻ",
-    category: "Quran",
-    difficulty: "Easy",
-    questionEn: "Which is the longest Surah and contains the greatest single verse (Ayat al-Kursi) in the Holy Quran?",
-    questionMl: "വിശുദ്ധ ഖുർആനിലെ ഏറ്റവും നീളമേറിയതും 'ആയത്തുൽ കുർസിയ്യ്' ഉൾക്കൊള്ളുന്നതുമായ സൂറത്ത് ഏതാണ്?",
-    options: [
-      "Surah Al-Baqarah (സൂറത്തുൽ ബഖറ)",
-      "Surah Aal-e-Imran (സൂറത്തു ആലു ഇംറാൻ)",
-      "Surah An-Nisa (സൂറത്തുന്നിസാഅ്)",
-      "Surah Al-Ma'idah (സൂറത്തുൽ മാഇദ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Surah Al-Baqarah contains 286 verses, and Ayat al-Kursi (2:255) is regarded as the greatest verse of the Quran.",
-    explanationMl: "286 സൂക്തങ്ങളുള്ള സൂറത്തുൽ ബഖറയാണ് ഏറ്റവും വലിയ സൂറത്ത്; ഇതിൽ ആയത്തുൽ കുർസിയ്യ് (2:255) അടങ്ങിയിരിക്കുന്നു.",
-    points: 10
-  },
-  {
-    id: "qq_3",
-    round: "r2",
-    roundName: "Holy Quran & Revelations",
-    roundNameMl: "വിശുദ്ധ ഖുർആൻ",
-    category: "Quran",
+    roundName: "Shafi'i Fiqh: Salah (Prayer)",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: സ്വലാത്ത് (നിസ്കാരം)",
+    category: "Salah",
     difficulty: "Medium",
-    questionEn: "Which Surah does NOT begin with 'Bismillahir Rahmanir Raheem'?",
-    questionMl: "'ബിസ്മില്ലാഹിർറഹ്മാനിർറഹീം' കൂടാതെ ആരംഭിക്കുന്ന ഒരേയൊരു സൂറത്ത് ഏതാണ്?",
+    questionEn: "What is the legal status of reciting Du'a al-Qunut during the I'tidal of the second Rak'ah of Fajr prayer in Shafi'i Fiqh?",
+    questionMl: "സുബ്ഹ് നിസ്കാരത്തിലെ രണ്ടാം റക്അത്തിലെ ഇഅ്തിദാലിൽ ദുആഉൽ ഖുനൂത്ത് ഓതുന്നതിന്റെ ശാഫിഈ കർമ്മശാസ്ത്ര വിധി എന്താണ്?",
     options: [
-      "Surah At-Tawbah (സൂറത്തുത്തൗബ)",
-      "Surah Al-Anfal (സൂറത്തുൽ അൻഫാൽ)",
-      "Surah Al-Fath (സൂറത്തുൽ ഫത്ഹ്)",
-      "Surah Al-Hajj (സൂറത്തുൽ ഹജ്ജ്)"
+      "Sunnah Ab'ad (Emphasized Sunnah compensable by Sujud al-Sahw if missed)",
+      "Fard / Wajib (Obligatory pillar)",
+      "Sunnah Hai'ah (Light Sunnah that needs no prostration)",
+      "Makruh (Disliked)"
     ],
     correctIndex: 0,
-    explanationEn: "Surah At-Tawbah (Surah Bara'at, chapter 9) begins directly without Bismillah.",
-    explanationMl: "സൂറത്തുത്തൗബ (ബറാഅത്ത്) മാത്രമാണ് ബിസ്മി ഇല്ലാതെ ആരംഭിക്കുന്നത്.",
+    explanationEn: "Reciting Qunut in the second Rak'ah of Fajr (and during the second half of Ramadan in Witr) is an emphasized Sunnah (Ab'ad). If omitted forgetfully or intentionally, it is Sunnah to perform Sujud al-Sahw before Salam.",
+    explanationMl: "സുബ്ഹിലെ ഖുനൂത്ത് അബ്ആളായ സുന്നത്താണ് (ശക്തമായ സുന്നത്ത്). ഇത് മനഃപൂർവ്വമോ അല്ലാതെയോ വിട്ടുപോയാൽ സലാമിന് മുമ്പ് സഹ്‌വിന്റെ സുജൂദ് ചെയ്യൽ സുന്നത്താണ്.",
     points: 10
   },
   {
-    id: "qq_4",
+    id: "fq_8",
     round: "r2",
-    roundName: "Holy Quran & Revelations",
-    roundNameMl: "വിശുദ്ധ ഖുർആൻ",
-    category: "Quran",
+    roundName: "Shafi'i Fiqh: Salah (Prayer)",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: സ്വലാത്ത് (നിസ്കാരം)",
+    category: "Salah",
     difficulty: "Medium",
-    questionEn: "Which Surah contains 'Bismillahir Rahmanir Raheem' twice inside the Quranic text?",
-    questionMl: "സൂക്തങ്ങൾക്കുള്ളിലായി 'ബിസ്മില്ലാഹിർറഹ്മാനിർറഹീം' രണ്ടുതവണ പരാമർശിക്കപ്പെട്ട സൂറത്ത് ഏതാണ്?",
+    questionEn: "In the Shafi'i madhhab, at what exact moment is Sujud al-Sahw (prostration of forgetfulness) performed?",
+    questionMl: "ശാഫിഈ കർമ്മശാസ്ത്ര പ്രകാരം മറവിയുടെ സുജൂദ് (സഹ്‌വിന്റെ സുജൂദ്) നിസ്കാരത്തിൽ എപ്പോഴാണ് ചെയ്യേണ്ടത്?",
     options: [
-      "Surah An-Naml (സൂറത്തുന്നംല് - ഉറുമ്പ്)",
-      "Surah An-Nahl (സൂറത്തുന്നഹ്‌ല് - തേനീച്ച)",
-      "Surah Al-Ankabut (സൂറത്തുൽ അൻകബൂത്ത് - ചിലന്തി)",
-      "Surah Al-Feel (സൂറത്തുൽ ഫീൽ - ആന)"
+      "Immediately after completing Tashahhud and Durood, before the first Salam",
+      "Immediately after pronouncing both Salams",
+      "Only after reciting Salam to the right",
+      "During the final standing position"
     ],
     correctIndex: 0,
-    explanationEn: "Surah An-Naml has Bismillah at the beginning and also in verse 30 ('Innahu min Sulaimana wa innahu Bismillahir Rahmanir Raheem').",
-    explanationMl: "സൂറത്തുന്നംലിൽ ആരംഭത്തിലും സുലൈമാൻ നബിയുടെ കത്ത് പറയുന്ന 30-ാം സൂക്തത്തിലും ബിസ്മി വരുന്നു.",
+    explanationEn: "In the Shafi'i school, Sujud al-Sahw consists of two prostrations performed strictly before uttering the Salam, right after completing the final Tashahhud, blessings upon the Prophet ﷺ, and supplication.",
+    explanationMl: "ശാഫിഈ മദ്ഹബിൽ സഹ്‌വിന്റെ സുജൂദ് ചെയ്യേണ്ടത് അവസാന അത്തഹിയ്യാത്തിനും സ്വലാത്തിനും ദുആഇനും ശേഷം സലാം വീട്ടുന്നതിന് തൊട്ടുമുമ്പാണ്.",
     points: 10
   },
   {
-    id: "qq_5",
+    id: "fq_9",
     round: "r2",
-    roundName: "Holy Quran & Revelations",
-    roundNameMl: "വിശുദ്ധ ഖുർആൻ",
-    category: "Quran",
+    roundName: "Shafi'i Fiqh: Salah (Prayer)",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: സ്വലാത്ത് (നിസ്കാരം)",
+    category: "Salah",
+    difficulty: "Medium",
+    questionEn: "According to the Shafi'i madhhab, what is the minimum quorum of qualified permanent residents (Ahl al-Jumu'ah) required for a valid Friday prayer?",
+    questionMl: "ശാഫിഈ മദ്ഹബ് പ്രകാരം ജുമുഅ നിസ്കാരം സാധുവാകാൻ ജുമുഅ നിർബന്ധമുള്ള എത്ര സ്ഥിരവാസികൾ (അഹ്‌ലുൽ ജുമുഅ) വേണം?",
+    options: [
+      "40 eligible resident men from beginning to end",
+      "12 resident men",
+      "3 persons including the Imam",
+      "4 persons including the Khatib"
+    ],
+    correctIndex: 0,
+    explanationEn: "The official position of the Shafi'i madhhab requires at least 40 sane, adult, free, male permanent residents of the locality from the start of the two Khutbahs through the end of the Friday prayer.",
+    explanationMl: "ശാഫിഈ മദ്ഹബിലെ പ്രബല വിധി പ്രകാരം ജുമുഅ നിർബന്ധമാകുന്ന (പ്രായപൂർത്തി, ബുദ്ധി, സ്വാതന്ത്ര്യം, പുരുഷത്വം, സ്ഥിരതാമസം എന്നീ ഗുണങ്ങളുള്ള) ചുരുങ്ങിയത് 40 ആളുകൾ ഖുതുബയുടെ തുടക്കം മുതൽ നിസ്കാരം കഴിയുന്നത് വരെ ഉണ്ടാകണം.",
+    points: 10
+  },
+  {
+    id: "fq_10",
+    round: "r2",
+    roundName: "Shafi'i Fiqh: Salah (Prayer)",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: സ്വലാത്ത് (നിസ്കാരം)",
+    category: "Salah",
     difficulty: "Hard",
-    questionEn: "Who is the only female figure explicitly mentioned by name in the Holy Quran, and has an entire Surah named after her?",
-    questionMl: "വിശുദ്ധ ഖുർആനിൽ പേരെടുത്ത് പരാമർശിക്കപ്പെടുകയും ഒരു സൂറത്ത് തന്നെ സ്വന്തം പേരിൽ ഉള്ളതുമായ ഏക വനിത ആര്?",
+    questionEn: "What is the minimum travel distance (Masafat al-Qasr / 2 Marhalahs) that allows a traveler to shorten (Qasr) 4-rak'ah prayers in Shafi'i Fiqh?",
+    questionMl: "നാല് റക്അത്തുള്ള നിസ്കാരങ്ങൾ ഖസ്വ്‌റാക്കി ചുരുക്കാൻ ശാഫിഈ മദ്ഹബ് അനുവദിക്കുന്ന യാത്രയുടെ ചുരുങ്ങിയ ദൂരം (മർഹലത്തൈൻ) എത്രയാണ്?",
     options: [
-      "Sayyidatuna Maryam (മർയം ബീവി)",
-      "Sayyidatuna Asiyah (ആസിയ ബീവി)",
-      "Sayyidatuna Khadijah (ഖദീജ ബീവി)",
-      "Sayyidatuna Fatimah (ഫാത്തിമ ബീവി)"
+      "Approx. 81 to 85 Kilometers (16 Farsakhs / 48 Hashimi Miles)",
+      "Approx. 40 Kilometers",
+      "Approx. 120 Kilometers",
+      "Any journey lasting more than 24 hours regardless of distance"
     ],
     correctIndex: 0,
-    explanationEn: "Sayyidatuna Maryam (AS), the mother of Prophet Isa (AS), is mentioned 34 times by name and Chapter 19 is named Surah Maryam.",
-    explanationMl: "ഈസാ നബി (അ)-യുടെ മാതാവായ മർയം (അ) ആണ് ഖുർആനിൽ പേര് പരാമർശിക്കപ്പെട്ട ഏക വനിത (സൂറത്ത് 19).",
-    points: 10
-  },
-  {
-    id: "qq_6",
-    round: "r2",
-    roundName: "Holy Quran & Revelations",
-    roundNameMl: "വിശുദ്ധ ഖുർആൻ",
-    category: "Quran",
-    difficulty: "Hard",
-    questionEn: "Who is the only Sahabi (companion of the Prophet ﷺ) explicitly mentioned by name in the text of the Holy Quran?",
-    questionMl: "വിശുദ്ധ ഖുർആനിലെ ആയത്തിൽ പേര് വ്യക്തമായി പരാമർശിക്കപ്പെട്ട ഒരേയൊരു സ്വഹാബി ആരാണ്?",
-    options: [
-      "Zayd ibn Harithah (റ) (സൈദ് ബിൻ ഹാരിസ)",
-      "Abu Bakr as-Siddiq (റ)",
-      "Bilal ibn Rabah (റ)",
-      "Salman al-Farsi (റ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Zayd ibn Harithah (RA) is explicitly mentioned in Surah Al-Ahzab (33:37): 'فلما قضى زيد منها وطرا'.",
-    explanationMl: "സൂറത്തുൽ അഹ്‌സാബിലെ 37-ാം സൂക്തത്തിൽ 'സൈദ്' (റ) എന്ന പേര് ഖുർആനിൽ വ്യക്തമാക്കിയിട്ടുണ്ട്.",
-    points: 10
-  },
-  {
-    id: "qq_7",
-    round: "r2",
-    roundName: "Holy Quran & Revelations",
-    roundNameMl: "വിശുദ്ധ ഖുർആൻ",
-    category: "Quran",
-    difficulty: "Medium",
-    questionEn: "Reciting which short Surah is equated in reward to one-third (1/3) of the entire Holy Quran?",
-    questionMl: "ഖുർആന്റെ മൂന്നിലൊന്നിന് തുല്യമായി പുണ്യം ലഭിക്കുമെന്ന് നബി ﷺ വിശേഷിപ്പിച്ച സൂറത്ത് ഏത്?",
-    options: [
-      "Surah Al-Ikhlas (സൂറത്തുൽ ഇഖ്‌ലാസ്)",
-      "Surah Al-Kafirun (സൂറത്തുൽ കാഫിറൂൻ)",
-      "Surah Al-Mulk (സൂറത്തുൽ മുൽക്)",
-      "Surah Al-Falaq (സൂറത്തുൽ ഫലഖ്)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Prophet Muhammad ﷺ stated in Sahih Bukhari that Surah Al-Ikhlas equals one-third of the Quran due to its pure declaration of Tawheed.",
-    explanationMl: "തൗഹീദിന്റെ സാരാംശം ഉൾക്കൊള്ളുന്ന സൂറത്തുൽ ഇഖ്‌ലാസ് ഓതുന്നത് ഖുർആന്റെ മൂന്നിലൊന്ന് ഓതുന്നതിന് തുല്യമാണ്.",
-    points: 10
-  },
-  {
-    id: "qq_8",
-    round: "r2",
-    roundName: "Holy Quran & Revelations",
-    roundNameMl: "വിശുദ്ധ ഖുർആൻ",
-    category: "Quran",
-    difficulty: "Easy",
-    questionEn: "How many chapters (Surahs) are there in total in the Holy Quran?",
-    questionMl: "വിശുദ്ധ ഖുർആനിൽ ആകെ എത്ര സൂറത്തുകൾ (അധ്യായങ്ങൾ) അടങ്ങിയിരിക്കുന്നു?",
-    options: [
-      "114 Surahs (114 അധ്യായങ്ങൾ)",
-      "110 Surahs (110 അധ്യായങ്ങൾ)",
-      "120 Surahs (120 അധ്യായങ്ങൾ)",
-      "99 Surahs (99 അധ്യായങ്ങൾ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "The Holy Quran consists of 114 Surahs divided into 30 Juz.",
-    explanationMl: "വിശുദ്ധ ഖുർആനിൽ 30 ജുസ്ഉകളിലായി ആകെ 114 സൂറത്തുകൾ ഉണ്ട്.",
-    points: 10
-  },
-  {
-    id: "qq_9",
-    round: "r2",
-    roundName: "Holy Quran & Revelations",
-    roundNameMl: "വിശുദ്ധ ഖുർആൻ",
-    category: "Quran",
-    difficulty: "Hard",
-    questionEn: "Which Prophet is mentioned the most number of times by name (136 times) in the Holy Quran?",
-    questionMl: "വിശുദ്ധ ഖുർആനിൽ ഏറ്റവും കൂടുതൽ തവണ (136 തവണ) പേര് പരാമർശിക്കപ്പെട്ട പ്രവാചകൻ ആര്?",
-    options: [
-      "Prophet Musa (അ) (മൂസാ നബി)",
-      "Prophet Ibrahim (അ) (ഇബ്രാഹീം നബി)",
-      "Prophet Isa (അ) (ഈസാ നബി)",
-      "Prophet Nuh (അ) (നൂഹ് നബി)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Prophet Musa (AS) is mentioned by name 136 times across various Surahs of the Holy Quran.",
-    explanationMl: "മൂസാ നബി (അ)-യുടെ പേര് ഖുർആനിൽ 136 തവണ പല അധ്യായങ്ങളിലായി പരാമർശിച്ചിട്ടുണ്ട്.",
-    points: 10
-  },
-  {
-    id: "qq_10",
-    round: "r2",
-    roundName: "Holy Quran & Revelations",
-    roundNameMl: "വിശുദ്ധ ഖുർആൻ",
-    category: "Quran",
-    difficulty: "Medium",
-    questionEn: "Which night is described in Surah Al-Qadr as being 'better than a thousand months'?",
-    questionMl: "ആയിരം മാസങ്ങളെക്കാൾ പുണ്യമേറിയ രാവായി സൂറത്തുൽ ഖദ്‌റിൽ അല്ലാഹു വിശേഷിപ്പിച്ച രാവ് ഏതാണ്?",
-    options: [
-      "Laylat al-Qadr (ലൈലത്തുൽ ഖദ്ർ)",
-      "Night of Bara'at (ലൈലത്തുൽ ബറാഅത്ത്)",
-      "Night of Isra & Mi'raj (മിഅ്റാജ് രാവ്)",
-      "Night of Eid (പെരുന്നാൾ രാവ്)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Laylatul Qadr (The Night of Decree) in Ramadan is better than 1,000 months (83.3 years).",
-    explanationMl: "റമളാനിലെ ലൈലത്തുൽ ഖദ്ർ 1,000 മാസങ്ങളേക്കാൾ (ഏകദേശം 83 വർഷം) ശ്രേഷ്ഠമാണെന്ന് ഖുർആൻ വ്യക്തമാക്കുന്നു.",
+    explanationEn: "In the Shafi'i madhhab, Masafat al-Qasr is two Marhalahs (16 Farsakhs, equivalent to 48 prophetic miles), accurately measured today as approximately 81 to 85 kilometers.",
+    explanationMl: "ശാഫിഈ കർമ്മശാസ്ത്രത്തിൽ ഖസ്വ്‌റിന്റെ ദൂരം രണ്ട് മർഹലയാണ് (16 ഫർസഖ് / 48 മൈൽ). ഇന്നത്തെ അളവുകോലിൽ ഇത് ഏകദേശം 81 മുതൽ 85 കിലോമീറ്റർ വരെ ദൂരമാണ്.",
     points: 10
   },
 
-  // ================= ROUND 3: SAHABA & ISLAMIC HISTORY (സ്വഹാബത്തും ചരിത്രവും) =================
+  // ================= ROUND 3: SAWM & ZAKAH - FASTING & CHARITY (നോമ്പും സകാത്തും) =================
   {
-    id: "hq_1",
+    id: "fq_11",
     round: "r3",
-    roundName: "Sahaba & Islamic History",
-    roundNameMl: "സ്വഹാബത്തും ഇസ്ലാമിക ചരിത്രവും",
-    category: "Sahaba & History",
+    roundName: "Shafi'i Fiqh: Sawm & Zakah",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: നോമ്പും സകാത്തും",
+    category: "Sawm",
     difficulty: "Easy",
-    questionEn: "Who was the first person to accept Islam from among the adult men and became the First Rightly Guided Caliph (Khaleefah)?",
-    questionMl: "പുരുഷന്മാരിൽ നിന്ന് ആദ്യമായി ഇസ്ലാം സ്വീകരിക്കുകയും ഒന്നാം ഖലീഫയായി തിരഞ്ഞെടുക്കപ്പെടുകയും ചെയ്ത മഹാനായ സ്വഹാബി ആര്?",
+    questionEn: "In Shafi'i Fiqh, what is the mandatory requirement regarding the intention (Niyyah) for an obligatory fast in Ramadan?",
+    questionMl: "റമളാനിലെ നിർബന്ധ നോമ്പിന്റെ നിയ്യത്തുമായി ബന്ധപ്പെട്ട് ശാഫിഈ മദ്ഹബിലെ നിർബന്ധ നിബന്ധന എന്താണ്?",
     options: [
-      "Abu Bakr as-Siddiq (റ)",
-      "Umar ibn al-Khattab (റ)",
-      "Uthman ibn Affan (റ)",
-      "Ali ibn Abi Talib (റ)"
+      "Tabyit: Intention must be made every night before true dawn (Fajr) for each day",
+      "A single intention on the first night suffices for the entire month",
+      "Intention can be formed at any time before Dhuhr prayer",
+      "Intention is only required verbally after dawn"
     ],
     correctIndex: 0,
-    explanationEn: "Sayyiduna Abu Bakr as-Siddiq (RA) was the first adult male convert and the first Caliph of Islam.",
-    explanationMl: "അബൂബക്കർ സിദ്ദീഖ് (റ) ആണ് പുരുഷന്മാരിൽ ആദ്യം വിശ്വസിച്ചതും ഒന്നാം ഖലീഫയുമായ മഹാൻ.",
+    explanationEn: "In the Shafi'i madhhab, for each individual day of an obligatory fast (Ramadan, Qada, Kaffarah), the intention must be made at night (Tabyit) before the arrival of Fajr, specifying the fast.",
+    explanationMl: "ശാഫിഈ മദ്ഹബിൽ റമളാനിലെ ഓരോ ദിവസത്തെയും നിർബന്ധ നോമ്പിന് തലേദിവസം രാത്രിയിൽ (ഫജ്‌റിന് മുൻപായി) പ്രത്യേകമായി നിയ്യത്ത് വെക്കൽ (തബ്‌യീത്) നിർബന്ധമാണ്.",
     points: 10
   },
   {
-    id: "hq_2",
+    id: "fq_12",
     round: "r3",
-    roundName: "Sahaba & Islamic History",
-    roundNameMl: "സ്വഹാബത്തും ഇസ്ലാമിക ചരിത്രവും",
-    category: "Sahaba & History",
-    difficulty: "Easy",
-    questionEn: "Who was appointed by Prophet Muhammad ﷺ as the very first Mu'addhin (caller to prayer) of Islam in Madinah?",
-    questionMl: "ഇസ്ലാമിലെ പ്രഥമ മുഅദ്ദിനായി (ബാങ്ക് വിളിക്കാൻ) നബി ﷺ തിരഞ്ഞെടുത്ത സ്വഹാബി ആര്?",
-    options: [
-      "Bilal ibn Rabah al-Habashi (റ)",
-      "Abdullah ibn Umm Maktum (റ)",
-      "Abu Mahdhura (റ)",
-      "Sa'd al-Qaraz (റ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Sayyiduna Bilal ibn Rabah (RA), blessed with a melodious voice and unshakable faith, was the first Mu'addhin.",
-    explanationMl: "ബിലാൽ ഇബ്നു റബാഹ് (റ) ആണ് ഇസ്ലാമിൽ ആദ്യമായി മധുര ശബ്ദത്തിൽ ബാങ്ക് വിളിച്ച പ്രഥമ മുഅദ്ദിൻ.",
-    points: 10
-  },
-  {
-    id: "hq_3",
-    round: "r3",
-    roundName: "Sahaba & Islamic History",
-    roundNameMl: "സ്വഹാബത്തും ഇസ്ലാമിക ചരിത്രവും",
-    category: "Sahaba & History",
+    roundName: "Shafi'i Fiqh: Sawm & Zakah",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: നോമ്പും സകാത്തും",
+    category: "Sawm",
     difficulty: "Medium",
-    questionEn: "Which Sahabi was honored with the title 'Sayfullah' (The Sword of Allah) by Prophet Muhammad ﷺ?",
-    questionMl: "നബി ﷺ 'സൈഫുല്ലാഹ്' (അല്ലാഹുവിന്റെ വാൾ) എന്ന വീരപദവി നൽകി ആദരിച്ച സ്വഹാബി ആരാണ്?",
+    questionEn: "According to Shafi'i jurisprudence, does intentionally swallowing phlegm/mucus that has reached the visible oral cavity invalidate the fast?",
+    questionMl: "തൊണ്ടയിൽ നിന്ന് വായിലേക്ക് എത്തിയ കഫം തുപ്പിക്കളയാൻ സൗകര്യമുണ്ടായിട്ടും മനഃപൂർവ്വം വിഴുങ്ങിയാൽ നോമ്പ് മുറിയുമോ എന്നാണ് ശാഫിഈ വിധി?",
     options: [
-      "Khalid ibn al-Walid (റ)",
-      "Hamzah ibn Abdul Muttalib (റ)",
-      "Sa'd ibn Abi Waqqas (റ)",
-      "Ali ibn Abi Talib (റ)"
+      "Yes, intentionally swallowing it after reaching the mouth cavity breaks the fast",
+      "No, swallowing bodily secretions never invalidates the fast",
+      "Only if mixed with food remnants or saliva",
+      "It is only Makruh (disliked) and does not break the fast"
     ],
     correctIndex: 0,
-    explanationEn: "Khalid ibn al-Walid (RA) earned the title 'The Sword of Allah' due to his unmatched military genius.",
-    explanationMl: "ഖാലിദ് ബിൻ വലീദ് (റ) ആണ് 'സൈഫുല്ലാഹ്' (അല്ലാഹുവിന്റെ വാൾ) എന്ന് പ്രവാചകനാൽ വിശേഷിപ്പിക്കപ്പെട്ടത്.",
+    explanationEn: "In Shafi'i Fiqh, if mucus or phlegm reaches the visible limit of the mouth (Makhraj of the letter Kha/Ha) and one is able to spit it out, deliberately swallowing it invalidates the fast.",
+    explanationMl: "ശാഫിഈ കർമ്മശാസ്ത്ര പ്രകാരം കഫം അക്ഷരങ്ങളുടെ പുറപ്പെടൽ സ്ഥാനമായ വായയുടെ അതിരിലേക്ക് എത്തുകയും അത് തുപ്പിക്കളയാൻ സാധിക്കുകയും ചെയ്തിരിക്കെ മനഃപൂർവ്വം വിഴുങ്ങിയാൽ നോമ്പ് മുറിയും.",
     points: 10
   },
   {
-    id: "hq_4",
+    id: "fq_13",
     round: "r3",
-    roundName: "Sahaba & Islamic History",
-    roundNameMl: "സ്വഹാബത്തും ഇസ്ലാമിക ചരിത്രവും",
-    category: "Sahaba & History",
+    roundName: "Shafi'i Fiqh: Sawm & Zakah",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: നോമ്പും സകാത്തും",
+    category: "Sawm",
     difficulty: "Hard",
-    questionEn: "During the reign of which Caliph was the Holy Quran compiled into a single standard written Mushaf and copies distributed to Islamic provinces?",
-    questionMl: "ഏത് ഖലീഫയുടെ ഭരണകാലത്താണ് വിശുദ്ധ ഖുർആൻ ഒരൊറ്റ ഔദ്യോഗിക മുസ്ഹഫായി ക്രോഡീകരിച്ച് വിവിധ പ്രവിശ്യകളിലേക്ക് എത്തിച്ചത്?",
+    questionEn: "What is the foundational Shafi'i rule regarding items entering the body cavity (Jawf) during fasting?",
+    questionMl: "നോമ്പ് മുറിയുന്ന കാര്യങ്ങളിൽ ശാഫിഈ മദ്ഹബിലെ ശരീര ദ്വാരങ്ങളുമായി (ജൗഫ്) ബന്ധപ്പെട്ട അടിസ്ഥാന നിയമമെന്താണ്?",
     options: [
-      "Uthman ibn Affan (റ)",
-      "Abu Bakr as-Siddiq (റ)",
-      "Umar ibn al-Khattab (റ)",
-      "Ali ibn Abi Talib (റ)"
+      "Any physical substance ('Ayn) deliberately introduced through an open natural passage invalidates the fast",
+      "Only nutritious food and thirst-quenching drinks invalidate the fast",
+      "Only substances that enter through the mouth invalidate the fast",
+      "Injections through muscles or veins always break the fast"
     ],
     correctIndex: 0,
-    explanationEn: "Sayyiduna Uthman ibn Affan (RA) unified the recitation upon the standard Quraishi dialect, earning the title 'Jami' al-Quran'.",
-    explanationMl: "ഉസ്മാൻ (റ) ആണ് എല്ലാ മുസ്ലിംകൾക്കുമായി ഖുർആൻ ഏകീകൃത മുസ്ഹഫായി പകർത്തിയെഴുതി പ്രചരിപ്പിച്ചത്.",
+    explanationEn: "In the Shafi'i school, anything with palpable substance ('Ayn) that deliberately enters the open body cavity (Jawf) through a naturally open orifice (ears, nose, throat, front/back private parts) breaks the fast, whether nutritious or not.",
+    explanationMl: "തുറക്കപ്പെട്ട ദ്വാരങ്ങളിലൂടെ (മൂക്ക്, ചെവി, വായ, മുൻ-പിൻ ദ്വാരങ്ങൾ) വലിപ്പമുള്ള എന്തെങ്കിലും വസ്തുക്കൾ ശരീരത്തിന്റെ ഉള്ളിലേക്ക് (ജൗഫ്) കടന്നാൽ ഭക്ഷണമായാലും അല്ലെങ്കിലും നോമ്പ് മുറിയുമെന്നതാണ് ശാഫിഈ നിയമം.",
     points: 10
   },
   {
-    id: "hq_5",
+    id: "fq_14",
     round: "r3",
-    roundName: "Sahaba & Islamic History",
-    roundNameMl: "സ്വഹാബത്തും ഇസ്ലാമിക ചരിത്രവും",
-    category: "Sahaba & History",
+    roundName: "Shafi'i Fiqh: Sawm & Zakah",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: നോമ്പും സകാത്തും",
+    category: "Zakah",
     difficulty: "Medium",
-    questionEn: "Which Sahabi proposed the brilliant military strategy of digging a trench (Khandaq) around Madinah during the Battle of the Ahzab?",
-    questionMl: "ഖൻദഖ് യുദ്ധവേളയിൽ മദീനക്ക് ചുറ്റും കിടങ്ങ് (ഖൻദഖ്) കുഴിക്കാൻ ബുദ്ധിപരമായ ഉപദേശം നൽകിയ സ്വഹാബി ആര്?",
+    questionEn: "What is the official Shafi'i ruling on paying cash/money instead of food grains for Zakat al-Fitr?",
+    questionMl: "സകാത്തുൽ ഫിത്വർ നൽകുമ്പോൾ ഭക്ഷ്യധാന്യത്തിന് പകരം പണമായി നൽകുന്നതിനെക്കുറിച്ച് ശാഫിഈ മദ്ഹബിലെ ഔദ്യോഗിക നിലപാട് എന്താണ്?",
     options: [
-      "Salman al-Farsi (റ)",
-      "Abu Dharr al-Ghifari (റ)",
-      "Ammar ibn Yasir (റ)",
-      "Miqdad ibn Amr (റ)"
+      "It is not permissible; it must be paid as one Sa' of the region's staple food grain",
+      "Cash is preferred and recommended under all circumstances",
+      "Only half the cash value is acceptable",
+      "Any household commodity can substitute food grain"
     ],
     correctIndex: 0,
-    explanationEn: "Sayyiduna Salman al-Farsi (RA) suggested the Persian technique of trench warfare which protected Madinah.",
-    explanationMl: "പേർഷ്യക്കാരനായ സൽമാനുൽ ഫാരിസി (റ) ആണ് കിടങ്ങ് കുഴിച്ച് ശത്രുക്കളെ പ്രതിരോധിക്കാൻ നിർദ്ദേശിച്ചത്.",
+    explanationEn: "The established Shafi'i position requires Zakat al-Fitr to be distributed strictly in the staple food grain (Qut al-Balad, such as rice or wheat) of one Sa' (approx. 2.7 to 3 kg) per person, not in monetary currency.",
+    explanationMl: "ശാഫിഈ മദ്ഹബിലെ പ്രബലമായ വിധി പ്രകാരം സകാത്തുൽ ഫിത്വർ നാട്ടിലെ മുഖ്യാഹാരമായ ധാന്യമായി (അരി/ഗോതമ്പ്) ഒരു സാഅ് (ഏകദേശം 2.7 - 3 കി.ഗ്രാം) തന്നെ നൽകണം. പണമായി നൽകിയാൽ ശാഫിഈ മദ്ഹബ് പ്രകാരം വീടുകയില്ല.",
     points: 10
   },
   {
-    id: "hq_6",
+    id: "fq_15",
     round: "r3",
-    roundName: "Sahaba & Islamic History",
-    roundNameMl: "സ്വഹാബത്തും ഇസ്ലാമിക ചരിത്രവും",
-    category: "Sahaba & History",
-    difficulty: "Hard",
-    questionEn: "Who was the first martyr (Shaheeda) in Islam, who sacrificed her life standing firm upon Tawheed in Makkah?",
-    questionMl: "ഇസ്ലാമിലെ പ്രഥമ രക്തസാക്ഷി (ശഹീദ) ആയ വനിത ആരാണ്?",
-    options: [
-      "Sumayyah bint Khayyat (റ)",
-      "Umm Ayman (റ)",
-      "Asma bint Abi Bakr (റ)",
-      "Khawlah bint Azwar (റ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Sayyidatuna Sumayyah bint Khayyat (RA), mother of Ammar (RA), was the first martyr of Islam.",
-    explanationMl: "അമ്മാറിന്റെ മാതാവായ സുമയ്യ ബിൻത് ഖയ്യാത്ത് (റ) ആണ് സത്യവിശ്വാസത്തിനായി ജീവൻ ത്യജിച്ച ആദ്യത്തെ ശഹീദ.",
-    points: 10
-  },
-  {
-    id: "hq_7",
-    round: "r3",
-    roundName: "Sahaba & Islamic History",
-    roundNameMl: "സ്വഹാബത്തും ഇസ്ലാമിക ചരിത്രവും",
-    category: "Sahaba & History",
+    roundName: "Shafi'i Fiqh: Sawm & Zakah",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: നോമ്പും സകാത്തും",
+    category: "Zakah",
     difficulty: "Medium",
-    questionEn: "In which Islamic year did the decisive Battle of Badr (Ghazwat Badr al-Kubra) take place on the 17th of Ramadan?",
-    questionMl: "റമളാൻ 17-ന് നടന്ന ചരിത്രപ്രസിദ്ധമായ ബദ്ർ യുദ്ധം ഹിജ്റ എത്രാം വർഷത്തിലായിരുന്നു?",
+    questionEn: "In Shafi'i Fiqh, what is the minimum Nisab (threshold) of pure gold upon which Zakat becomes due after holding it for one lunar year (Hawl)?",
+    questionMl: "ശാഫിഈ മദ്ഹബ് പ്രകാരം ഒരു വർഷം പൂർത്തിയായ സ്വർണ്ണത്തിന് സകാത്ത് നിർബന്ധമാകുന്ന ഏറ്റവും കുറഞ്ഞ പരിധി (നിസ്വാബ്) എത്രയാണ്?",
     options: [
-      "2 AH (ഹിജ്റ 2)",
-      "1 AH (ഹിജ്റ 1)",
-      "3 AH (ഹിജ്റ 3)",
-      "5 AH (ഹിജ്റ 5)"
+      "20 Mithqals (approximately 84 to 85 grams of pure gold)",
+      "10 Mithqals (approximately 42 grams)",
+      "50 Mithqals (approximately 212 grams)",
+      "7.5 Tolas of gold"
     ],
     correctIndex: 0,
-    explanationEn: "The Battle of Badr took place on Friday, 17th Ramadan, 2 AH (624 CE), where 313 Sahaba gained victory.",
-    explanationMl: "ഹിജ്റ രണ്ടാം വർഷം റമളാൻ 17-നാണ് 313 ശുഹദാക്കളടങ്ങിയ ബദ്ർ പോരാട്ടം നടന്നത്.",
-    points: 10
-  },
-  {
-    id: "hq_8",
-    round: "r3",
-    roundName: "Sahaba & Islamic History",
-    roundNameMl: "സ്വഹാബത്തും ഇസ്ലാമിക ചരിത്രവും",
-    category: "Sahaba & History",
-    difficulty: "Easy",
-    questionEn: "Which beloved wife of the Prophet ﷺ was known as 'Umm al-Mu'mineen' who was his first wife and supported him through the initial revelations?",
-    questionMl: "ആദ്യമായി ഇസ്ലാം സ്വീകരിക്കുകയും പ്രവാചകത്വത്തിന്റെ ആദ്യഘട്ടത്തിൽ താങ്ങായി നിലകൊള്ളുകയും ചെയ്ത നബി ﷺ-യുടെ പ്രഥമ പത്നി ആര്?",
-    options: [
-      "Khadijah bint Khuwaylid (റ)",
-      "Aisha bint Abi Bakr (റ)",
-      "Hafsa bint Umar (റ)",
-      "Zaynab bint Khuzaymah (റ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Sayyidatuna Khadijah (RA) comforted the Prophet ﷺ, believed in him first, and spent all her wealth for Islam.",
-    explanationMl: "ഖദീജത്തുൽ കുബ്റാ (റ) ആണ് നബി ﷺ-യിൽ ആദ്യമായി വിശ്വസിക്കുകയും സർവ്വസ്വവും ഇസ്ലാമിനായി ത്യജിക്കുകയും ചെയ്ത പ്രഥമ പത്നി.",
-    points: 10
-  },
-  {
-    id: "hq_9",
-    round: "r3",
-    roundName: "Sahaba & Islamic History",
-    roundNameMl: "സ്വഹാബത്തും ഇസ്ലാമിക ചരിത്രവും",
-    category: "Sahaba & History",
-    difficulty: "Hard",
-    questionEn: "Which companion was titled 'Dhun-Noorayn' (Possessor of Two Lights) because he married two daughters of the Prophet ﷺ?",
-    questionMl: "നബി ﷺ-യുടെ രണ്ട് പെൺമക്കളെ വിവാഹം കഴിച്ചതിനാൽ 'ദുന്നൂറൈൻ' (രണ്ട് പ്രകാശങ്ങളുടെ ഉടമ) എന്നറിയപ്പെട്ട സ്വഹാബി ആര്?",
-    options: [
-      "Uthman ibn Affan (റ)",
-      "Ali ibn Abi Talib (റ)",
-      "Abdur Rahman ibn Awf (റ)",
-      "Talhah ibn Ubaydullah (റ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Sayyiduna Uthman (RA) married Sayyidatuna Ruqayyah and, after her demise, Sayyidatuna Umm Kulthum (RA).",
-    explanationMl: "നബി ﷺ-യുടെ മക്കളായ റുഖിയ്യ (റ), പിന്നീട് ഉമ്മുകുൽസൂം (റ) എന്നിവരെ വിവാഹം ചെയ്ത ഉസ്മാൻ (റ) ആണ് ദുന്നൂറൈൻ.",
-    points: 10
-  },
-  {
-    id: "hq_10",
-    round: "r3",
-    roundName: "Sahaba & Islamic History",
-    roundNameMl: "സ്വഹാബത്തും ഇസ്ലാമിക ചരിത്രവും",
-    category: "Sahaba & History",
-    difficulty: "Medium",
-    questionEn: "Who was the uncle of the Prophet ﷺ known as the 'Lion of Allah' (Asadullah) who was martyred in the Battle of Uhud?",
-    questionMl: "'അസദുല്ലാഹ്' (അല്ലാഹുവിന്റെ സിംഹം) എന്നറിയപ്പെടുകയും ഉഹ്ദ് യുദ്ധത്തിൽ രക്തസാക്ഷിയാവുകയും ചെയ്ത നബി ﷺ-യുടെ പിതൃവ്യൻ ആര്?",
-    options: [
-      "Hamzah ibn Abdul Muttalib (റ)",
-      "Abbas ibn Abdul Muttalib (റ)",
-      "Abu Talib",
-      "Ja'far ibn Abi Talib (റ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Sayyiduna Hamzah (RA) was called 'Asadullah' and 'Sayyid al-Shuhada' (Master of Martyrs).",
-    explanationMl: "ഹംസ (റ) ആണ് 'സയ്യിദുശ്ശുഹദാഅ്' എന്നും അല്ലാഹുവിന്റെ സിംഹം എന്നും അറിയപ്പെട്ട ധീരനായ സ്വഹാബി.",
+    explanationEn: "The Nisab for gold in the Shafi'i school is 20 Mithqals (Shar'i Dinars), which equals approximately 84 to 85 grams of pure gold. The payable Zakat is 2.5% (one-fortieth).",
+    explanationMl: "സ്വർണ്ണത്തിന്റെ സകാത്ത് നിർബന്ധമാകുന്ന നിസ്വാബ് 20 മിസ്ഖാൽ ആണ്. ഇത് ഇന്നത്തെ തൂക്കത്തിൽ ഏകദേശം 84-85 ഗ്രാം ശുദ്ധമായ സ്വർണ്ണത്തിന് തുല്യമാണ്. ഇതിൽ നിന്ന് നൽകേണ്ടത് 2.5% (നാൽപ്പതിൽ ഒന്ന്) ആണ്.",
     points: 10
   },
 
-  // ================= ROUND 4: ISLAMIC KNOWLEDGE & ETHICS (ഇസ്ലാമിക വിജ്ഞാനം) =================
+  // ================= ROUND 4: HAJJ, SACRIFICES & DAILY LIFE (ഹജ്ജും മറ്റ് വിധികളും) =================
   {
-    id: "kq_1",
+    id: "fq_16",
     round: "r4",
-    roundName: "Islamic Knowledge & Ethics",
-    roundNameMl: "ഇസ്ലാമിക വിജ്ഞാനം & കർമ്മശാസ്ത്രം",
-    category: "Fiqh & Ethics",
+    roundName: "Shafi'i Fiqh: Hajj & Halal Laws",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: ഹജ്ജും മറ്റ് വിധികളും",
+    category: "Hajj",
     difficulty: "Easy",
-    questionEn: "How many mandatory (Fard) daily prayers (Salah) are ordained upon every adult Muslim?",
-    questionMl: "ഓരോ മുസ്ലിമിനും ദിവസവും നിർബന്ധമാക്കപ്പെട്ട (ഫർള്) നമസ്കാരങ്ങൾ എത്രയാണ്?",
+    questionEn: "How many essential pillars (Arkan) of Hajj must be performed in the Shafi'i madhhab without which Hajj is invalid?",
+    questionMl: "ഒഴിവാക്കിയാൽ ഹജ്ജ് ബാത്വിലാകുന്ന, ശാഫിഈ മദ്ഹബ് അനുശാസിക്കുന്ന ഹജ്ജിന്റെ നിർബന്ധ അർകാനുകൾ (ഫർളുകൾ) എത്രയാണ്?",
     options: [
-      "5 Times (5 തവണ)",
-      "3 Times (3 തവണ)",
-      "7 Times (7 തവണ)",
-      "4 Times (4 തവണ)"
+      "6 (Ihram, Wuquf at Arafah, Tawaf al-Ifadah, Sa'i, Halq/Taqsir, and Tarteeb)",
+      "4 (Ihram, Arafah, Tawaf, Sa'i)",
+      "5 (Without Tarteeb)",
+      "7 (Including Stoning of Jamarat)"
     ],
     correctIndex: 0,
-    explanationEn: "The five daily prayers (Fajr, Dhuhr, Asr, Maghrib, Isha) were ordained during Isra' and Mi'raj.",
-    explanationMl: "സുബ്ഹി, ളുഹ്ർ, അസ്വർ, മഗ്‌രിബ്, ഇശാഅ് എന്നീ അഞ്ച് നേരത്തെ നമസ്കാരം ഇസ്ലാമിന്റെ പ്രധാന തൂണാണ്.",
+    explanationEn: "The Shafi'i madhhab uniquely delineates 6 pillars for Hajj: 1. Ihram (intention), 2. Standing at Arafah (Wuquf), 3. Tawaf al-Ifadah, 4. Sa'i between Safa and Marwah, 5. Shaving or trimming hair (Halq/Taqsir), and 6. Tarteeb (order in most pillars).",
+    explanationMl: "ശാഫിഈ മദ്ഹബിൽ ഹജ്ജിന്റെ അർകാനുകൾ 6 ആകുന്നു: 1. ഇഹ്റാം, 2. അറഫയിലെ നിൽപ്പ്, 3. ത്വവാഫുൽ ഇഫാള, 4. സഅ്‌യ്, 5. തലമുടി കളയലോ വെട്ടലോ, 6. മിക്ക അർകാനുകളിലുമുള്ള തർതീബ് (ക്രമം).",
     points: 10
   },
   {
-    id: "kq_2",
+    id: "fq_17",
     round: "r4",
-    roundName: "Islamic Knowledge & Ethics",
-    roundNameMl: "ഇസ്ലാമിക വിജ്ഞാനം & കർമ്മശാസ്ത്രം",
-    category: "Fiqh & Ethics",
+    roundName: "Shafi'i Fiqh: Hajj & Halal Laws",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: ഹജ്ജും മറ്റ് വിധികളും",
+    category: "Hajj",
+    difficulty: "Medium",
+    questionEn: "If a pilgrim misses the standing at Arafah (Wuquf) during its specified time, what is the Shafi'i ruling on their Hajj?",
+    questionMl: "നിർദ്ദിഷ്ട സമയത്ത് അറഫയിൽ സന്നിഹിതനാവാൻ കഴിയാതെ പോയ ആളുടെ ഹജ്ജിനെ സംബന്ധിച്ച് ശാഫിഈ മദ്ഹബിന്റെ വിധി എന്താണ്?",
+    options: [
+      "The Hajj is irrevocably lost; they must exit Ihram by performing Umrah and make up (Qada) the Hajj in a subsequent year",
+      "They can compensate for it by slaughtering a sacrificial camel (Badanah)",
+      "They can stand at Arafah on the morning of the 10th of Dhul Hijjah instead",
+      "Their Hajj remains completely valid with a penalty fast of 10 days"
+    ],
+    correctIndex: 0,
+    explanationEn: "Standing at Arafah is the quintessential pillar ('Al-Hajju Arafah'). If missed, Hajj cannot be redeemed with blood or charity; the pilgrim must perform the actions of Umrah to exit Ihram and must make up the Hajj immediately the following year.",
+    explanationMl: "അറഫയിലെ നിൽപ്പ് നഷ്ടപ്പെട്ടാൽ ആ വർഷത്തെ ഹജ്ജ് നഷ്ടപ്പെട്ടു. അയാൾ ഉംറ ചെയ്ത് ഇഹ്‌റാമിൽ നിന്ന് ഒഴിവാകുകയും അടുത്ത വർഷം ആ ഹജ്ജ് നിർബന്ധമായും ഖളാഅ് വീട്ടുകയും വേണം. ബലിമൃഗത്തെ അറുത്താലും ഇത് പരിഹരിക്കപ്പെടില്ല.",
+    points: 10
+  },
+  {
+    id: "fq_18",
+    round: "r4",
+    roundName: "Shafi'i Fiqh: Hajj & Halal Laws",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: ഹജ്ജും മറ്റ് വിധികളും",
+    category: "Sacrifice",
+    difficulty: "Medium",
+    questionEn: "What is the minimum age requirement for a goat (Ma'z) to be sacrificed as an Udhiyyah (Qurbani) on Eid al-Adha in the Shafi'i school?",
+    questionMl: "ബലിപെരുന്നാളിന് അറുക്കുന്ന സാധാരണ കോലാട് (മഅ്സ്) ബലിക്ക് സാധുവാകാൻ എത്ര വയസ്സ് പൂർത്തിയാകണമെന്ന് ശാഫിഈ ഫിഖ്ഹ് നിഷ്കർഷിക്കുന്നു?",
+    options: [
+      "Must have completed two full years and entered the third year",
+      "Must have completed six months only",
+      "Must have completed one full year and entered the second",
+      "Must have completed four full years"
+    ],
+    correctIndex: 0,
+    explanationEn: "In the Shafi'i madhhab, a goat (Ma'z) is only valid for sacrifice once it completes 2 lunar years of age and enters its third. For sheep (Da'n), completing one year (or shedding front teeth after 6 months) suffices.",
+    explanationMl: "ശാഫിഈ മദ്ഹബിൽ കോലാട് (മഅ്സ്) ബലിയറുക്കാൻ രണ്ട് വയസ്സ് പൂർത്തിയായി മൂന്നാം വയസ്സിലേക്ക് കടക്കൽ നിർബന്ധമാണ്. എന്നാൽ ചെമ്മരിയാട് (ളഅ്ന്) ഒരു വയസ്സ് പൂർത്തിയായാൽ മതിയാകും.",
+    points: 10
+  },
+  {
+    id: "fq_19",
+    round: "r4",
+    roundName: "Shafi'i Fiqh: Hajj & Halal Laws",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: ഹജ്ജും മറ്റ് വിധികളും",
+    category: "Halal / Food",
     difficulty: "Easy",
-    questionEn: "What is the third pillar of Islam that purifies wealth and aids the poor and needy?",
-    questionMl: "സമ്പത്ത് ശുദ്ധീകരിക്കാനും അഗതികളെ സഹായിക്കാനുമായി ഇസ്ലാം കൽപ്പിച്ച മൂന്നാമത്തെ നിർബന്ധ കാര്യമേത്?",
+    questionEn: "What is the general Shafi'i ruling on consuming aquatic sea creatures that live exclusively in water?",
+    questionMl: "വെള്ളത്തിൽ മാത്രം ജീവിക്കുന്ന ജലജീവികളെ ഭക്ഷിക്കുന്നതുമായി ബന്ധപ്പെട്ട് ശാഫിഈ മദ്ഹബിലെ പൊതുവിധി എന്താണ്?",
     options: [
-      "Zakah (സകാത്ത്)",
-      "Sawm / Fasting (നോമ്പ്)",
-      "Hajj (ഹജ്ജ്)",
-      "Sadaqah (സ്വദഖ)"
+      "All animals living solely in water are Halal to eat without ritual slaughter, except venomous/harmful ones",
+      "Only fish that have visible scales are Halal",
+      "All marine animals except true fish are strictly Haram",
+      "Consuming sea animals without ritual neck slaughter is Makruh"
     ],
     correctIndex: 0,
-    explanationEn: "Zakah is an obligatory pillar of Islam paid on surplus wealth exceeding Nisab.",
-    explanationMl: "നിശ്ചിത നിസ്വാബുള്ള സമ്പത്തിൽ നിന്ന് പാവങ്ങൾക്ക് നൽകുന്ന നിർബന്ധ ദാനമാണ് സകാത്ത്.",
+    explanationEn: "In the Shafi'i madhhab, based on the hadith 'Its water is pure and its dead are lawful', all aquatic creatures that live solely in water (fish, prawns, squid, crabs that only live in water, etc.) are Halal without slaughter, unless poisonous or harmful.",
+    explanationMl: "വെള്ളത്തിൽ മാത്രം ജീവിക്കുന്ന ജലജീവികളെല്ലാം അറുക്കാതെ തന്നെ ഭക്ഷിക്കൽ ഹലാലാണ് എന്നാണ് ശാഫിഈ മദ്ഹബിലെ പ്രബല വിധി. എന്നാൽ വിഷമുള്ളതോ ശരീരത്തിന് ഹാനികരമായതോ ആയവ ഭക്ഷിക്കാൻ പാടില്ല.",
     points: 10
   },
   {
-    id: "kq_3",
+    id: "fq_20",
     round: "r4",
-    roundName: "Islamic Knowledge & Ethics",
-    roundNameMl: "ഇസ്ലാമിക വിജ്ഞാനം & കർമ്മശാസ്ത്രം",
-    category: "Fiqh & Ethics",
-    difficulty: "Medium",
-    questionEn: "What are the names of the two angels who question every deceased soul in the grave (Barzakh)?",
-    questionMl: "ഖബറിലെ ചോദ്യം ചെയ്യലിനായി നിയോഗിക്കപ്പെട്ട രണ്ട് മലക്കുകൾ ആരാണ്?",
-    options: [
-      "Munkar and Nakeer (മുൻകറും നകീറും)",
-      "Jibreel and Mika'eel (ജിബ്‌രീലും മീഖാഈലും)",
-      "Raqeeb and Ateed (റഖീബും അതീദും)",
-      "Malik and Ridwan (മാലിക്കും രിള്‌വാനും)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Munkar and Nakeer question every soul in the grave about their Lord, Prophet, and Religion.",
-    explanationMl: "ഖബറിൽ റബ്ബ്, നബി, ദീൻ എന്നിവയെക്കുറിച്ച് ചോദിക്കാൻ വരുന്ന മലക്കുകളാണ് മുൻകറും നകീറും.",
-    points: 10
-  },
-  {
-    id: "kq_4",
-    round: "r4",
-    roundName: "Islamic Knowledge & Ethics",
-    roundNameMl: "ഇസ്ലാമിക വിജ്ഞാനം & കർമ്മശാസ്ത്രം",
-    category: "Fiqh & Ethics",
-    difficulty: "Medium",
-    questionEn: "Which sacred month marks the beginning (first month) of the Islamic Hijri Lunar Calendar?",
-    questionMl: "ഇസ്ലാമിക ഹിജ്റ കലണ്ടറിലെ പ്രഥമ (ഒന്നാമത്തെ) മാസം ഏതാണ്?",
-    options: [
-      "Muharram (മുഹറം)",
-      "Rabi' al-Awwal (റബീഉൽ അവ്വൽ)",
-      "Ramadan (റമളാൻ)",
-      "Dhul Hijjah (ദുൽഹിജ്ജ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Muharram is the first month of the Islamic calendar and one of the four sacred months (Al-Ashhur al-Hurum).",
-    explanationMl: "വിശുദ്ധ നാല് മാസങ്ങളിൽ പെട്ട ഒന്നായ മുഹറം മാസമാണ് ഹിജ്റ വർഷത്തിന്റെ തുടക്കം.",
-    points: 10
-  },
-  {
-    id: "kq_5",
-    round: "r4",
-    roundName: "Islamic Knowledge & Ethics",
-    roundNameMl: "ഇസ്ലാമിക വിജ്ഞാനം & കർമ്മശാസ്ത്രം",
-    category: "Fiqh & Ethics",
-    difficulty: "Hard",
-    questionEn: "Which major Imam is the author of the most authentic collection of prophetic traditions (Sahih al-Bukhari)?",
-    questionMl: "ഹദീഥ് ഗ്രന്ഥങ്ങളിൽ ഏറ്റവും ആധികാരികമായ 'സ്വഹീഹുൽ ബുഖാരി' രചിച്ച മഹാനായ ഇമാം ആര്?",
-    options: [
-      "Imam Muhammad ibn Ismail al-Bukhari (ഇമാം ബുഖാരി)",
-      "Imam Muslim ibn al-Hajjaj (ഇമാം മുസ്ലിം)",
-      "Imam Abu Hanifa (ഇമാം അബൂഹനീഫ)",
-      "Imam Shafi'i (ഇമാം ശാഫിഇ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Imam Muhammad ibn Ismail al-Bukhari compiled the revered Sahih al-Bukhari with meticulous verification.",
-    explanationMl: "മുഹമ്മദ് ഇബ്നു ഇസ്മാഈൽ അൽ ബുഖാരി (റ) ആണ് സ്വഹീഹുൽ ബുഖാരി ക്രോഡീകരിച്ചത്.",
-    points: 10
-  },
-  {
-    id: "kq_6",
-    round: "r4",
-    roundName: "Islamic Knowledge & Ethics",
-    roundNameMl: "ഇസ്ലാമിക വിജ്ഞാനം & കർമ്മശാസ്ത്രം",
-    category: "Fiqh & Ethics",
-    difficulty: "Hard",
-    questionEn: "What is the term used in Islamic ethics for the continuous charity that benefits a person even after death?",
-    questionMl: "മരണശേഷവും മനുഷ്യന് പ്രതിഫലം ലഭിച്ചുകൊണ്ടിരിക്കുന്ന നിലക്കാത്ത പുണ്യദാനത്തിന് എന്ത് പറയുന്നു?",
-    options: [
-      "Sadaqah Jariyah (സ്വദഖത്തുൻ ജാരിയഃ)",
-      "Zakat al-Fitr (സകാത്തുൽ ഫിത്വർ)",
-      "Kaffarah (കഫാറത്ത്)",
-      "Fidya (ഫിദ്‌യ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Sadaqah Jariyah is continuous flowing charity (e.g. water wells, beneficial knowledge, mosques).",
-    explanationMl: "മരണശേഷവും നിലക്കാത്ത പ്രതിഫലം നൽകുന്ന പുണ്യദാനമാണ് സ്വദഖത്തുൻ ജാരിയഃ.",
-    points: 10
-  },
-  {
-    id: "kq_7",
-    round: "r4",
-    roundName: "Islamic Knowledge & Ethics",
-    roundNameMl: "ഇസ്ലാമിക വിജ്ഞാനം & കർമ്മശാസ്ത്രം",
-    category: "Fiqh & Ethics",
+    roundName: "Shafi'i Fiqh: Hajj & Halal Laws",
+    roundNameMl: "ശാഫിഈ ഫിഖ്ഹ്: ഹജ്ജും മറ്റ് വിധികളും",
+    category: "Taharah / Quran",
     difficulty: "Easy",
-    questionEn: "Which angel is tasked by Almighty Allah with blowing the Trumpet (Soor) on the Day of Judgment?",
-    questionMl: "അന്ത്യനാളിൽ കാഹളം (സൂർ) ഊതാൻ അല്ലാഹു ചുമതലപ്പെടുത്തിയ മലക്ക് ആരാണ്?",
+    questionEn: "What is the ruling in the Shafi'i madhhab on touching or carrying the Holy Quran (Mushaf) without Wudu?",
+    questionMl: "വുളൂഅ് ഇല്ലാതെ വിശുദ്ധ ഖുർആൻ (മുസ്ഹഫ്) തൊടുന്നതിനും ചുമക്കുന്നതിനും ശാഫിഈ മദ്ഹബിലെ വിധി എന്താണ്?",
     options: [
-      "Israfeel (അ) (ഇസ്റാഫീൽ)",
-      "Izraeel / Malak al-Mawt (അ) (ഇസ്റാഈൽ)",
-      "Mika'eel (അ) (മീഖാഈൽ)",
-      "Jibreel (അ) (ജിബ്‌രീൽ)"
+      "Haram (strictly forbidden) for both minor and major ritual impurity",
+      "Makruh (disliked) but valid",
+      "Permissible to touch without Wudu as long as one is in clean clothes",
+      "Permissible to carry in hand but forbidden to read"
     ],
     correctIndex: 0,
-    explanationEn: "Angel Israfeel (AS) will blow the Trumpet to signal the end of the world and the resurrection of humanity.",
-    explanationMl: "അന്ത്യനാളിലും പുനരുത്ഥാന വേളയിലും കാഹളത്തിൽ ഊതുന്നത് ഇസ്റാഫീൽ (അ) ആണ്.",
-    points: 10
-  },
-  {
-    id: "kq_8",
-    round: "r4",
-    roundName: "Islamic Knowledge & Ethics",
-    roundNameMl: "ഇസ്ലാമിക വിജ്ഞാനം & കർമ്മശാസ്ത്രം",
-    category: "Fiqh & Ethics",
-    difficulty: "Medium",
-    questionEn: "What is the sacred well in Makkah that miraculously gushed forth for Sayyidatuna Hajar (AS) and baby Ismail (AS)?",
-    questionMl: "ഹാജറ ബീവിക്കും ഇസ്മാഈൽ നബിക്കും വേണ്ടി മക്കയിൽ അത്ഭുതകരമായി ഉറവ പൊട്ടിയ പുണ്യതീർത്ഥം ഏത്?",
-    options: [
-      "Zamzam (സംസം കിണർ)",
-      "Kawthar (കൗഥർ)",
-      "Salsabeel (സൽസബീൽ)",
-      "Tasneem (തസ്നീം)"
-    ],
-    correctIndex: 0,
-    explanationEn: "The blessed well of Zamzam located adjacent to the Ka'bah has provided pure water for thousands of years.",
-    explanationMl: "കഅ്ബയുടെ അടുത്ത് സ്ഥിതി ചെയ്യുന്ന സംസം ജലം ലോകത്തെ ഏറ്റവും അനുഗ്രഹീതമായ തീർത്ഥമാണ്.",
+    explanationEn: "In the Shafi'i madhhab, it is categorically Haram for anyone in a state of minor impurity (Hadath Asghar) or major impurity to directly touch or carry the Mushaf, except when learning for young children or when carried inside baggage where the Quran is not primarily intended.",
+    explanationMl: "ചെറിയ അശുദ്ധിയുള്ളവനും വലിയ അശുദ്ധിയുള്ളവനും വുളൂഇല്ലാതെ മുസ്ഹഫ് തൊടുന്നതും ചുമക്കുന്നതും ശാഫിഈ മദ്ഹബിൽ ഹറാമാണ്. പഠിക്കുന്ന കുട്ടികൾക്കും സാധനങ്ങളുടെ കൂട്ടത്തിൽ ഖുർആൻ പ്രധാനമല്ലാതെ പെട്ടിയിലാക്കി ചുമക്കുന്നതിനും ഇളവുണ്ട്.",
     points: 10
   },
 
-  // ================= ROUND 5: RAPID FIRE / PUBLIC AUDIENCE SPECIAL (പബ്ലിക് ഓഡിയൻസ് റൗണ്ട്) =================
+  // ================= ROUND 5: IMAM AL-SHAFI'I - LIFE & USUL (ഇമാം ശാഫിഈ & ഉസൂലുൽ ഫിഖ്ഹ്) =================
   {
-    id: "pq_1",
+    id: "fq_21",
     round: "r5",
-    roundName: "Public Audience & Rapid Fire",
-    roundNameMl: "പബ്ലിക് ഓഡിയൻസ് & റാപ്പിഡ് ഫയർ",
-    category: "Public Special",
+    roundName: "Imam Shafi'i: Life & Usul al-Fiqh",
+    roundNameMl: "ഇമാം ശാഫിഈ (റ): ചരിത്രവും ഉസൂലും",
+    category: "Usul al-Fiqh",
     difficulty: "Easy",
-    questionEn: "In which Arabic month do Muslims celebrate the blessed birth of Prophet Muhammad ﷺ (Meelad-un-Nabi)?",
-    questionMl: "മുസ്ലിം ലോകം നബിദിനം (മീലാദുന്നബി ﷺ) ആഘോഷിക്കുന്ന പുണ്യമാസം ഏതാണ്?",
+    questionEn: "Which masterpiece authored by Imam al-Shafi'i is celebrated as the very first written book on the science of Usul al-Fiqh (Principles of Islamic Jurisprudence)?",
+    questionMl: "ഉസൂലുൽ ഫിഖ്ഹിൽ (ഇസ്ലാമിക കർമ്മശാസ്ത്ര തത്വങ്ങൾ) രചിക്കപ്പെട്ട ലോകത്തെ പ്രഥമ ഗ്രന്ഥമായി പണ്ഡിതന്മാർ ഏകോപിച്ച ഇമാം ശാഫിഈയുടെ ഗ്രന്ഥമേത്?",
     options: [
-      "Rabi' al-Awwal (റബീഉൽ അവ്വൽ)",
-      "Ramadan (റമളാൻ)",
-      "Shawwal (ശവ്വാൽ)",
-      "Sha'ban (ശഅ്ബാൻ)"
+      "Ar-Risalah (അർ-രിസാല)",
+      "Kitab al-Umm (കിതാബുൽ ഉമ്മ്)",
+      "Al-Muwatta (അൽ-മുവത്വ)",
+      "Al-Hujjah (അൽ-ഹുജ്ജ)"
     ],
     correctIndex: 0,
-    explanationEn: "Meelad-un-Nabi is joyously celebrated on 12th Rabi' al-Awwal across the Muslim world.",
-    explanationMl: "റബീഉൽ അവ്വൽ 12-നാണ് ലോകമെമ്പാടും പുണ്യ പ്രവാചകരുടെ തിരുപ്പിറവി ആഘോഷിക്കുന്നത്.",
-    points: 15
+    explanationEn: "Imam al-Shafi'i composed 'Ar-Risalah' at the request of Abdur-Rahman ibn Mahdi. It is unanimously revered as the founding text establishing the methodology and principles of Usul al-Fiqh in Islamic history.",
+    explanationMl: "ഇമാം ശാഫിഈ (റ) രചിച്ച 'അർ-രിസാല' ആണ് ഇസ്ലാമിക നിയമ തത്ത്വശാസ്ത്രമായ ഉസൂലുൽ ഫിഖ്ഹിൽ രചിക്കപ്പെട്ട ലോകത്തെ പ്രഥമ ഗ്രന്ഥമായി ചരിത്രകാരന്മാരും പണ്ഡിതരും ഒരേസ്വരത്തിൽ അംഗീകരിക്കുന്നത്.",
+    points: 10
   },
   {
-    id: "pq_2",
+    id: "fq_22",
     round: "r5",
-    roundName: "Public Audience & Rapid Fire",
-    roundNameMl: "പബ്ലിക് ഓഡിയൻസ് & റാപ്പിഡ് ഫയർ",
-    category: "Public Special",
-    difficulty: "Easy",
-    questionEn: "What was the name of the Prophet's father who passed away before the Prophet ﷺ was born?",
-    questionMl: "നബി ﷺ ജനിക്കുന്നതിന് തൊട്ടുമുൻപ് അന്തരിച്ച തിരുനബിയുടെ പിതാവിന്റെ പേരെന്ത്?",
-    options: [
-      "Abdullah (അബ്ദുല്ലാഹ്)",
-      "Abdul Muttalib (അബ്ദുൽ മുത്ത്വലിബ്)",
-      "Abu Talib (അബൂ ത്വാലിബ്)",
-      "Hashim (ഹാശിം)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Abdullah ibn Abdul Muttalib passed away in Yathrib (Madinah) before the Prophet ﷺ was born.",
-    explanationMl: "നബി ﷺ-യുടെ പിതാവ് അബ്ദുല്ലാഹ് നബി ജനിക്കുന്നതിന് മുൻപ് തന്നെ വഫാത്താവുകയാണുണ്ടായത്.",
-    points: 15
-  },
-  {
-    id: "pq_3",
-    round: "r5",
-    roundName: "Public Audience & Rapid Fire",
-    roundNameMl: "പബ്ലിക് ഓഡിയൻസ് & റാപ്പിഡ് ഫയർ",
-    category: "Public Special",
+    roundName: "Imam Shafi'i: Life & Usul al-Fiqh",
+    roundNameMl: "ഇമാം ശാഫിഈ (റ): ചരിത്രവും ഉസൂലും",
+    category: "Fiqh Books",
     difficulty: "Medium",
-    questionEn: "Which historic mosque in Madinah was the first mosque built by Prophet Muhammad ﷺ upon his migration?",
-    questionMl: "ഹിജ്റ വേളയിൽ നബി ﷺ മദീനയിലെത്തിയപ്പോൾ നിർമ്മിച്ച ഇസ്ലാമിലെ പ്രഥമ മസ്ജിദ് ഏത്?",
+    questionEn: "What is the title of the master encyclopedic book of Shafi'i Fiqh dictated by Imam al-Shafi'i in Egypt that codifies his New School (Al-Qawl al-Jadid)?",
+    questionMl: "ഈജിപ്തിൽ വെച്ച് ഇമാം ശാഫിഈ തന്റെ പുതിയ മദ്ഹബിലെ (ഖൗലുൽ ജദീദ്) വിധികൾ ക്രോഡീകരിച്ച് എഴുതിയ വിഖ്യാതമായ ബൃഹദ് കർമ്മശാസ്ത്ര ഗ്രന്ഥമേത്?",
     options: [
-      "Masjid Quba (മസ്ജിദു ഖുബാ)",
-      "Masjid an-Nabawi (മസ്ജിദുന്നബവി)",
-      "Masjid al-Qiblatayn (മസ്ജിദുൽ ഖിബ്‌ലതൈൻ)",
-      "Masjid al-Aqsa (മസ്ജിദുൽ അഖ്സ്വാ)"
+      "Kitab al-Umm (കിതാബുൽ ഉമ്മ്)",
+      "Fath al-Mu'in (ഫത്ഹുൽ മുഈൻ)",
+      "Minhaj al-Talibin (മിൻഹാജുത്ത്വാലിബീൻ)",
+      "Al-Muhadhdhab (അൽ-മുഹദ്ദബ്)"
     ],
     correctIndex: 0,
-    explanationEn: "Masjid Quba was the very first mosque established in Islam by the Prophet ﷺ.",
-    explanationMl: "ഖുബായിൽ വെച്ച് നബി ﷺ സ്ഥാപിച്ച മസ്ജിദു ഖുബാ ആണ് ഇസ്ലാമിലെ ആദ്യത്തെ പള്ളി.",
-    points: 15
+    explanationEn: "'Kitab al-Umm' is the monumental master collection containing Imam al-Shafi'i's mature legal opinions, reasoning, and dialogues, formulated primarily during his years in Egypt.",
+    explanationMl: "ഇമാം ശാഫിഈ (റ) ഈജിപ്തിൽ വെച്ച് രചിച്ച ഏറ്റവും വലിയ കർമ്മശാസ്ത്ര ഗ്രന്ഥമാണ് 'കിതാബുൽ ഉമ്മ്'. അദ്ദേഹത്തിന്റെ പുതിയ മദ്ഹബിലെ ഫിഖ്ഹീ വിധികൾ ഇതിലാണ് ക്രോഡീകരിക്കപ്പെട്ടിട്ടുള്ളത്.",
+    points: 10
   },
   {
-    id: "pq_4",
+    id: "fq_23",
     round: "r5",
-    roundName: "Public Audience & Rapid Fire",
-    roundNameMl: "പബ്ലിക് ഓഡിയൻസ് & റാപ്പിഡ് ഫയർ",
-    category: "Public Special",
+    roundName: "Imam Shafi'i: Life & Usul al-Fiqh",
+    roundNameMl: "ഇമാം ശാഫിഈ (റ): ചരിത്രവും ഉസൂലും",
+    category: "Biography",
     difficulty: "Easy",
-    questionEn: "Which holy city is the Qibla (direction of prayer) for all Muslims around the globe?",
-    questionMl: "ലോകത്തെ മുഴുവൻ മുസ്ലിംകളും നമസ്കാരത്തിൽ തിരിഞ്ഞു നിൽക്കുന്ന പുണ്യ ഖിബ്‌ല ഏത് നഗരത്തിലാണ്?",
+    questionEn: "In which year of the Islamic calendar and in which historic city was Imam Muhammad ibn Idris al-Shafi'i (RA) born?",
+    questionMl: "ഇമാം മുഹമ്മദ് ബിൻ ഇദ്‌രീസ് അൽ-ശാഫിഈ (റ) ഏത് ഹിജ്റ വർഷത്തിൽ, എവിടെയാണ് ഭൂജാതനായത്?",
     options: [
-      "Makkah al-Mukarramah (മക്ക)",
-      "Madinah al-Munawwarah (മദീന)",
-      "Al-Quds / Jerusalem (ഖുദ്സ്)",
-      "Baghdad (ബാഗ്ദാദ്)"
+      "150 AH in Gaza, Palestine (ഹിജ്റ 150-ൽ ഗസ്സയിൽ)",
+      "80 AH in Kufa, Iraq (ഹിജ്റ 80-ൽ കൂഫയിൽ)",
+      "93 AH in Madinah Munawwarah (ഹിജ്റ 93-ൽ മദീനയിൽ)",
+      "164 AH in Baghdad (ഹിജ്റ 164-ൽ ബഗ്ദാദിൽ)"
     ],
     correctIndex: 0,
-    explanationEn: "The Holy Ka'bah in Makkah al-Mukarramah is the universal Qibla for all Muslims.",
-    explanationMl: "പരിശുദ്ധ മക്കയിലെ കഅ്ബാലയമാണ് ലോക മുസ്ലിംകളുടെ നിത്യമായ ഖിബ്‌ല.",
-    points: 15
+    explanationEn: "Imam al-Shafi'i was born in the year 150 AH in Gaza (Palestine)—the exact year Imam Abu Hanifah passed away. He was later taken to Makkah as a young boy to learn Arabic and Islamic sciences.",
+    explanationMl: "ഇമാം അബൂഹനീഫ (റ) വഫാത്തായ അതേ വർഷമായ ഹിജ്റ 150-ൽ ഫലസ്തീനിലെ ഗസ്സയിലാണ് ഇമാം ശാഫിഈ (റ) ജനിച്ചത്. പിന്നീട് കുട്ടിക്കാലത്ത് തന്നെ മാതാവ് അദ്ദേഹത്തെ മക്കയിലേക്ക് കൊണ്ടുപോയി വളർത്തി.",
+    points: 10
   },
   {
-    id: "pq_5",
+    id: "fq_24",
     round: "r5",
-    roundName: "Public Audience & Rapid Fire",
-    roundNameMl: "പബ്ലിക് ഓഡിയൻസ് & റാപ്പിഡ് ഫയർ",
-    category: "Public Special",
+    roundName: "Imam Shafi'i: Life & Usul al-Fiqh",
+    roundNameMl: "ഇമാം ശാഫിഈ (റ): ചരിത്രവും ഉസൂലും",
+    category: "Biography",
     difficulty: "Medium",
-    questionEn: "What is the term for sending prayers and blessings upon Prophet Muhammad ﷺ?",
-    questionMl: "പുണ്യ നബി ﷺ-യുടെ പേരിൽ അനുഗ്രഹങ്ങൾ വർഷിക്കാൻ പ്രാർത്ഥിക്കുന്നതിന് എന്ത് പറയുന്നു?",
+    questionEn: "Who was the renowned Imam of Madinah and author of 'Al-Muwatta' under whom young Imam al-Shafi'i studied and recited the entire Hadith collection from memory?",
+    questionMl: "മദീനയിൽ വെച്ച് 'അൽ-മുവത്വ' പൂർണ്ണമായി മനഃപാഠമാക്കി ഓതിക്കേൾപ്പിച്ചുകൊണ്ട് ഇമാം ശാഫിഈ ആരുടെ അടുത്താണ് പ്രധാനമായും വിദ്യ അഭ്യസിച്ചത്?",
     options: [
-      "Salawat / Durood (സ്വലാത്ത് / ദുറൂദ്)",
-      "Tasbeeh (തസ്ബീഹ്)",
-      "Tahmeed (തഹ്മീദ്)",
-      "Tahleel (തഹ്‌ലീൽ)"
+      "Imam Malik ibn Anas (റ)",
+      "Imam Abu Hanifah (റ)",
+      "Imam Ahmad ibn Hanbal (റ)",
+      "Imam Al-Awza'i (റ)"
     ],
     correctIndex: 0,
-    explanationEn: "Reciting Salawat (Allahumma Salli Ala Sayyidina Muhammad) brings immense rewards and blessings.",
-    explanationMl: "നബി ﷺ-യുടെ മേൽ അല്ലാഹുവിന്റെ അനുഗ്രഹങ്ങൾ തേടുന്ന പ്രാർത്ഥനയാണ് സ്വലാത്ത്.",
-    points: 15
+    explanationEn: "Imam al-Shafi'i traveled to Madinah to sit at the feet of Imam Dar al-Hijrah, Imam Malik ibn Anas (RA), having already memorized 'Al-Muwatta' in its entirety, dazzling Imam Malik with his intellect and eloquence.",
+    explanationMl: "മദീനയിലെ വലിയ ഹദീസ് പണ്ഡിതനും 'അൽ-മുവത്വ'യുടെ രചയിതാവുമായ ഇമാം മാലിക് ബിൻ അനസ് (റ) തങ്ങളുടെ അടുത്താണ് ഇമാം ശാഫിഈ പഠനം നടത്തിയത്. പഠനത്തിന് മുമ്പ് തന്നെ മുവത്വ പൂർണ്ണമായി മനഃപാഠമാക്കിയിരുന്നു.",
+    points: 10
   },
   {
-    id: "pq_6",
+    id: "fq_25",
     round: "r5",
-    roundName: "Public Audience & Rapid Fire",
-    roundNameMl: "പബ്ലിക് ഓഡിയൻസ് & റാപ്പിഡ് ഫയർ",
-    category: "Public Special",
+    roundName: "Imam Shafi'i: Life & Usul al-Fiqh",
+    roundNameMl: "ഇമാം ശാഫിഈ (റ): ചരിത്രവും ഉസൂലും",
+    category: "Usul al-Fiqh",
     difficulty: "Medium",
-    questionEn: "Which daughter of Prophet Muhammad ﷺ was known as 'Sayyidatu Nisa' Ahl al-Jannah' (Leader of the Women of Paradise)?",
-    questionMl: "സ്വർഗ്ഗത്തിലെ സ്ത്രീകളുടെ നേതാവ് (സയ്യിദത്തു നിസാഇ അഹ്‌ലിൽ ജന്ന) എന്ന് നബി ﷺ വിശേഷിപ്പിച്ച മകൾ ആര്?",
+    questionEn: "According to Imam al-Shafi'i's legal methodology, what are the four universally accepted primary sources of Islamic Shariah in hierarchical order?",
+    questionMl: "ഇമാം ശാഫിഈയുടെ കർമ്മശാസ്ത്ര പ്രമാണങ്ങൾ അനുസരിച്ച് ഇസ്ലാമിക ശരീഅത്തിന്റെ അംഗീകൃതമായ അടിസ്ഥാന നാല് പ്രമാണങ്ങൾ ഏതെല്ലാമാണ്?",
     options: [
-      "Sayyidatuna Fatimah az-Zahra (റ)",
-      "Sayyidatuna Ruqayyah (റ)",
-      "Sayyidatuna Zaynab (റ)",
-      "Sayyidatuna Umm Kulthum (റ)"
+      "The Quran, Prophetic Sunnah, Ijma' (Consensus), and Qiyas (Analogy)",
+      "The Quran and Hadith only",
+      "The Quran, Sunnah, and Urf (Customary Practice)",
+      "The Quran, Istihsan (Juristic Preference), and Maslahah Mursalah"
     ],
     correctIndex: 0,
-    explanationEn: "Sayyidatuna Fatimah az-Zahra (RA), mother of Imam Hasan and Imam Husayn, is the leader of women in Jannah.",
-    explanationMl: "ഫാത്തിമത്തുസ്സഹ്‌റ (റ) ആണ് സ്വർഗ്ഗത്തിലെ സ്ത്രീകളുടെ നേതാവായി നബി ﷺ വിശേഷിപ്പിച്ച തിരുമകൾ.",
-    points: 15
-  },
-  {
-    id: "pq_7",
-    round: "r5",
-    roundName: "Public Audience & Rapid Fire",
-    roundNameMl: "പബ്ലിക് ഓഡിയൻസ് & റാപ്പിഡ് ഫയർ",
-    category: "Public Special",
-    difficulty: "Hard",
-    questionEn: "What is the name of the Prophet's grandfather's lineage which traces back to Prophet Ismail (AS)?",
-    questionMl: "ഇസ്മാഈൽ നബിയിലേക്ക് എത്തുന്ന തിരുനബി ﷺ-യുടെ പ്രശസ്തമായ അറബ് കുടുംബ പരമ്പര ഏത്?",
-    options: [
-      "Quraysh / Adnanite (ഖുറൈശി / അദ്നാൻ പരമ്പര)",
-      "Qahtanite (ഖഹ്ത്വാനി)",
-      "Himyarite (ഹിംയരി)",
-      "Ghassanid (ഗസ്സാനി)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Prophet Muhammad ﷺ belonged to the noble Banu Hashim clan of the Quraysh tribe, descending from Adnan and Prophet Ismail (AS).",
-    explanationMl: "ഖുറൈശി ഗോത്രത്തിലെ ബനൂ ഹാശിം കുടുംബത്തിൽ അദ്നാൻ വഴി ഇസ്മാഈൽ നബിയിലേക്ക് എത്തുന്നതാണ് നബിയുടെ പരമ്പര.",
-    points: 15
-  },
-  {
-    id: "pq_8",
-    round: "r5",
-    roundName: "Public Audience & Rapid Fire",
-    roundNameMl: "പബ്ലിക് ഓഡിയൻസ് & റാപ്പിഡ് ഫയർ",
-    category: "Public Special",
-    difficulty: "Easy",
-    questionEn: "What greeting do Muslims say to one another to spread peace, mercy, and blessings?",
-    questionMl: "പരസ്പരം കാണുമ്പോൾ സമാധാനവും കാരുണ്യവും ആശംസിക്കാൻ മുസ്ലിംകൾ പറയുന്ന അഭിസംബോധന ഏതാണ്?",
-    options: [
-      "Assalamu Alaikum wa Rahmatullah (അസ്സലാമു അലൈക്കും വറഹ്മത്തുല്ലാഹ്)",
-      "Ahlan wa Sahlan (അഹ്‌ലൻ വസഹ്‌ലൻ)",
-      "Marhaban (മർഹബൻ)",
-      "Shukran Jazeelan (ശുക്റൻ ജസീലാ)"
-    ],
-    correctIndex: 0,
-    explanationEn: "Salam is the universal Islamic greeting wishing divine peace and mercy upon others.",
-    explanationMl: "'നിങ്ങൾക്ക് അല്ലാഹുവിന്റെ സമാധാനവും കാരുണ്യവും ഉണ്ടാകട്ടെ' എന്ന ആശംസയാണ് സലാം.",
-    points: 15
+    explanationEn: "Imam al-Shafi'i codified that all Islamic legal rulings must be derived from: 1. The Quran, 2. The Sunnah of Prophet Muhammad ﷺ, 3. Ijma' (scholarly consensus), and 4. Qiyas (sound legal analogy based on the first two).",
+    explanationMl: "ഇമാം ശാഫിഈയുടെ ഫിഖ്ഹീ ഉസൂലനുസരിച്ച് ഇസ്ലാമിക നിയമ നിർമ്മാണത്തിന്റെ അടിസ്ഥാന പ്രമാണങ്ങൾ നാലാകുന്നു: 1. വിശുദ്ധ ഖുർആൻ, 2. പുണ്യ നബി ﷺ-യുടെ സുന്നത്ത്, 3. ഇജ്മാഅ് (പണ്ഡിത ഏകോപനം), 4. ഖിയാസ് (സാദൃശ്യ താരതമ്യം).",
+    points: 10
   }
 ];
 
@@ -945,7 +526,7 @@ function shuffleQuestionOptions(q) {
   const originalCorrectText = q.options[q.correctIndex !== undefined ? q.correctIndex : 0];
   
   let hash = 0;
-  const str = String(q.id || '') + 'meelad_fest_distrib_salt_2026';
+  const str = String(q.id || '') + 'shafii_fiqh_salt_2026';
   for (let i = 0; i < str.length; i++) {
     hash = ((hash << 5) - hash) + str.charCodeAt(i);
     hash |= 0;
@@ -970,11 +551,14 @@ function shuffleQuestionOptions(q) {
 // Master list with randomized and balanced option positions
 const SHUFFLED_DEFAULT_QUESTIONS = DEFAULT_QUESTIONS.map(shuffleQuestionOptions);
 
+// Storage key version bumped to v3 for Shafi'i Fiqh question bank
+const QUESTION_STORAGE_KEY = "meelad_quiz_questions_v3";
+
 // Helper to get questions from localStorage or fallback to balanced questions
 function getStoredQuestions() {
   try {
     if (typeof localStorage !== 'undefined') {
-      const saved = localStorage.getItem("meelad_quiz_questions_v2");
+      const saved = localStorage.getItem(QUESTION_STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -991,7 +575,7 @@ function getStoredQuestions() {
 function saveQuestionsToStorage(questions) {
   try {
     if (typeof localStorage !== 'undefined') {
-      localStorage.setItem("meelad_quiz_questions_v2", JSON.stringify(questions));
+      localStorage.setItem(QUESTION_STORAGE_KEY, JSON.stringify(questions));
       return true;
     }
   } catch (e) {
@@ -1005,7 +589,7 @@ if (typeof window !== 'undefined') {
   window.addEventListener('DOMContentLoaded', async () => {
     try {
       if (window.firestoreDb) {
-        const docSnap = await window.firestoreDb.collection('quiz_bank').doc('master_questions').get();
+        const docSnap = await window.firestoreDb.collection('quiz_bank').doc('master_questions_v3').get();
         if (docSnap.exists) {
           const data = docSnap.data();
           if (data && Array.isArray(data.questions) && data.questions.length > 0) {
@@ -1021,5 +605,3 @@ if (typeof window !== 'undefined') {
     }
   });
 }
-
-
