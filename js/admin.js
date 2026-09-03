@@ -84,7 +84,7 @@ class AdminManager {
   async fetchQuestionsFromFirestore() {
     if (window.firebaseService && window.firebaseService.isAvailable() && window.firestoreDb) {
       try {
-        const docSnap = await window.firestoreDb.collection('quiz_bank').doc('master_questions_v3').get();
+        const docSnap = await window.firestoreDb.collection('quiz_bank').doc('master_questions_v4').get();
         if (docSnap.exists) {
           const data = docSnap.data();
           if (data && Array.isArray(data.questions) && data.questions.length > 0) {
@@ -115,7 +115,7 @@ class AdminManager {
   async syncToFirestore() {
     if (window.firebaseService && window.firebaseService.isAvailable() && window.firestoreDb) {
       try {
-        await window.firestoreDb.collection('quiz_bank').doc('master_questions_v3').set({
+        await window.firestoreDb.collection('quiz_bank').doc('master_questions_v4').set({
           questions: this.questions,
           updatedAt: (window.firebase && window.firebase.firestore && window.firebase.firestore.FieldValue)
             ? firebase.firestore.FieldValue.serverTimestamp()

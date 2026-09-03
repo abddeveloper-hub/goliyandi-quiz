@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meelad Fest Goliyangadi – Islamic Quiz</title>
+  <link rel="icon" type="image/png" href="image.png">
+  <link rel="apple-touch-icon" href="image.png">
 
   <!-- Enforce Authentication Before Quiz Access -->
   <script>
@@ -106,13 +108,21 @@
     }
     .logo-icon {
       width: 46px; height: 46px;
-      background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(124,58,237,0.15));
-      border: 1.5px solid rgba(217, 119, 6, 0.4);
-      border-radius: 14px;
+      background: #000000;
+      border: 1.5px solid rgba(217, 119, 6, 0.5);
+      border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      padding: 4px;
-      box-shadow: 0 4px 14px rgba(124,58,237,0.15), inset 0 1px 0 rgba(255,255,255,0.8);
+      padding: 2px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(124,58,237,0.15);
       animation: wobble 5s ease-in-out infinite;
+    }
+    .brand-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      display: block;
     }
     .vector-art-svg {
       width: 100%;
@@ -1726,14 +1736,7 @@
   <header>
     <div class="logo">
       <div class="logo-icon vector-logo-icon">
-        <svg viewBox="0 0 100 100" class="vector-art-svg" width="36" height="36">
-          <!-- 8-Point Islamic Star (Khatim) Background -->
-          <polygon points="50,4 62,15 78,15 82,31 96,40 90,56 99,70 85,80 81,96 65,93 50,102 35,93 19,96 15,80 1,70 10,56 4,40 18,31 22,15 38,15" fill="url(#khatimGrad)" stroke="url(#goldVectorGrad)" stroke-width="2"/>
-          <!-- Islamic Vector Crescent Moon -->
-          <path d="M52 24 A 26 26 0 1 0 72 68 A 20 20 0 1 1 52 24 Z" fill="url(#goldVectorGrad)"/>
-          <!-- Shining 8-point Vector Star -->
-          <polygon points="62,38 65,44 72,44 67,49 69,56 62,52 55,56 57,49 52,44 59,44" fill="#ffffff"/>
-        </svg>
+        <img src="image.png" alt="Meelad Fest Logo" class="brand-logo-img">
       </div>
       <div class="logo-text">
         <h1>MEELAD FEST GOLIYANGADI</h1>
@@ -2193,17 +2196,23 @@
   </div>
 
   <!-- ══ SCRIPTS ════════════════════════════════════ -->
-  <script src="js/firebase-config.js"></script>
-  <script src="js/firebase-service.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/questions-data.js"></script>
-  <script src="js/kn-translations.js"></script>
-  <script src="js/audio.js"></script>
-  <script src="js/scoreboard.js"></script>
-  <script src="js/quiz-engine.js"></script>
+  <script src="js/firebase-config.js?v=2026_4.2"></script>
+  <script src="js/firebase-service.js?v=2026_4.2"></script>
+  <script src="js/auth.js?v=2026_4.2"></script>
+  <script src="js/questions-data.js?v=2026_4.2"></script>
+  <script src="js/kn-translations.js?v=2026_4.2"></script>
+  <script src="js/audio.js?v=2026_4.2"></script>
+  <script src="js/scoreboard.js?v=2026_4.2"></script>
+  <script src="js/quiz-engine.js?v=2026_4.2"></script>
   <script>
   /* ── Standalone Quiz UI & Timer Controller ───────────── */
   document.addEventListener('DOMContentLoaded', () => {
+    // Purge legacy question caches
+    try {
+      localStorage.removeItem('meelad_quiz_questions_v1');
+      localStorage.removeItem('meelad_quiz_questions_v2');
+      localStorage.removeItem('meelad_quiz_questions_v3');
+    } catch(e) {}
 
     // DOM References
     const qTextMl         = document.getElementById('qTextMl');
@@ -2596,9 +2605,9 @@
       }
 
       qTextMl.textContent = q.questionMl || '';
-      qTextKn.textContent = (typeof KN_TRANSLATIONS !== 'undefined' && KN_TRANSLATIONS[q.id])
+      qTextKn.textContent = q.questionKn || ((typeof KN_TRANSLATIONS !== 'undefined' && KN_TRANSLATIONS[q.id])
         ? KN_TRANSLATIONS[q.id]
-        : q.questionEn || '';
+        : q.questionEn || '');
       qTextEn.textContent = q.questionEn || '';
 
       applyLang();
@@ -2621,9 +2630,11 @@
         }
       }
 
-      const kannadaOptions = (typeof KN_OPTION_TRANSLATIONS !== 'undefined' && KN_OPTION_TRANSLATIONS[q.id])
-        ? KN_OPTION_TRANSLATIONS[q.id]
-        : null;
+      const kannadaOptions = (Array.isArray(q.optionsKn) && q.optionsKn.length > 0)
+        ? q.optionsKn
+        : ((typeof KN_OPTION_TRANSLATIONS !== 'undefined' && KN_OPTION_TRANSLATIONS[q.id])
+          ? KN_OPTION_TRANSLATIONS[q.id]
+          : null);
 
       optionBtns.forEach((btn, i) => {
         optionTexts[i].textContent = (langMode === 'kn' && kannadaOptions)
@@ -2648,9 +2659,9 @@
       if (window.quizEngine.isAnswerRevealed) {
         explanationCard.style.display = 'flex';
         expTextMl.textContent = q.explanationMl || '';
-        expTextKn.textContent = (typeof KN_EXPLANATION_TRANSLATIONS !== 'undefined' && KN_EXPLANATION_TRANSLATIONS[q.id])
+        expTextKn.textContent = q.explanationKn || ((typeof KN_EXPLANATION_TRANSLATIONS !== 'undefined' && KN_EXPLANATION_TRANSLATIONS[q.id])
           ? KN_EXPLANATION_TRANSLATIONS[q.id]
-          : q.explanationEn || '';
+          : q.explanationEn || '');
         expTextEn.textContent = q.explanationEn || '';
         expTextMl.style.display = (langMode === 'ml' || langMode === 'both') ? 'block' : 'none';
         expTextKn.style.display = langMode === 'kn' ? 'block' : 'none';

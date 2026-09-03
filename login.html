@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Authentication Portal | Meelad Fest Goliyangadi</title>
+  <link rel="icon" type="image/png" href="image.png">
+  <link rel="apple-touch-icon" href="image.png">
   <meta name="description" content="Sign in, register, or quick-join for Meelad Fest Goliyangadi Grand Islamic Quiz.">
 
   <!-- Google Fonts -->
@@ -99,14 +101,23 @@
       justify-content: center;
       width: 68px;
       height: 68px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(59, 130, 246, 0.15) 50%, rgba(139, 92, 246, 0.15) 100%);
+      border-radius: 18px;
+      background: #000000;
       color: #ffffff;
-      padding: 6px;
-      box-shadow: 0 10px 25px rgba(139, 92, 246, 0.15);
+      padding: 3px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(139, 92, 246, 0.2);
       margin-bottom: 12px;
-      border: 1.5px solid rgba(217, 119, 6, 0.45);
+      border: 1.5px solid rgba(217, 119, 6, 0.5);
       animation: gentlePulse 3.5s ease-in-out infinite;
+    }
+
+    .brand-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 14px;
+      display: block;
     }
 
     .vector-art-svg {
@@ -551,11 +562,7 @@
   <!-- Brand Title Section -->
   <div class="auth-brand-container">
     <div class="brand-logo-badge vector-logo-icon">
-      <svg viewBox="0 0 100 100" class="vector-art-svg" width="46" height="46">
-        <polygon points="50,4 62,15 78,15 82,31 96,40 90,56 99,70 85,80 81,96 65,93 50,102 35,93 19,96 15,80 1,70 10,56 4,40 18,31 22,15 38,15" fill="url(#khatimGrad)" stroke="url(#goldVectorGrad)" stroke-width="2"/>
-        <path d="M52 24 A 26 26 0 1 0 72 68 A 20 20 0 1 1 52 24 Z" fill="url(#goldVectorGrad)"/>
-        <polygon points="62,38 65,44 72,44 67,49 69,56 62,52 55,56 57,49 52,44 59,44" fill="#ffffff"/>
-      </svg>
+      <img src="image.png" alt="Meelad Fest Logo" class="brand-logo-img">
     </div>
     <h1 class="brand-title">MEELAD FEST GOLIYANGADI</h1>
     <p style="font-size:0.85rem;color:#94a3b8;font-weight:700;">Grand Islamic Quiz • Authentication Portal</p>
