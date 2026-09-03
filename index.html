@@ -2998,6 +2998,9 @@
       window.quizEngine.loadProgress();
     }
 
+    // Set Kannada as the default language on app startup
+    setLang('kn', 'langKnBtn');
+
     // Initial render for Question 1 (Timer remains paused at 15s until user clicks Start Quiz)
     renderQuestion();
     updateStartBtnState();

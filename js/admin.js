@@ -5,7 +5,7 @@
 
 class AdminManager {
   constructor() {
-    this.storageKey = 'meelad_quiz_questions_v3';
+    this.storageKey = 'meelad_quiz_questions_v4';
     this.pinStorageKey = 'meelad_quiz_admin_auth';
     this.defaultPin = '2026';
     this.isAuthenticated = false;
