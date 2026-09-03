@@ -26,7 +26,7 @@ class QuizEngine {
     this.isUntimed = false;
     
     // Display language mode: 'dual', 'ml', 'en', 'kn'
-    this.langMode = 'dual';
+    this.langMode = 'kn';
 
     // State per active question
     this.isAnswerRevealed = false;

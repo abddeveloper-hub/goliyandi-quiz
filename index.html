@@ -47,6 +47,12 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Anek+Malayalam:wght@600;700;800&family=Amiri:wght@400;700&display=swap');
 
+    @font-face {
+      font-family: 'Sravanthi';
+      src: local('Sravanthi');
+      font-display: swap;
+    }
+
     :root {
       --bg-pure-black: #ffffff;
       --bg-dark-base: #f8fafc;
@@ -60,6 +66,7 @@
       --accent-blue: #2563eb;
       --text-white: #0f172a;
       --text-muted: #64748b;
+      --font-kn: 'Sravanthi', 'Noto Sans Kannada', sans-serif;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -416,7 +423,7 @@
     }
     .question-text-kn {
       display: none;
-      font-family: 'Noto Sans Kannada', 'Nunito', sans-serif;
+      font-family: var(--font-kn);
       font-size: 1.7rem;
       font-weight: 800;
       color: #0f172a;
@@ -549,7 +556,8 @@
       box-shadow: 0 4px 0 #059669;
     }
     .exp-content h4 { color: #059669; font-size: 0.95rem; font-weight: 900; margin-bottom: 5px; }
-    .exp-ml { font-family: 'Anek Malayalam', sans-serif; font-size: 1.05rem; color: #14532d; line-height: 1.45; margin-bottom: 4px; }
+    .exp-ml, .exp-kn { font-family: 'Anek Malayalam', 'Noto Sans Kannada', sans-serif; font-size: 1.05rem; color: #14532d; line-height: 1.45; margin-bottom: 4px; }
+    .exp-kn { font-family: var(--font-kn); }
     .exp-en { font-size: 0.92rem; color: #166534; line-height: 1.4; }
 
     /* ── RIGHT PANEL (TIMER & SCOREBOARD) ───────── */
@@ -1516,7 +1524,7 @@
         height: 36px;
         font-size: 15px;
       }
-      .exp-ml {
+      .exp-ml, .exp-kn {
         font-size: 0.96rem;
       }
       .exp-en {
@@ -1754,8 +1762,8 @@
       <!-- Language Switcher -->
       <div class="lang-switcher">
         <button class="lang-btn" id="langMlBtn" title="Malayalam Only">മലയാളം</button>
-        <button class="lang-btn" id="langKnBtn" title="Kannada Only">ಕನ್ನಡ</button>
-        <button class="lang-btn active" id="langBothBtn" title="Show Both Languages"><i class="fa-solid fa-language"></i> Both</button>
+        <button class="lang-btn active" id="langKnBtn" title="Kannada Only">ಕನ್ನಡ</button>
+        <button class="lang-btn" id="langBothBtn" title="Show Both Languages"><i class="fa-solid fa-language"></i> Both</button>
         <button class="lang-btn" id="langEnBtn" title="English Only">English</button>
       </div>
       <div class="q-counter-badge" id="qCounterText">Q 1 / 10</div>
@@ -1829,8 +1837,9 @@
       <div class="explanation-card" id="explanationCard" style="display:none;">
         <div class="exp-icon"><i class="fa-solid fa-book-open"></i></div>
         <div class="exp-content">
-          <h4>Islamic Reference</h4>
+          <h4 id="explanationTitle">Islamic Reference</h4>
           <p class="exp-ml" id="expTextMl"></p>
+          <p class="exp-kn" id="expTextKn"></p>
           <p class="exp-en" id="expTextEn"></p>
         </div>
       </div>
@@ -2206,7 +2215,9 @@
     const optionBtns      = [0,1,2,3].map(i => document.getElementById(`opt${i}`));
     const optionTexts     = [0,1,2,3].map(i => document.getElementById(`optText${i}`));
     const explanationCard = document.getElementById('explanationCard');
+    const explanationTitle = document.getElementById('explanationTitle');
     const expTextMl       = document.getElementById('expTextMl');
+    const expTextKn       = document.getElementById('expTextKn');
     const expTextEn       = document.getElementById('expTextEn');
 
     // Timer Card Elements
@@ -2425,7 +2436,7 @@
     }
 
     // ── Language mode ───────────────────────────────────────
-    let langMode = 'both'; // 'ml' | 'kn' | 'both' | 'en'
+    let langMode = 'kn'; // 'ml' | 'kn' | 'both' | 'en'
 
     function applyLang() {
       qTextMl.style.display = 'none';
@@ -2444,7 +2455,7 @@
       langMode = mode;
       document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
       document.getElementById(btnId).classList.add('active');
-      applyLang();
+      renderQuestion();
     }
 
     // ── Timer Visual Refresh (Fixed 15s) ────────────────────
@@ -2610,8 +2621,14 @@
         }
       }
 
+      const kannadaOptions = (typeof KN_OPTION_TRANSLATIONS !== 'undefined' && KN_OPTION_TRANSLATIONS[q.id])
+        ? KN_OPTION_TRANSLATIONS[q.id]
+        : null;
+
       optionBtns.forEach((btn, i) => {
-        optionTexts[i].textContent = q.options[i] || '';
+        optionTexts[i].textContent = (langMode === 'kn' && kannadaOptions)
+          ? kannadaOptions[i] || q.options[i] || ''
+          : q.options[i] || '';
         btn.className = 'option-btn';
 
         if (window.quizEngine.eliminatedOptions.includes(i))  btn.classList.add('eliminated');
@@ -2631,7 +2648,14 @@
       if (window.quizEngine.isAnswerRevealed) {
         explanationCard.style.display = 'flex';
         expTextMl.textContent = q.explanationMl || '';
+        expTextKn.textContent = (typeof KN_EXPLANATION_TRANSLATIONS !== 'undefined' && KN_EXPLANATION_TRANSLATIONS[q.id])
+          ? KN_EXPLANATION_TRANSLATIONS[q.id]
+          : q.explanationEn || '';
         expTextEn.textContent = q.explanationEn || '';
+        expTextMl.style.display = (langMode === 'ml' || langMode === 'both') ? 'block' : 'none';
+        expTextKn.style.display = langMode === 'kn' ? 'block' : 'none';
+        expTextEn.style.display = (langMode === 'en' || langMode === 'both') ? 'block' : 'none';
+        explanationTitle.textContent = langMode === 'kn' ? 'ಇಸ್ಲಾಮಿಕ್ ಉಲ್ಲೇಖ' : 'Islamic Reference';
         if (window.quizEngine.selectedOptionIndex === q.correctIndex) {
           spawnConfetti();
         }

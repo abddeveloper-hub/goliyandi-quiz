@@ -337,7 +337,7 @@ html, body {
     color: #059669 !important;
   }
 
-  .exp-ml {
+  .exp-ml, .exp-kn {
     font-size: 0.9rem !important;
     color: #14532d !important;
   }
